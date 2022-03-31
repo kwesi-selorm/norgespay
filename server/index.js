@@ -1,14 +1,18 @@
-const express = require("express");
-const path = require("path");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const mongoose = require("mongoose");
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import mongoose from "mongoose";
 const PORT = process.env.PORT || 3000;
+
+import router from "./routes/salaries.js";
 
 const app = express();
 app.use(cors);
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//Access routes using middleware
+app.use("/salaries", router);
 
 // Set up database connection
 //Database url from Mongo Atlas

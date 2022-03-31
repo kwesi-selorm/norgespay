@@ -2,12 +2,13 @@ import Salary from "../models/salary.js";
 
 //Display salary(ies) based on query
 export const displaySalaries = async (req, res) => {
-  try {
-    const salaries = await Salary.find();
-    res.status(200).json(salaries); //status: OK
-  } catch (error) {
-    res.status(404).json({ message: error.message }); //status: Not Found
-  }
+  //   try {
+  //     const salaries = await Salary.find();
+  //     res.status(200).json(salaries); //status: OK
+  //   } catch (error) {
+  //     res.status(404).json({ message: error.message }); //status: Not Found
+  //   }
+  res.send("This works");
 };
 
 //Add new salary to database. Must be based on the model
