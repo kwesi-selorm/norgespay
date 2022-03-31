@@ -4,15 +4,15 @@ import cors from "cors";
 import mongoose from "mongoose";
 const PORT = process.env.PORT || 3000;
 
-import router from "./routes/salaries.js";
+import api from "./api/salaries.js";
 
 const app = express();
 app.use(cors);
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//Access routes using middleware
-app.use("/salaries", router);
+//Access routes using middleware connected to api
+app.use("/salaries", api);
 
 // Set up database connection
 //Database url from Mongo Atlas
