@@ -7,6 +7,6 @@ const router = Router();
 router.get("/salaries", displaySalaries);
 
 //Post request to add salary
-router.post("/", addSalary);
+router.post("/salaries", addSalary);
 
 export default router;
