@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
+import "dotenv/config"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 import cors from "cors";
 const corsOptions = {
   origin: "*",
@@ -8,6 +9,9 @@ const corsOptions = {
   optionSuccessStatus: 200,
 };
 const PORT = process.env.PORT || 3000;
+
+//Database url from Mongo Atlas imported from .env
+const MONGO_URI = process.env.MONGO_URI;
 
 import router from "./api/salaries.js";
 import { displaySalaries, addSalary } from "./controllers/salaries.js";
@@ -23,9 +27,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/salaries", router);
 
 // Set up database connection
-//Database url from Mongo Atlas
-const MONGO_URI =
-  "mongodb+srv://kwesi-selorm:databasepassord7@cluster0.j6qoa.mongodb.net/dummyDatabase?retryWrites=true&w=majority";
 
 //The mongoose options help to avoid errors. The monogoose connection returns a promise hence .then and .catch
 mongoose
