@@ -7,7 +7,6 @@ const salarySchema = new Schema({
   salary: Number,
   location: String,
   dateAdded: { type: Date, default: new Date().toDateString() },
-  votes: Number,
   experience: Number,
 });
 

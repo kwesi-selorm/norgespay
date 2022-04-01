@@ -1,7 +1,7 @@
 import Salary from "../models/salary.js";
 
 //Display all salaries
-const displayAllSalaries = async (_req, res) => {
+const displayAllSalaries = async (req, res) => {
   try {
     const salaries = await Salary.find();
     res.status(200).json(salaries); //status: OK
@@ -29,7 +29,12 @@ const displaySelectedSalaries = async (req, res) => {
 //Add new salary to database. Must be based on the model
 const addSalary = async (req, res) => {
   const salary = req.body;
-  const newSalary = Salary(salary);
+  const newSalary = Salary({
+    jobTitle: salary.jobTitle,
+    salary: salary.salary,
+    location: salary.location,
+    experience: salary.experience,
+  });
   try {
     await newSalary.save();
     res.status(201).json(newSalary); //status: Created

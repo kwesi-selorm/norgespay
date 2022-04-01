@@ -6,7 +6,7 @@ import cors from "cors";
 import corsOptions from "./config/corsOptions.js";
 const PORT = process.env.PORT || 3000;
 import router from "./routes/salaries.js";
-import Salary from "./models/salary.js";
+// import Salary from "./models/salary.js";
 
 //Database url from Mongo Atlas imported from .env
 import "dotenv/config"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
