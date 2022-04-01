@@ -13,8 +13,9 @@ import router from "./api/salaries.js";
 import { displaySalaries, addSalary } from "./controllers/salaries.js";
 
 const app = express();
-app.use(cors(corsOptions));
 
+//Set up middlewares
+app.use(cors(corsOptions));
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
