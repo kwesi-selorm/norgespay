@@ -1,9 +1,24 @@
 import Salary from "../models/salary.js";
 
-//Display salary(ies) based on query
-const displaySalaries = async (_req, res) => {
+//Display all salaries
+const displayAllSalaries = async (_req, res) => {
   try {
     const salaries = await Salary.find();
+    res.status(200).json(salaries); //status: OK
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+//Display salary(ies) based on query
+const displaySelectedSalaries = async (req, res) => {
+  const query = req.body.params;
+  try {
+    const salaries = await Salary.find();
+    salaries = salaries.filter((salary) => {
+      salary.jobTitle === query.jobTitle ||
+        salary.jobTitle.includes(query.jobTitle);
+    });
     res.status(200).json(salaries); //status: OK
   } catch (error) {
     res.status(404).json({ message: error.message }); //status: Not Found
@@ -22,4 +37,4 @@ const addSalary = async (req, res) => {
   }
 };
 
-export { displaySalaries, addSalary };
+export { displayAllSalaries, displaySelectedSalaries, addSalary };

@@ -1,21 +1,15 @@
 import express from "express";
+const app = express();
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
-import "dotenv/config"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 import cors from "cors";
-const corsOptions = {
-  origin: "*",
-  credentials: true, //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
-};
+import corsOptions from "./config/corsOptions.js";
 const PORT = process.env.PORT || 3000;
+import router from "./routes/salaries.js";
 
 //Database url from Mongo Atlas imported from .env
+import "dotenv/config"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 const MONGO_URI = process.env.MONGO_URI;
-
-import { displaySalaries, addSalary } from "./controllers/salaries.js";
-
-const app = express();
 
 //Set up middlewares
 app.use(cors(corsOptions));
@@ -34,14 +28,8 @@ mongoose
   })
   .catch((error) => console.error(error));
 
-//Perform HTTP requests
-app.get("/", (req, res) => {
-  res.send("HomePage.");
-});
-
-app.get("/salaries", displaySalaries);
-
-app.post("/salaries", addSalary);
+//Routes
+app.use("/", router);
 
 //Verify connection to server
 app.listen(PORT, () => {
