@@ -12,12 +12,11 @@ import "dotenv/config"; // see https://github.com/motdotla/dotenv#how-do-i-use-d
 const MONGO_URI = process.env.MONGO_URI;
 
 //Set up middlewares
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); //Cross-origin Resource Sharing
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Set up database connection
-//The mongoose options help to avoid errors. The monogoose connection returns a promise hence .then and .catch
+// Set up database connection. The mongoose options help to avoid errors. The monogoose connection returns a promise hence .then and .catch
 mongoose
   .connect(MONGO_URI, {
     useNewUrlParser: true,
@@ -28,8 +27,8 @@ mongoose
   })
   .catch((error) => console.error(error));
 
-//Routes
-app.use("/", router);
+//Routes API
+app.use(router);
 
 //Verify connection to server
 app.listen(PORT, () => {

@@ -12,6 +12,7 @@ const displayAllSalaries = async (_req, res) => {
 
 //Display salary(ies) based on query
 const displaySelectedSalaries = async (req, res) => {
+  console.log(req.body);
   const query = req.body.params;
   try {
     const salaries = await Salary.find();
