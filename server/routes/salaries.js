@@ -1,7 +1,7 @@
 import express from "express";
 import {
-  displaySelectedSalaries,
   addSalary,
+  updateSalary,
   displayAllSalaries,
 } from "../controllers/salaries.js";
 
@@ -11,7 +11,7 @@ const router = express.Router();
 router.get("/salaries", displayAllSalaries);
 
 //Get request to display salaries based on user query
-router.get("/salaries/:id", displaySelectedSalaries);
+router.put("/salaries", updateSalary);
 
 //Post request to add salary
 router.post("/salaries", addSalary);

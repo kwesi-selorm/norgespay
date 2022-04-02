@@ -10,16 +10,17 @@ const displayAllSalaries = async (req, res) => {
   }
 };
 
-//Display salary(ies) based on query
-const displaySelectedSalaries = async (req, res) => {
+//Update single salary
+const updateSalary = async (req, res) => {
   console.log(req.body);
-  const query = req.body.params;
+  const searchSalary = await Salary.findOne({
+    jobTitle: req.body.jobTitle,
+    company: req.body.company,
+    city: req.body.city,
+  });
+  const newSalary = req.body.salary; //receive updated salary value from user, likely based on exp.
   try {
-    const salaries = await Salary.find();
-    salaries = salaries.filter((salary) => {
-      salary.jobTitle === query.jobTitle ||
-        salary.jobTitle.includes(query.jobTitle);
-    });
+    searchSalary.salary.push[newSalary];
     res.status(200).json(salaries); //status: OK
   } catch (error) {
     res.status(404).json({ message: error.message }); //status: Not Found
@@ -31,6 +32,7 @@ const addSalary = async (req, res) => {
   const salary = req.body;
   const newSalary = Salary({
     jobTitle: salary.jobTitle,
+    company: salary.company,
     salary: salary.salary,
     location: salary.location,
     experience: salary.experience,
@@ -43,4 +45,4 @@ const addSalary = async (req, res) => {
   }
 };
 
-export { displayAllSalaries, displaySelectedSalaries, addSalary };
+export { displayAllSalaries, updateSalary, addSalary };

@@ -4,7 +4,8 @@ const { Schema } = mongoose;
 //Define the shape of the salary details schema in the salaries collection
 const salarySchema = new Schema({
   jobTitle: String,
-  salary: Number,
+  company: String,
+  salary: [Number],
   location: String,
   dateAdded: { type: Date, default: new Date().toDateString() },
   experience: Number,
