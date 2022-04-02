@@ -1,0 +1,21 @@
+:root {
+  --logo-font: serif;
+  --webpage-font: serif;
+  --red: red;
+  --blue: blue;
+  --white: white;
+  --button-border-radius: 15px;
+}
+
+html {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+}
