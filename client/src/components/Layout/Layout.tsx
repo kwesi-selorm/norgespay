@@ -1,15 +1,11 @@
 import React from "react";
+import Link from "react-router-dom";
 
 import { BiCoffeeTogo } from "react-icons/bi";
 
 const Layout = ({ children }: { children: React.ReactChild }) => {
   return (
     <>
-      <header className="layout-header">
-        <nav className="nav">
-          <p className="webapp-name">norgesPAY</p>
-        </nav>
-      </header>
       {children}
       <footer className="footer">
         <p className="footer-text">
