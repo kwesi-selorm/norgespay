@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Nanum+Gothic:wght@400;700;800&display=swap');
+
 :root {
-  --logo-font: serif;
-  --webpage-font: serif;
-  --red: red;
-  --blue: blue;
-  --white: white;
+  --logo-font: Anton
+  --webpage-font: Nanum Gothic;
+  --red: #DA1212;
+  --blue: #041562;
+  --white: #EEE;
   --button-border-radius: 15px;
 }
 
