@@ -7,6 +7,12 @@
   --button-border-radius: 15px;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html {
   box-sizing: border-box;
   height: 100%;

@@ -7,6 +7,10 @@ export const Header = () => {
           Log in
         </a>
       </nav>
+      <section className="alternating-messages">
+        <div className="first-message"></div>
+        <div className="second-message"></div>
+      </section>
     </header>
   );
 };
