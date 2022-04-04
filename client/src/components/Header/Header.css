@@ -1,1 +1,54 @@
 @import "../../globals.css";
+
+.header {
+  background-color: var(--red);
+  color: var(--white);
+  height: 40vh;
+  margin-bottom: 50px;
+}
+
+.logo-name {
+  font-family: var(--logo-font);
+  font-size: 3rem;
+  font-weight: bolder;
+  padding-left: 1em;
+}
+
+.nav {
+  padding-top: 1em;
+  text-align: right;
+  width: 100%;
+}
+
+.nav a {
+  color: var(--white);
+  padding-inline-end: 5em;
+  text-decoration: none;
+}
+
+.nav a::after {
+  content: "";
+  bottom: 0;
+  height: 1px;
+  transform: scaleX(0.5);
+  background-color: var(--white);
+  transition: width 0.3s ease-in-out;
+}
+
+.intro-card {
+  background-color: var(--blue);
+  font-weight: bold;
+  margin-inline: auto;
+  min-width: 200px;
+  padding: var(--card-padding);
+  transition: display 0.3s ease-in-out;
+  width: 20%;
+}
+
+#first-intro {
+  display: block;
+}
+
+#second-intro {
+  display: none;
+}

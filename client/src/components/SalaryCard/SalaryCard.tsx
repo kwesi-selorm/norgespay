@@ -1,19 +1,25 @@
 import { FiArrowUp, FiArrowDown } from "react-icons/fi";
+interface SalaryProps {
+  jobTitle: String;
+  company: String;
+  salary: Number;
+  votes: Number;
+}
 
-const SalaryCard = () => {
+const SalaryCard = ({ jobTitle, company, salary, votes }: SalaryProps) => {
   return (
-    <article>
-      <div className="salary-top-section">
-        <h3 className="job-title">Software Engineer</h3>
-        <p className="company">DNB</p>
+    <div className="salary-card">
+      <div className="salary-left-section">
+        <h2 className="job-title">{jobTitle}</h2>
+        <p className="company">{company}</p>
       </div>
-      <div className="salary-bottom-section">
-        <h4 className="salary">760000kr</h4>
+      <div className="salary-right-section">
+        <h4 className="salary">{salary} kr</h4>
         <p className="votes">
-          <FiArrowUp /> 12 <FiArrowDown />
+          <FiArrowUp /> {votes} <FiArrowDown />
         </p>
       </div>
-    </article>
+    </div>
   );
 };
 

@@ -1,0 +1,25 @@
+@import "../../globals.css";
+
+.salary-card * {
+  margin: 0;
+}
+
+.salary-card {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+
+  background-color: var(--blue);
+  color: var(--white);
+  margin-inline: auto;
+  min-width: 200px;
+  padding: var(--card-padding);
+  max-width: fit-content;
+}
+
+.salary-right-section {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
