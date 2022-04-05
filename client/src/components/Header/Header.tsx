@@ -1,26 +1,4 @@
-import { useState } from "react";
 import "./Header.css";
-
-const toggleDisplay = () => {
-  let display: string = "block";
-  const firstIntro = document.getElementById("first-intro");
-
-  if (firstIntro !== null) {
-    display = firstIntro.style.display;
-    setTimeout(() => {
-      console.log(display);
-      if (display === "block") {
-        firstIntro.classList.add("display", "none");
-      } else if (display === "none") {
-        firstIntro.classList.add("display", "block");
-      }
-    }, 3000);
-  }
-};
-
-if (document.readyState === "complete") {
-  toggleDisplay();
-}
 
 export const Header = () => {
   // const [displayStyle, setDisplayStyle] = useState("none");
