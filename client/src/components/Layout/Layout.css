@@ -1,7 +1,17 @@
-@import "../../src/globals.css";
-
-/* Navbar */
-
-/* Header */
+@import "../../globals.css";
 
 /* Footer */
+.footer {
+  position: absolute;
+  bottom: 0;
+  background-color: var(--red);
+  color: var(--white);
+  font-weight: 500;
+  height: 5vh;
+  margin-top: 50px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  place-content: center;
+}

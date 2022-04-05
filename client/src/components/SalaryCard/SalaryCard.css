@@ -10,8 +10,8 @@
   flex-direction: row;
   gap: 2em;
 
-  background-color: var(--blue);
-  color: var(--white);
+  background-color: var(--off-white);
+  color: var(--blue);
   margin-inline: auto;
   min-width: 200px;
   padding: var(--card-padding);

@@ -1,15 +1,14 @@
 import React from "react";
-
-import { BiCoffeeTogo } from "react-icons/bi";
+import "./Layout.css";
 
 const Layout = ({ children }: { children: React.ReactChild }) => {
+  const date = new Date();
+
   return (
     <>
       {children}
       <footer className="footer">
-        <p className="footer-text">
-          buy me a coffee <BiCoffeeTogo className="coffee-togo" />
-        </p>
+        <p className="footer-text">Jeffery, {date.getFullYear()}</p>
       </footer>
     </>
   );

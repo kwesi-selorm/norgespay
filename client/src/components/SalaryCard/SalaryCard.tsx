@@ -10,7 +10,7 @@ const SalaryCard = ({ jobTitle, company, salary, votes }: SalaryProps) => {
   return (
     <div className="salary-card">
       <div className="salary-left-section">
-        <h2 className="job-title">{jobTitle}</h2>
+        <h3 className="job-title">{jobTitle}</h3>
         <p className="company">{company}</p>
       </div>
       <div className="salary-right-section">
