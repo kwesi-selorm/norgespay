@@ -14,19 +14,6 @@
   margin-block-end: 0.5em;
 }
 
-.nav {
-  padding-top: 0.5em;
-  text-align: right;
-  width: 100%;
-}
-
-.nav-link {
-  color: var(--white);
-  font-size: 2rem;
-  padding-inline-end: 3em;
-  text-decoration: none;
-}
-
 .intros-container {
   display: flex;
   flex-direction: row;

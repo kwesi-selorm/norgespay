@@ -6,6 +6,10 @@ const Layout = ({ children }: { children: React.ReactChild }) => {
 
   return (
     <>
+      {/* Navbar
+      <nav className="nav">
+        <a href="/">Home</a>
+      </nav> */}
       {children}
       <footer className="footer">
         <p className="footer-text">Jeffery, {date.getFullYear()}</p>

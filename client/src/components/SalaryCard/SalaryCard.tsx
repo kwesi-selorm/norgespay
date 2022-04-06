@@ -1,4 +1,4 @@
-import { FiArrowUp, FiArrowDown } from "react-icons/fi";
+// import { FiArrowUp, FiArrowDown } from "react-icons/fi";
 interface SalaryProps {
   jobTitle: String;
   company: String;
