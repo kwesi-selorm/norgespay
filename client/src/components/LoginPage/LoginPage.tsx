@@ -1,8 +1,10 @@
-const LoginSignupPage = () => {
+import { Link } from "react-router-dom";
+
+const LoginPage = () => {
   return (
-    <div className="signup-div">
+    <div className="login-div">
       <h2 className="login-text">Log In</h2>
-      <form>
+      <form action="/login" method="post">
         <label htmlFor="email" className="form-label">
           email
         </label>
@@ -12,9 +14,9 @@ const LoginSignupPage = () => {
         <button className="login-button">Log in</button>
       </form>
       <p>Forgot password?</p>
-      <a href="/">Create a new account</a>
+      <Link to="/signup">Create a new account</Link>
     </div>
   );
 };
 
-export default LoginSignupPage;
+export default LoginPage;

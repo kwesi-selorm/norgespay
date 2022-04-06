@@ -1,20 +1,19 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./globals.css";
-import "../src/components/SalaryCard/SalaryCard.css";
-import { Header } from "./components/Header/Header";
-import SalaryCard from "./components/SalaryCard/SalaryCard";
-import HomepageButton from "./components/HomepageButton/HomepageButton";
+import LoginPage from "./components/LoginPage/LoginPage";
+import SignupPage from "./components/SignupPage/SignupPage";
+import Homepage from "./components/Homepage/Homepage";
 
 function App() {
   return (
     <div className="App">
-      <Header />
-      <SalaryCard
-        jobTitle="Software Engineer"
-        company="Microsoft Corporation"
-        salary={760000}
-        votes={12}
-      />
-      <HomepageButton />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Homepage />}></Route>
+          <Route path="/login" element={<LoginPage />}></Route>
+          <Route path="/signup" element={<SignupPage />}></Route>
+        </Routes>
+      </Router>
     </div>
   );
 }

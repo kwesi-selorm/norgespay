@@ -3,10 +3,9 @@ interface SalaryProps {
   jobTitle: String;
   company: String;
   salary: Number;
-  votes: Number;
 }
 
-const SalaryCard = ({ jobTitle, company, salary, votes }: SalaryProps) => {
+const SalaryCard = ({ jobTitle, company, salary }: SalaryProps) => {
   return (
     <div className="salary-card">
       <div className="salary-left-section">
@@ -15,9 +14,6 @@ const SalaryCard = ({ jobTitle, company, salary, votes }: SalaryProps) => {
       </div>
       <div className="salary-right-section">
         <h4 className="salary">{salary} kr</h4>
-        <p className="votes">
-          <FiArrowUp /> {votes} <FiArrowDown />
-        </p>
       </div>
     </div>
   );

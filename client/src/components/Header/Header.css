@@ -27,16 +27,6 @@
   text-decoration: none;
 }
 
-.nav-link::after {
-  content: "";
-  left: 0;
-  bottom: 0;
-  height: 3px;
-  /* transform: scaleX(1); */
-  color: var(--white);
-  width: 100%;
-}
-
 .intros-container {
   display: flex;
   flex-direction: row;
