@@ -1,10 +1,20 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import "./Header.css";
 import SalaryCard from "../SalaryCard/SalaryCard";
 import "../SalaryCard/SalaryCard.css";
 
 export const Header = () => {
-  // const [displayStyle, setDisplayStyle] = useState("none");
+  // Aceess data to be used in default salary card displayed on the homepage.
+  useEffect(() => {
+    fetch("http://localhost:3000/api/")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
+  }, []);
 
   return (
     <>

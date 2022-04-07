@@ -1,5 +1,22 @@
 import Salary from "../models/salary.js";
 
+//Default salary displayed on homepage
+const homepageSalary = () => {
+  const homeSalary = new Salary({
+    jobTitle: "Software Engineer",
+    company: "Microsoft Corporation",
+    salary: "760000",
+    location: "Oslo",
+    experience: "1 year",
+  });
+
+  try {
+    res.status(200).json(homeSalary);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 //Display all salaries
 const displayAllSalaries = async (req, res) => {
   try {
@@ -45,4 +62,4 @@ const addSalary = async (req, res) => {
   }
 };
 
-export { displayAllSalaries, updateSalary, addSalary };
+export { homepageSalary, displayAllSalaries, updateSalary, addSalary };

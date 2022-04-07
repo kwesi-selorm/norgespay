@@ -1,11 +1,18 @@
 import express from "express";
 import {
+  homepageSalary,
   addSalary,
   updateSalary,
   displayAllSalaries,
 } from "../controllers/salaries.js";
 
 const router = express.Router();
+
+// USER ROUTES
+
+//SALARY FETCHING ROUTES
+//homepage salary
+router.get("/", homepageSalary);
 
 //Display all avalaible salaries
 router.get("/salaries", displayAllSalaries);

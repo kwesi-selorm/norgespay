@@ -29,7 +29,7 @@ mongoose
   .catch((error) => console.error(error));
 
 //Routes API
-app.use(router);
+app.use("/api", router);
 
 //Verify connection to server
 app.listen(PORT, () => {
