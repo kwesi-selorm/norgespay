@@ -52,7 +52,6 @@
 
 #first-intro {
   animation-name: toggle-first-intro;
-  animation-delay: 9s;
 }
 
 @keyframes toggle-first-intro {

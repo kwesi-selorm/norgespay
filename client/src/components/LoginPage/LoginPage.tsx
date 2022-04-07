@@ -7,7 +7,7 @@ const LoginPage = () => {
       <h1 className="login-signup-form-title">Log In</h1>
       <form action="/login" method="post">
         <label htmlFor="email" className="form-label">
-          email
+          Email
         </label>
         <input
           className="input"
@@ -19,7 +19,7 @@ const LoginPage = () => {
           autoFocus
         />
         <label htmlFor="pwd" className="form-label">
-          password
+          Password
         </label>
         <input className="input" type="password" name="pwd" id="pwd" required />
         <button className="login-signup-button">Submit</button>
