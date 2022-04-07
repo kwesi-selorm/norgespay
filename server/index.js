@@ -5,7 +5,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import corsOptions from "./config/corsOptions.js";
 const PORT = process.env.PORT || 3001;
-import router from "./routes/salaries.js";
+import router from "./routes/salaryRoutes.js";
 // import Salary from "./models/salary.js";
 
 //Database url from Mongo Atlas imported from .env
@@ -30,6 +30,8 @@ mongoose
 
 //Routes API
 app.use("/api", router);
+
+//User routes
 
 //Verify connection to server
 app.listen(PORT, () => {
