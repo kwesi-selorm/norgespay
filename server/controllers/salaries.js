@@ -1,7 +1,7 @@
 import Salary from "../models/salary.js";
 
 //Default salary displayed on homepage
-const homepageSalary = () => {
+const homepageSalary = (req, res) => {
   const homeSalary = new Salary({
     jobTitle: "Software Engineer",
     company: "Microsoft Corporation",

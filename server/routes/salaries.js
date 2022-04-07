@@ -15,12 +15,12 @@ const router = express.Router();
 router.get("/", homepageSalary);
 
 //Display all avalaible salaries
-router.get("/salaries", displayAllSalaries);
+router.get("/member", displayAllSalaries);
 
 //Get request to display salaries based on user query
-router.put("/salaries", updateSalary);
+router.put("/member", updateSalary);
 
 //Post request to add salary
-router.post("/salaries", addSalary);
+router.post("/member", addSalary);
 
 export default router;

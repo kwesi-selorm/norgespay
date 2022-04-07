@@ -37,7 +37,7 @@
   width: 30%;
 
   /* common animation properties */
-  animation-duration: 8s;
+  animation-duration: 6s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-direction: alternate;
@@ -51,6 +51,7 @@
 
 #first-intro {
   animation-name: toggle-first-intro;
+  animation-delay: 9s;
 }
 
 @keyframes toggle-first-intro {

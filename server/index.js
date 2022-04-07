@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cors from "cors";
 import corsOptions from "./config/corsOptions.js";
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 import router from "./routes/salaries.js";
 // import Salary from "./models/salary.js";
 
