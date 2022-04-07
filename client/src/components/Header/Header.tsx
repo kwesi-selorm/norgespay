@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { ImSpinner5 } from "react-icons/im";
 import "./Header.css";
 import SalaryCard from "../SalaryCard/SalaryCard";
 import "../SalaryCard/SalaryCard.css";
@@ -14,24 +15,20 @@ type Salary = {
 type Job = {
   id?: string;
   jobTitle: string;
-  salary: Salary[];
+  salary: Salary;
   date: string;
   company: string;
 };
 
 export const Header = () => {
-  const [salaryData, setSalaryData] = useState<Array<Job>>([]);
+  const [salaryData, setSalaryData] = useState<Job>();
 
   // Aceess data to be used in default salary card displayed on the homepage.
-
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get("http://localhost:3001/api");
-      const data = await response.data;
-      console.log(data);
-      setSalaryData(data);
-    };
-    fetchData();
+    axios.get("http://localhost:3001/api").then((response) => {
+      console.log(response.data);
+      setSalaryData(response.data);
+    });
   }, []);
 
   return (
@@ -58,12 +55,16 @@ export const Header = () => {
         </div>
       </header>
 
-      <SalaryCard
-        jobTitle="Software Engineer"
-        // jobTitle={salaryData[0].jobTitle}
-        company="Microsoft Corporation (Oslo)"
-        salary={760000}
-      />
+      {/* Display salary card information when not null or undefined */}
+      {salaryData != null ? (
+        <SalaryCard
+          jobTitle={salaryData.jobTitle}
+          company={`${salaryData.company} (${salaryData.salary.location})`}
+          salary={salaryData.salary.amount}
+        />
+      ) : (
+        <ImSpinner5 className="spinner" /> // Loading spinner
+      )}
     </>
   );
 };
