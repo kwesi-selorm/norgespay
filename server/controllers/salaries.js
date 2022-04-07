@@ -32,11 +32,12 @@ const updateSalary = async (req, res) => {
   const searchSalary = await Salary.findOne({
     jobTitle: req.body.jobTitle,
     company: req.body.company,
-    city: req.body.city,
+    location: req.body.city,
   });
   const newSalary = req.body.salary; //receive updated salary value from user, likely based on exp.
   try {
     searchSalary.salary.push[newSalary];
+    Salary.save();
     res.status(200).json(salaries); //status: OK
   } catch (error) {
     res.status(404).json({ message: error.message }); //status: Not Found
@@ -48,9 +49,8 @@ const addSalary = async (req, res) => {
   const salary = req.body;
   const newSalary = Salary({
     jobTitle: salary.jobTitle,
+    salary: { amount: req.body.salary, location: req.body.location },
     company: salary.company,
-    salary: salary.salary,
-    location: salary.location,
     experience: salary.experience,
   });
   try {

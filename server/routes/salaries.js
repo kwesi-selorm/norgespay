@@ -21,6 +21,6 @@ router.get("/member/all", displayAllSalaries);
 router.put("/member/update", updateSalary);
 
 //Post request to add salary
-router.post("/member/add", addSalary);
+router.post("/member/add-new", addSalary);
 
 export default router;
