@@ -4,7 +4,7 @@ import Salary from "../models/salary.js";
 const homepageSalary = (req, res) => {
   const homeSalary = new Salary({
     jobTitle: "Software Engineer",
-    salary: [{ amount: 760000, location: "Oslo" }],
+    salary: { amount: 760000, location: "Oslo" },
     experience: "1 year",
     company: "Microsoft Corporation",
   });
