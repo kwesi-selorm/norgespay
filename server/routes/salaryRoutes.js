@@ -4,7 +4,7 @@ import {
   addSalary,
   updateSalary,
   displayAllSalaries,
-} from "../controllers/salaries.js";
+} from "../controllers/salaryControllers.js";
 
 const router = express.Router();
 
