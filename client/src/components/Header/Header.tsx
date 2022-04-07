@@ -1,14 +1,37 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import "./Header.css";
 import SalaryCard from "../SalaryCard/SalaryCard";
 import "../SalaryCard/SalaryCard.css";
 
+// Set salary data props
+type Salary = {
+  amount: number;
+  location: string;
+};
+
+type Job = {
+  id?: string;
+  jobTitle: string;
+  salary: Salary[];
+  date: string;
+  company: string;
+};
+
 export const Header = () => {
+  const [salaryData, setSalaryData] = useState<Array<Job>>([]);
+
   // Aceess data to be used in default salary card displayed on the homepage.
+
   useEffect(() => {
-    axios.get("http://localhost:3001/api").then((res) => console.log(res.data));
+    const fetchData = async () => {
+      const response = await axios.get("http://localhost:3001/api");
+      const data = await response.data;
+      console.log(data);
+      setSalaryData(data);
+    };
+    fetchData();
   }, []);
 
   return (
@@ -37,7 +60,8 @@ export const Header = () => {
 
       <SalaryCard
         jobTitle="Software Engineer"
-        company="Microsoft Corporation"
+        // jobTitle={salaryData[0].jobTitle}
+        company="Microsoft Corporation (Oslo)"
         salary={760000}
       />
     </>
