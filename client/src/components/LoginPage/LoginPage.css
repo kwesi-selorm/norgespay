@@ -1,6 +1,6 @@
 @import "../../globals.css";
 
-.login-div {
+.login-signup-div {
   background-color: var(--off-white);
   color: var(--dark-blue);
   margin-inline: auto;
@@ -11,7 +11,7 @@
   width: 30%;
 }
 
-.login-form-title {
+.login-signup-form-title {
   font-family: var(--logo-font);
   font-size: 2rem;
   font-weight: 800;
@@ -27,6 +27,6 @@ form {
   width: 100%;
 }
 
-.login-button {
+.login-signup-button {
   margin-top: 1em;
 }
