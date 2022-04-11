@@ -1,8 +1,8 @@
-import Salary from "../models/salary.js";
+import Salary from "../models/salaryModel.js";
 
 //Default salary displayed on homepage
 const homepageSalary = (req, res) => {
-  const homeSalary = new Salary({
+  const homepageSalary = new Salary({
     jobTitle: "Software Engineer",
     salary: { amount: 760000, location: "Oslo" },
     experience: "1 year",
@@ -10,7 +10,7 @@ const homepageSalary = (req, res) => {
   });
 
   try {
-    res.status(200).json(homeSalary);
+    res.status(200).json(homepageSalary);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

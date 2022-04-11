@@ -6,21 +6,21 @@ import {
   displayAllSalaries,
 } from "../controllers/salaryControllers.js";
 
-const router = express.Router();
+const salaryRouter = express.Router();
 
 // USER ROUTES
 
 //SALARY FETCHING ROUTES
 //homepage salary
-router.get("/", homepageSalary);
+salaryRouter.get("/", homepageSalary);
 
-//Display all avalaible salaries
-router.get("/member/all", displayAllSalaries);
+//Display all available salaries
+salaryRouter.get("/user/all", displayAllSalaries);
 
 //Get request to display salaries based on user query
-router.put("/member/update", updateSalary);
+salaryRouter.put("/user/update", updateSalary);
 
 //Post request to add salary
-router.post("/member/add-new", addSalary);
+salaryRouter.post("/user/add-new", addSalary);
 
-export default router;
+export default salaryRouter;
