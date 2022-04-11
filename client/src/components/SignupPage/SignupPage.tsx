@@ -5,6 +5,16 @@ const SignupPage = () => {
     <div className="login-signup-div">
       <h1 className="login-signup-form-title">Sign Up</h1>
       <form action="/signup" method="post" autoComplete="off">
+        <label htmlFor="username" className="form-label">
+          Username
+        </label>
+        <input
+          className="input"
+          type="text"
+          name="username"
+          id="username"
+          required
+        />
         <label htmlFor="email" className="form-label">
           Email
         </label>
@@ -14,7 +24,6 @@ const SignupPage = () => {
           name="email"
           id="email"
           required
-          autoComplete="off"
           autoFocus
         />
         <label htmlFor="pwd" className="form-label">
