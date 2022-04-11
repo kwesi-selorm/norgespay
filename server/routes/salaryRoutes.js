@@ -15,12 +15,12 @@ const salaryRouter = express.Router();
 salaryRouter.get("/", homepageSalary);
 
 //Display all available salaries
-salaryRouter.get("/user/all", displayAllSalaries);
+salaryRouter.get("/auth/all", displayAllSalaries);
 
 //Get request to display salaries based on user query
-salaryRouter.put("/user/update", updateSalary);
+salaryRouter.put("/auth/update", updateSalary);
 
 //Post request to add salary
-salaryRouter.post("/user/add-new", addSalary);
+salaryRouter.post("/auth/add-new", addSalary);
 
 export default salaryRouter;
