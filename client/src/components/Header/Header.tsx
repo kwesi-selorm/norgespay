@@ -26,7 +26,7 @@ export const Header = () => {
   // Aceess data to be used in default salary card displayed on the homepage.
   useEffect(() => {
     axios.get("http://localhost:3001/api").then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       setSalaryData(response.data);
     });
   }, []);

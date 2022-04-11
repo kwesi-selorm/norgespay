@@ -4,8 +4,8 @@ import "../../globals.css";
 const LoginPage = () => {
   return (
     <div className="login-signup-div">
-      <h1 className="login-signup-form-title">Log In</h1>
-      <form action="/login" method="post">
+      <form action="/user/login" method="post">
+        <h1 className="login-signup-form-title">Log In</h1>
         <label htmlFor="email" className="form-label">
           Email
         </label>
