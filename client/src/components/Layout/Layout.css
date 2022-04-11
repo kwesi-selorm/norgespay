@@ -1,15 +1,22 @@
 @import "../../globals.css";
 
+/* Navbar */
 .nav {
-  padding-top: 0.5em;
-  text-align: right;
+  background-color: var(--blue);
+  margin: 0;
+  padding: 0;
+  padding-block: 0.7em;
+  padding-inline-start: 0.4em;
   width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .nav-link {
   color: var(--white);
-  font-size: 2rem;
-  padding-inline-end: 3em;
+  font-size: 1rem;
   text-decoration: none;
 }
 
@@ -17,7 +24,7 @@
 .footer {
   position: fixed;
   bottom: 0;
-  background-color: var(--red);
+  background-color: var(--blue);
   color: var(--white);
   font-weight: 500;
   height: 5vh;

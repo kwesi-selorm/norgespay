@@ -1,10 +1,8 @@
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { ImSpinner5 } from "react-icons/im";
 import "./Header.css";
 import SalaryCard from "../SalaryCard/SalaryCard";
-import "../SalaryCard/SalaryCard.css";
 
 // Set salary data props
 type Salary = {
@@ -18,6 +16,7 @@ type Job = {
   salary: Salary;
   date: string;
   company: string;
+  experience: number;
 };
 
 export const Header = () => {
@@ -34,13 +33,6 @@ export const Header = () => {
   return (
     <>
       <header className="header">
-        {/* Navbar */}
-        <nav className="nav">
-          <Link to="/login" className="nav-link">
-            Log in
-          </Link>
-        </nav>
-
         <p className="logo-name">norgesPAY</p>
 
         {/* Alternating message cards and logo*/}
@@ -59,8 +51,10 @@ export const Header = () => {
       {salaryData != null ? (
         <SalaryCard
           jobTitle={salaryData.jobTitle}
-          company={`${salaryData.company} (${salaryData.salary.location})`}
+          company={salaryData.company}
           salary={salaryData.salary.amount}
+          location={salaryData.salary.location}
+          experience={salaryData.experience}
         />
       ) : (
         <ImSpinner5 className="spinner" /> // Loading spinner

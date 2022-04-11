@@ -25,7 +25,7 @@ const LoginPage = () => {
         <button className="login-signup-button">Submit</button>
       </form>
       <p>Forgot password?</p>
-      <Link to="/signup" style={{ textDecoration: "none" }}>
+      <Link to="/signup" style={{ textDecoration: "none", fontWeight: "bold" }}>
         Create a new account
       </Link>
     </div>

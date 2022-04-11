@@ -6,6 +6,7 @@
 
 .salary-card {
   align-items: center;
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: row;
   gap: 2em;
@@ -22,4 +23,22 @@
   display: flex;
   flex-direction: row;
   gap: 1em;
+}
+
+details > summary {
+  list-style: none;
+  transition: transform 250ms ease-in-out;
+}
+
+details > summary:hover {
+  cursor: pointer;
+  background-color: darken("background-color", 10%);
+}
+
+details > summary::-webkit-details-marker {
+  visibility: hidden;
+}
+
+.details * {
+  margin: 0.2em;
 }

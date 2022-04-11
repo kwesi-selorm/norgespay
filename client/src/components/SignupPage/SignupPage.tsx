@@ -1,4 +1,5 @@
 import "./SignupPage.css";
+import { Link } from "react-router-dom";
 
 const SignupPage = () => {
   return (
@@ -30,6 +31,15 @@ const SignupPage = () => {
           Password
         </label>
         <input className="input" type="password" name="pwd" id="pwd" required />
+        <p>
+          Existing user?{" "}
+          <Link
+            to="/login"
+            style={{ textDecoration: "none", fontWeight: "bold" }}
+          >
+            Login
+          </Link>
+        </p>
 
         <section className="add-new-salary-section">
           <h2 className="add-new-salary-heading">Add New Salary</h2>
