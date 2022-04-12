@@ -3,7 +3,7 @@
 :root {
   --button-padding: 0.5em 1em;
   --card-padding: 1em;
-  --form-gap: 0.1em;
+  --form-gap: 0.2em;
   --logo-font: Bitter;
   --webpage-font: "Assistant";
   --red: #da1212;
@@ -84,6 +84,7 @@ button:hover {
 form {
   display: flex;
   flex-direction: column;
+  gap: var(--form-gap);
 
   font-weight: 500;
   text-align: left;
