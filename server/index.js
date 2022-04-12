@@ -6,7 +6,7 @@ import cors from "cors";
 import corsOptions from "./config/corsOptions.js";
 const PORT = process.env.PORT || 3001;
 import passport from "passport";
-import passportLocal from "passport-local";
+import { Strategy } from "passport-local";
 import session from "express-session";
 
 import User from "./models/userModel.js";
@@ -34,14 +34,14 @@ const sessionOptions = {
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
+  cookie: { maxAge: 1000 * 60 * 60 * 24 }, //Equals 1 day (24hrs*60min*60s*1000ms)
 };
 app.use(session(sessionOptions));
 
 //Passport: User authentication
 app.use(passport.initialize());
 app.use(passport.session()); //Allows persistent login sessions. Use session before this.
-const LocalStrategy = passportLocal.Strategy;
-passport.use(new LocalStrategy(User.authenticate()));
+passport.use(new Strategy(User.authenticate()));
 passport.serializeUser(User.serializeUser()); //Store user in session
 passport.deserializeUser(User.deserializeUser()); //Remove user from session
 
