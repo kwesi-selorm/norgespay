@@ -5,8 +5,8 @@
   background-color: var(--blue);
   margin: 0;
   padding: 0;
-  padding-block: 0.7em;
-  padding-inline-start: 0.4em;
+  padding-block: 1em;
+  padding-inline-start: 1em;
   width: 100%;
 
   display: flex;

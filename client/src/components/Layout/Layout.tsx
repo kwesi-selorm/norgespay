@@ -1,5 +1,5 @@
 import React from "react";
-import { FaHome } from "react-icons/fa";
+import { AiFillHome } from "react-icons/ai";
 import "./Layout.css";
 
 const Layout = ({ children }: { children: React.ReactChild }) => {
@@ -9,7 +9,7 @@ const Layout = ({ children }: { children: React.ReactChild }) => {
     <>
       <nav className="nav">
         <a href="/" className="nav-link">
-          <FaHome style={{ width: "25px" }} />
+          <AiFillHome />
         </a>
       </nav>
       {children}
