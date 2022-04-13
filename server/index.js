@@ -1,33 +1,42 @@
 import express from "express";
 const app = express();
 import mongoose from "mongoose";
-import bodyParser from "body-parser";
+import bodyParser from "body-parser"; //express can be used in place of this: express.json and express.urlencoded
 import cors from "cors";
 import corsOptions from "./config/corsOptions.js";
 const PORT = process.env.PORT || 3001;
 import passport from "passport";
-import { Strategy } from "passport-local";
+import flash from "connect-flash";
+import morgan from "morgan";
+import cookieParser from "cookie-parser";
 import session from "express-session";
 
-import User from "./models/userModel.js";
 import salaryRouter from "./routes/salaryRoutes.js";
 import userRouter from "./routes/userRoutes.js";
+import "./config/passport.js";
 
 //Database urls from Mongo Atlas imported from .env
 import "dotenv/config"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 const MONGO_URI = process.env.MONGO_URI;
 
-//MIDDLEWARES
-//CORS: Cross-origin Resource Sharing
-app.use(cors(corsOptions));
+// Set up database connection. The mongoose options help to avoid errors. The monogoose connection returns a promise hence .then and .catch are used to handle errors.
+mongoose
+  .connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true, //suppress warning messages
+  })
+  .then(() => {
+    console.log("Connected to MongoDB Atlas database.");
+  })
+  .catch((error) => console.error(error));
 
-//Body parser:Parse incoming request bodies
-app.use(bodyParser.json({ extended: true }));
+//MIDDLEWARES
+app.use(cors(corsOptions)); //CORS: Cross-origin Resource Sharing
+app.use(morgan("dev")); //log all requests to the console
+app.use(bodyParser.json({ extended: true })); //Body parser:Parse incoming request bodies
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//Routes API
-app.use("/api", salaryRouter);
-app.use("/user", userRouter);
+//Create session store here. Use redis and add store property to the sessionOptions object
 
 //Express session. For production use a secure session store, E.g. Redis, MongoDB
 const sessionOptions = {
@@ -38,25 +47,14 @@ const sessionOptions = {
 };
 app.use(session(sessionOptions));
 
-//Passport: User authentication
+//Passport
 app.use(passport.initialize());
 app.use(passport.session()); //Allows persistent login sessions. Use session before this.
-passport.use(new Strategy(User.authenticate()));
-passport.serializeUser(User.serializeUser()); //Store user in session
-passport.deserializeUser(User.deserializeUser()); //Remove user from session
+app.use(flash()); //use connect-flash to display flash messages stored in session
 
-// Set up database connection. The mongoose options help to avoid errors. The monogoose connection returns a promise hence .then and .catch are used to handle errors.
-mongoose
-  .connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("Connected to MongoDB Atlas database.");
-  })
-  .catch((error) => console.error(error));
-
-//Connection to users database
+//Routes. Inserted after all other middleware except the error handlers
+app.use("/api", salaryRouter);
+app.use("/user", userRouter);
 
 //Verify connection to server
 app.listen(PORT, () => {

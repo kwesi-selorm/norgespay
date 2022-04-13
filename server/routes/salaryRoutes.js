@@ -8,19 +8,25 @@ import {
 
 const salaryRouter = express.Router();
 
-// USER ROUTES
+//Check if user is authenticated and logged in
+const isLoggedIn = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next;
+  }
+  res.redirect("/register");
+};
 
 //SALARY FETCHING ROUTES
 //homepage salary
-salaryRouter.get("/", homepageSalary);
+salaryRouter.get("/", isLoggedIn, homepageSalary);
 
 //Display all available salaries
-salaryRouter.get("/auth/all", displayAllSalaries);
+salaryRouter.get("/member/all", isLoggedIn, displayAllSalaries);
 
 //Get request to display salaries based on user query
-salaryRouter.put("/auth/update", updateSalary);
+salaryRouter.put("/member/update", isLoggedIn, updateSalary);
 
 //Post request to add salary
-salaryRouter.post("/auth/add-new", addSalary);
+salaryRouter.post("/member/add-new", isLoggedIn, addSalary);
 
 export default salaryRouter;
