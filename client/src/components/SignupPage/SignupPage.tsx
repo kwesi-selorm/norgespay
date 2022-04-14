@@ -4,33 +4,31 @@ import { Link } from "react-router-dom";
 const SignupPage = () => {
   return (
     <div className="login-signup-div">
-      <form action="/user/signup" method="POST" autoComplete="off">
+      <form action="/user/signup" method="post" autoComplete="off">
         <h1 className="login-signup-form-title">Sign Up</h1>
         <label htmlFor="username" className="form-label">
-          Username
-        </label>
-        <input
-          className="input"
-          type="text"
-          name="username"
-          id="username"
-          required
-        />
-        <label htmlFor="email" className="form-label">
           Email
         </label>
         <input
           className="input"
           type="email"
-          name="email"
-          id="email"
+          name="username"
+          id="username"
           required
           autoFocus
+          value="adorkor.jeffery@gmail.com"
         />
         <label htmlFor="pwd" className="form-label">
           Password
         </label>
-        <input className="input" type="password" name="pwd" id="pwd" required />
+        <input
+          className="input"
+          type="password"
+          name="pwd"
+          id="pwd"
+          required
+          value="pwd"
+        />
         <p>
           Existing user?{" "}
           <Link
