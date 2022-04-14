@@ -10,6 +10,7 @@ import flash from "connect-flash";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import session from "express-session";
+import MongoStore from "connect-mongo"; //create store for storing sessions in database
 
 import salaryRouter from "./routes/salaryRoutes.js";
 import userRouter from "./routes/userRoutes.js";
@@ -26,13 +27,14 @@ mongoose
     useUnifiedTopology: true, //suppress warning messages
   })
   .then(() => {
-    console.log("Connected to MongoDB Atlas database.");
+    console.log("Connected to MongoDB.");
   })
   .catch((error) => console.error(error));
 
 //MIDDLEWARES
 app.use(cors(corsOptions)); //CORS: Cross-origin Resource Sharing
-app.use(morgan("dev")); //log all requests to the console
+app.use(morgan("dev")); //log all requests to the console for easy tracking
+app.use(cookieParser()); //read cookies (needed for auth)
 app.use(bodyParser.json({ extended: true })); //Body parser:Parse incoming request bodies
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -41,15 +43,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Express session. For production use a secure session store, E.g. Redis, MongoDB
 const sessionOptions = {
   secret: process.env.SESSION_SECRET,
+  store: MongoStore.create({ mongoUrl: MONGO_URI, collectionName: "sessions" }),
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: true,
   cookie: { maxAge: 1000 * 60 * 60 * 24 }, //Equals 1 day (24hrs*60min*60s*1000ms)
 };
-app.use(session(sessionOptions));
+app.use(session(sessionOptions)); //Ensure persistent user login
 
 //Passport
-app.use(passport.initialize());
-app.use(passport.session()); //Allows persistent login sessions. Use session before this.
+app.use(passport.initialize()); //Initialize passport on every route call
+app.use(passport.session()); //Allows passport to use session.
 app.use(flash()); //use connect-flash to display flash messages stored in session
 
 //Routes. Inserted after all other middleware except the error handlers
