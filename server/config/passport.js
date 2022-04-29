@@ -11,8 +11,8 @@ const customFields = {
 
 const verifyCallback = (username, password, done) => {
   User.findOne({ username: username })
-    .then((user) => {
-      if (!user) {
+    .then((result) => {
+      if (!result) {
         return done(null, false);
       }
 
@@ -31,7 +31,6 @@ const verifyCallback = (username, password, done) => {
 };
 
 const strategy = new LocalStrategy(customFields, verifyCallback);
-
 passport.use(strategy);
 
 // Setting up passport session for persistent login.

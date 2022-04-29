@@ -1,10 +1,29 @@
+import axios from "axios";
 import "../../globals.css";
 import { Link } from "react-router-dom";
 
 const SignupPage = () => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    const username = document.getElementById("username").textContent;
+    const password = document.getElementById("pwd").textContent;
+    axios
+      .request({
+        url: "/user/signup",
+        method: "POST",
+        data: { username, password },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+      });
+  };
+
   return (
     <div className="login-signup-div">
-      <form action="/user/signup" method="post" autoComplete="off">
+      <form autoComplete="off" onSubmit={handleSubmit}>
         <h1 className="login-signup-form-title">Sign Up</h1>
         <label htmlFor="username" className="form-label">
           Email
@@ -24,10 +43,9 @@ const SignupPage = () => {
         <input
           className="input"
           type="password"
-          name="pwd"
+          name="password"
           id="pwd"
           required
-          value="pwd"
         />
         <p>
           Existing user?{" "}
@@ -38,7 +56,9 @@ const SignupPage = () => {
             Login
           </Link>
         </p>
-        <button className="login-signup-button">Submit</button>
+        <button type="submit" className="login-signup-button">
+          Submit
+        </button>
       </form>
     </div>
   );

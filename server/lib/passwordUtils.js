@@ -2,7 +2,8 @@ import * as bcrypt from "bcrypt";
 
 //Generate hashed password
 const generatePassword = async (password) => {
-  const hash = await bcrypt.hash(password, 10);
+  const salt = await bcrypt.genSalt(12);
+  const hash = await bcrypt.hash(password, salt);
   return hash;
 };
 

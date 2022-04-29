@@ -5,15 +5,19 @@ import "../../globals.css";
 const LoginPage = () => {
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-
     const username = document.getElementById("username").textContent;
     const password = document.getElementById("pwd").textContent;
 
-    axios.post(
-      "/user/login",
-      { username, password },
-      { headers: { "Content-Type": "application/json" } }
-    );
+    axios
+      .request({
+        url: "/user/login",
+        method: "POST",
+        data: { username, password },
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((response) => {
+        console.log(response.data);
+      });
   };
 
   return (
@@ -26,8 +30,8 @@ const LoginPage = () => {
         <input
           className="input"
           type="email"
-          name="email"
-          id="email"
+          name="username"
+          id="username"
           required
           autoComplete="off"
           autoFocus
@@ -35,7 +39,13 @@ const LoginPage = () => {
         <label htmlFor="pwd" className="form-label">
           Password
         </label>
-        <input className="input" type="password" name="pwd" id="pwd" required />
+        <input
+          className="input"
+          type="password"
+          name="password"
+          id="pwd"
+          required
+        />
         <button className="login-signup-button" type="submit">
           Submit
         </button>

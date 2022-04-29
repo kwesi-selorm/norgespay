@@ -1,21 +1,25 @@
 import express from "express";
 const userRouter = express.Router();
 import passport from "passport";
-import { generatePassword } from "../lib/passwordUtils.js";
 import bcrypt from "bcrypt";
 import User from "../models/userModel.js";
 
 //Signup
-userRouter.post("/signup", (req, res) => {
+userRouter.post("/signup", async (req, res) => {
+  console.log(req.body);
   if (req.body.password != null) {
     const password = req.body.password;
-    const salt = bcrypt.genSalt(12);
-    const hash = bcrypt.hash(password, salt);
+    const salt = await bcrypt.genSalt(12);
+    const hash = await bcrypt.hash(password, salt);
+    console.log(salt, hash);
 
-    const newUser = new User({ username: req.body.username, password: hash });
+    const newUser = new User({
+      username: req.body.username,
+      password: hash,
+    });
     newUser
       .save()
-      .then((user) => console.log(user))
+      .then((result) => console.log(result))
       .catch((err) => console.error(err));
   }
 
@@ -26,11 +30,13 @@ userRouter.post("/signup", (req, res) => {
 userRouter.post(
   "/login",
   passport.authenticate("local", {
-    successReturnToOrRedirect: "/member",
     failureRedirect: "/signup",
     failureFlash: true,
     failureMessage: "Invalid username or password",
-  })
+  }),
+  (_req, res) => {
+    res.redirect("/member");
+  }
 );
 
 export default userRouter;
