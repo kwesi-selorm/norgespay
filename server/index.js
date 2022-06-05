@@ -1,10 +1,10 @@
-import http from "http-server";
-import config from "./utils/config.js";
+import http from "http";
+import { PORT } from "./utils/config.js";
 import app from "./app.js";
 
-const server = new http.Server(app);
+const server = http.createServer(app);
 
 //Verify connection to server
-server.listen(config.PORT, () => {
-  console.log(`Listening on port ${config.PORT}`);
+server.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
 });
