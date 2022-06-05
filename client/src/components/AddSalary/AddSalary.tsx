@@ -1,22 +1,27 @@
+import { addNewSalary } from "../../services/helper";
 import "./AddSalary.css";
 
 const AddSalary = () => {
+  function handleSubmit(e: any) {
+    const jobTitle = e.target.jobTitle.value,
+      company = e.target.company.value,
+      salary = e.target.salary.value,
+      city = e.target.city.value;
+    const response = addNewSalary(jobTitle, company, city, salary);
+    console.log(response);
+  }
+
   return (
     <div className="login-signup-div">
-      <form
-        action="/member/add-new"
-        method="POST"
-        className="add-new-salary-form"
-      >
+      <form onSubmit={handleSubmit}>
         <h2 className="add-new-salary-heading">Add New Salary</h2>
         <label htmlFor="job-title">
           Job Title <span className="required-asterisk">*</span>
         </label>
         <input
           type="text"
-          name="job-title"
-          id="job-title"
-          value="Accountant"
+          name="jobTitle"
+          id="jobTitle"
           placeholder="e.g., Application Tester"
           required
         />
@@ -27,7 +32,6 @@ const AddSalary = () => {
           type="text"
           name="company"
           id="company"
-          value="Equinor"
           placeholder="e.g., Viking Tech"
           required
         />
@@ -36,35 +40,24 @@ const AddSalary = () => {
         </label>
         <input
           type="number"
-          name="Salary"
-          id="Salary"
-          value="500000"
+          name="salary"
+          id="salary"
           placeholder="e.g., 680000"
           required
         />
-        <label htmlFor="location">
+        <label htmlFor="city">
           City <span className="required-asterisk">*</span>
         </label>
         <input
           type="text"
-          name="location"
-          id="location"
-          value="Bergen"
+          name="city"
+          id="city"
           placeholder="e.g., Trondheim"
           required
         />
-        <label htmlFor="experience">
-          Years of Experience <span className="required-asterisk">*</span>
-        </label>
-        <input
-          value="5"
-          type="text"
-          name="experience"
-          id="experience"
-          placeholder="e.g., 5"
-          required
-        />
-        <button className="login-signup-button">Submit</button>
+        <button className="login-signup-button" type="submit">
+          Submit
+        </button>
       </form>
     </div>
   );

@@ -1,15 +1,16 @@
 .salary-grid {
   display: grid;
+  gap: 1em;
   grid-auto-flow: column;
-  grid-template-columns: repeat(100px, 3fr);
   justify-content: space-evenly;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 
-  margin-block-start: 8vh;
+  margin: 8vh auto 5vh;
+  width: 80%;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1200px) {
   .salary-grid {
     grid-auto-flow: row;
-    gap: 2em;
   }
 }

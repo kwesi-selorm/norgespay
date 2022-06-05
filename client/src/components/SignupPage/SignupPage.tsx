@@ -1,54 +1,63 @@
-import axios from "axios";
 import "../../globals.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { submitSignupDetails } from "../../services/helper";
 
 const SignupPage = () => {
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const username = document.getElementById("username").textContent;
-    const password = document.getElementById("pwd").textContent;
-    axios
-      .request({
-        url: "/user/signup",
-        method: "POST",
-        data: { username, password },
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-      });
+    const email = e.target.email.value as string,
+      username = e.target.username.value as string,
+      password = e.target.password.value as string;
+
+    try {
+      const response = await submitSignupDetails(email, username, password);
+      navigate("/login");
+      console.log(response.data);
+    } catch (error: any) {
+      console.error("Something went wrong: " + error.message);
+    }
   };
 
   return (
     <div className="login-signup-div">
-      <form autoComplete="off" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <h1 className="login-signup-form-title">Sign Up</h1>
-        <label htmlFor="username" className="form-label">
+        <label htmlFor="email" className="form-label">
           Email
         </label>
         <input
           className="input"
           type="email"
+          name="email"
+          id="email"
+          required
+          autoFocus
+        />
+        <label htmlFor="username" className="form-label">
+          Username
+        </label>
+        <input
+          className="input"
+          type="username"
           name="username"
           id="username"
           required
           autoFocus
-          value="adorkor.jeffery@gmail.com"
         />
-        <label htmlFor="pwd" className="form-label">
+        <label htmlFor="password" className="form-label">
           Password
         </label>
         <input
           className="input"
           type="password"
           name="password"
-          id="pwd"
+          id="password"
           required
         />
         <p>
-          Existing user?{" "}
+          Already a user?{" "}
           <Link
             to="/login"
             style={{ textDecoration: "none", fontWeight: "bold" }}

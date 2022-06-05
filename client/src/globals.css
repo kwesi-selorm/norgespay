@@ -1,11 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Bitter:wght@600;700;800&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bitter:wght@600;700;800&family=Hind+Siliguri:ital,wght@0,400;0,700;1,400&display=swap");
 
 :root {
   --button-padding: 0.5em 1em;
   --card-padding: 1em;
   --form-gap: 0.2em;
   --logo-font: Bitter;
-  --webpage-font: "PT Sans";
+  --webpage-font: "Hind Siliguri";
   --red: #da1212;
   --blue: #11468f;
   --dark-blue: #041562;
@@ -64,8 +64,7 @@ button:hover {
   color: var(--dark-blue);
   margin: 2em auto 5em;
   padding: 1em;
-  min-width: 25%;
-  width: 30%;
+  width: 20em;
 }
 
 @media screen and (max-width: 1200px) {
