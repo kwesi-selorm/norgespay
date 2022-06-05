@@ -54,12 +54,12 @@ async function updateSalary(req, res) {
 
 //Add new salary to database. Must be based on the model
 const addSalary = async (req, res) => {
-  const salary = req.body;
-  const newSalary = Salary({
-    jobTitle: salary.jobTitle,
-    salary: { amount: req.body.salary, location: req.body.location },
-    company: salary.company,
-    experience: salary.experience,
+  const { jobTitle, company, salary, city } = req.body;
+  const newSalary = new Salary({
+    jobTitle,
+    salary: [salary],
+    company,
+    city,
   });
   try {
     await newSalary.save();
