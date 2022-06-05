@@ -28,27 +28,23 @@ async function displayAllSalaries(req, res) {
 
 //Update single salary
 async function updateSalary(req, res) {
-  const id = req.params;
-  const { jobTitle, company, city, salary } = req.body;
-  let newSalary = salary;
-  const existingSalary = await Salary.findById(id);
+  const id = req.params.id;
+  const salary = req.body.salary;
+  const existingSalary = await Salary.findById(Number(id));
+  console.log(id, salary, existingSalary);
 
-  if (
-    existingSalary.jobTitle.toLower() == jobTitle.toLower() &&
-    existingSalary.company.toLower() == company.toLower() &&
-    existingSalary.city.toLower() == city.toLower()
-  ) {
+  if (existingSalary) {
     try {
-      existingSalary.salary.push(newSalary);
-      existingSalary.save();
-      res.status(204).end(); //status: OK
+      const result = await Salary.findByIdAndUpdate(id, {
+        ...existingSalary,
+        salary: existingSalary.salary.push(salary),
+      });
+      return result.status(204).json({ message: "Salary updated" }); //status: OK
     } catch (error) {
-      res.status(404).json({ message: error.message }); //status: Not Found
+      return res.status(404).json({ message: error.message }); //status: Not Found
     }
   } else {
-    const newSalary = new Salary({ jobTitle, company, city, salary });
-    await newSalary.save();
-    res.status(201).json(newSalary);
+    return res.status(400).send(); //Bad request
   }
 }
 

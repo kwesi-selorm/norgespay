@@ -7,14 +7,19 @@ import { generatePassword } from "../utils/password-helper.js";
 //Signup
 userRouter.post("/", async (req, res) => {
   const { email, username, password } = req.body;
+  const exists =
+    (await User.exists({ email: email })) ||
+    (await User.exists({ username: username }));
+
+  if (exists) {
+    return res.status(403).json({ message: "User already exists" }); //Forbidden
+  }
 
   try {
     const passwordHash = await generatePassword(password),
-      userToSave = new User({ email, username, passwordHash });
-    console.log(userToSave);
-    await userToSave.save().then((result) => {
-      result.status(201).end();
-    });
+      newUser = new User({ email, username, passwordHash });
+    const result = await newUser.save();
+    result.status(201).json(newUser);
   } catch (error) {
     let errorMsg = "Something went wrong";
     errorMsg += ": " + error.message;
