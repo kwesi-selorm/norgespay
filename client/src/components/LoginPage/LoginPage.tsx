@@ -1,42 +1,41 @@
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import "../../globals.css";
+import { submitLoginDetails } from "../../services/helper";
+import { LoginProps } from "../../types";
 
-const LoginPage = () => {
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+const LoginPage = (props: LoginProps) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const username = document.getElementById("username").textContent;
-    const password = document.getElementById("pwd").textContent;
-
-    axios
-      .request({
-        url: "/user/login",
-        method: "POST",
-        data: { username, password },
-        headers: { "Content-Type": "application/json" },
-      })
-      .then((response) => {
-        console.log(response.data);
-      });
+    try {
+      const username = e.target.username.value,
+        password = e.target.password.value;
+      const returnedUser = await submitLoginDetails(username, password);
+      props.setUser(returnedUser);
+      navigate("/all-salaries");
+    } catch (error) {
+      console.log("Unauthorised");
+    }
   };
 
   return (
     <div className="login-signup-div">
       <form onSubmit={handleSubmit}>
         <h1 className="login-signup-form-title">Log In</h1>
-        <label htmlFor="email" className="form-label">
-          Email
+        <label htmlFor="username" className="form-label">
+          Username
         </label>
         <input
           className="input"
-          type="email"
+          type="text"
           name="username"
           id="username"
           required
           autoComplete="off"
           autoFocus
         />
-        <label htmlFor="pwd" className="form-label">
+        <label htmlFor="password" className="form-label">
           Password
         </label>
         <input

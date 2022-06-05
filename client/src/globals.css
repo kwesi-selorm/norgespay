@@ -1,11 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700;800;900&family=Assistant:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bitter:wght@600;700;800&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap");
 
 :root {
   --button-padding: 0.5em 1em;
   --card-padding: 1em;
   --form-gap: 0.2em;
   --logo-font: Bitter;
-  --webpage-font: "Assistant";
+  --webpage-font: "PT Sans";
   --red: #da1212;
   --blue: #11468f;
   --dark-blue: #041562;
@@ -21,6 +21,7 @@
 
 * {
   font-family: var(--webpage-font);
+  font-size: 1.1rem;
 }
 
 html {
@@ -75,7 +76,7 @@ button:hover {
 }
 
 .login-signup-form-title {
-  font-family: var(--logo-font);
+  /* font-family: var(--logo-font); */
   font-size: 1.5rem;
   font-weight: 800;
   margin-block: 0;

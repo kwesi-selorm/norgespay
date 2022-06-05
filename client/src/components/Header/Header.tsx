@@ -1,33 +1,23 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { ImSpinner5 } from "react-icons/im";
 import "./Header.css";
 import SalaryCard from "../SalaryCard/SalaryCard";
-
-// Set salary data props
-type Salary = {
-  amount: number;
-  location: string;
-};
-
-type Job = {
-  id?: string;
-  jobTitle: string;
-  salary: Salary;
-  date: string;
-  company: string;
-  experience: number;
-};
+import { Salary } from "../../types";
+// import { fetchHomepageSalary } from "../../services/helper";
+import axios from "axios";
 
 export const Header = () => {
-  const [salaryData, setSalaryData] = useState<Job>();
+  const [salaryData, setSalaryData] = useState<Salary>(null);
 
   // Aceess data to be used in default salary card displayed on the homepage.
+  async function fetchSalary() {
+    const res = await axios.get("http://localhost:3000/api/salaries");
+    const data = await res.data;
+    setSalaryData(data);
+  }
+
   useEffect(() => {
-    axios.get("http://localhost:3001/api").then((response) => {
-      // console.log(response.data);
-      setSalaryData(response.data);
-    });
+    fetchSalary();
   }, []);
 
   return (
@@ -52,9 +42,8 @@ export const Header = () => {
         <SalaryCard
           jobTitle={salaryData.jobTitle}
           company={salaryData.company}
-          salary={salaryData.salary.amount}
-          location={salaryData.salary.location}
-          experience={salaryData.experience}
+          salary={salaryData.salary[0]}
+          city={salaryData.city}
         />
       ) : (
         <ImSpinner5 className="spinner" /> // Loading spinner

@@ -4,16 +4,27 @@ import LoginPage from "./components/LoginPage/LoginPage";
 import SignupPage from "./components/SignupPage/SignupPage";
 import AddSalary from "./components/AddSalary/AddSalary";
 import Homepage from "./components/Homepage/Homepage";
+import AllSalaries from "./components/AllSalaries/AllSalaries";
+import { useState } from "react";
 
 function App() {
+  const [user, setUser] = useState(null);
+
   return (
     <div className="App">
       <Router>
         <Routes>
           <Route path="/" element={<Homepage />}></Route>
-          <Route path="/login" element={<LoginPage />}></Route>
+          <Route
+            path="/login"
+            element={<LoginPage user={user} setUser={setUser} />}
+          ></Route>
           <Route path="/signup" element={<SignupPage />}></Route>
           <Route path="/add-salary" element={<AddSalary />}></Route>
+          <Route
+            path="/all-salaries"
+            element={<AllSalaries user={user} setUser={setUser} />}
+          ></Route>
         </Routes>
       </Router>
     </div>

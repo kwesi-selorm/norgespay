@@ -1,5 +1,4 @@
 import React from "react";
-import { AiFillHome } from "react-icons/ai";
 import "./Layout.css";
 
 const Layout = ({ children }: { children: React.ReactChild }) => {
@@ -9,12 +8,12 @@ const Layout = ({ children }: { children: React.ReactChild }) => {
     <>
       <nav className="nav">
         <a href="/" className="nav-link">
-          <AiFillHome />
+          Home
         </a>
       </nav>
       {children}
       <footer className="footer">
-        <p className="footer-text">Jeffery, {date.getFullYear()}</p>
+        <p className="footer-text">norgesPay @ {date.getFullYear()}</p>
       </footer>
     </>
   );
