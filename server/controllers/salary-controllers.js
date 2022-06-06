@@ -1,4 +1,6 @@
+import jwt from "jsonwebtoken";
 import Salary from "../models/salary-model.js";
+import { SECRET } from "../utils/config.js";
 
 //Default salary displayed on homepage
 function homepageSalary(_req, res) {
@@ -28,10 +30,19 @@ async function displayAllSalaries(req, res) {
 
 //Update single salary
 async function updateSalary(req, res) {
-  const id = req.params.id;
-  const salary = req.body.salary;
-  const existingSalary = await Salary.findById(id);
+  const id = req.params.id,
+    salary = req.body.salary,
+    tokenString = req.get("authorization");
+  if (!tokenString) {
+    return res.status(403).send("No credentials found");
+  }
+  const token = tokenString.slice(7);
+  const user = jwt.verify(token, SECRET);
+  if (!user) {
+    return res.status(403).send("User not found");
+  }
 
+  const existingSalary = await Salary.findById(id);
   if (existingSalary) {
     try {
       await Salary.findByIdAndUpdate(id, {
