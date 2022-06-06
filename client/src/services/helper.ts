@@ -1,7 +1,7 @@
 import axios from "axios";
-const url = "http://localhost:3001/api/salaries";
-const loginUrl = "http://localhost:3001/api/login";
-const signupUrl = "http://localhost:3001/api/signup";
+const url = "/api/salaries";
+const loginUrl = "/api/login";
+const signupUrl = "/api/signup";
 
 export async function fetchHomepageSalary() {
   const response = await axios.get(url);
@@ -61,10 +61,10 @@ export async function addNewSalary(
 
 //TODO: Add token to header and update server controller to verify user
 export async function updateSalary(id: number, salary: number) {
-  // const userToken = window.localStorage.getItem("userToken");
+  const userToken = window.localStorage.getItem("userToken");
   const config = {
       headers: {
-        // Authorization: `bearer ${userToken}`,
+        Authorization: `bearer ${userToken}`,
         "Content-Type": "application/json",
       },
     },

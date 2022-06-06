@@ -9,7 +9,7 @@ const AllSalaries = (props: LoginProps) => {
   const [salaries, setSalaries] = useState(null);
 
   async function fetchAllSalaries() {
-    const response = await axios.get("http://localhost:3001/api/salaries/all");
+    const response = await axios.get("/api/salaries/all");
     const data = await response.data;
     setSalaries(data);
   }

@@ -6,6 +6,8 @@ import AddSalary from "./components/AddSalary/AddSalary";
 import Homepage from "./components/Homepage/Homepage";
 import AllSalaries from "./components/AllSalaries/AllSalaries";
 import { useState } from "react";
+import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -13,6 +15,7 @@ function App() {
   return (
     <div className="App">
       <Router>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Homepage />}></Route>
           <Route
@@ -26,6 +29,7 @@ function App() {
             element={<AllSalaries user={user} setUser={setUser} />}
           ></Route>
         </Routes>
+        <Footer />
       </Router>
     </div>
   );

@@ -11,6 +11,8 @@ const SalaryCard = ({ jobTitle, company, salary, city }: SalaryCardProps) => {
 
   async function handleUpdate(e: any) {
     e.preventDefault();
+    setDisplay("none");
+    setUserInput("");
     const newSalary = e.target.newSalary.value,
       salaries = (await fetchAllSalaries()) as Salary[],
       salaryToUpdate = salaries.find(
@@ -18,9 +20,8 @@ const SalaryCard = ({ jobTitle, company, salary, city }: SalaryCardProps) => {
           s.jobTitle === jobTitle && s.company === company && s.city === city
       ),
       id = salaryToUpdate.id;
-    const response = updateSalary(id, newSalary);
-    console.log(response);
-    setDisplay("none");
+    await updateSalary(id, newSalary);
+    window.location.reload();
   }
 
   function handleInput(e: any) {

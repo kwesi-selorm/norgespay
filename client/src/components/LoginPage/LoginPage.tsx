@@ -14,7 +14,8 @@ const LoginPage = (props: LoginProps) => {
       const returnedUser = await submitLoginDetails(username, password);
       props.setUser(returnedUser);
       const token = returnedUser.token;
-      window.localStorage.setItem("userToken", token);
+      window.localStorage.setItem("userToken", token); //Save token to local storage
+      //TODO: Add notification here saying login was successful and ask user to wait as they are redirected
       navigate("/all-salaries");
     } catch (error) {
       console.log("Unauthorised");

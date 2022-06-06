@@ -2,7 +2,6 @@
   display: grid;
   gap: 1em;
   grid-auto-flow: row;
-  justify-content: center;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 
   margin: 8vh auto 5vh;
