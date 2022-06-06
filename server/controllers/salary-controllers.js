@@ -30,16 +30,15 @@ async function displayAllSalaries(req, res) {
 async function updateSalary(req, res) {
   const id = req.params.id;
   const salary = req.body.salary;
-  const existingSalary = await Salary.findById(Number(id));
-  console.log(id, salary, existingSalary);
+  const existingSalary = await Salary.findById(id);
 
   if (existingSalary) {
     try {
-      const result = await Salary.findByIdAndUpdate(id, {
+      await Salary.findByIdAndUpdate(id, {
         ...existingSalary,
         salary: existingSalary.salary.push(salary),
       });
-      return result.status(204).json({ message: "Salary updated" }); //status: OK
+      return res.status(204).json({ message: "Salary updated" }); //status: OK
     } catch (error) {
       return res.status(404).json({ message: error.message }); //status: Not Found
     }
