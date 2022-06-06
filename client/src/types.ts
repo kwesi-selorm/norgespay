@@ -3,13 +3,15 @@ export type Salary = {
   salary: number[];
   company: string;
   city: string;
+  id?: number;
 };
 
-export interface SalaryProps {
+export interface SalaryCardProps {
   jobTitle: String;
   company: String;
   salary: Number;
   city: String;
+  id?: number;
 }
 
 export type User = {

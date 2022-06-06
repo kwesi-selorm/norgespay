@@ -33,7 +33,7 @@ export async function submitSignupDetails(
 
 export async function fetchAllSalaries() {
   const response = await axios.get(url + "/all");
-  const data = response.data;
+  const data = await response.data;
   return data;
 }
 
@@ -42,7 +42,8 @@ export function findAverageSalary(salariesArr: number[]) {
     (prev: number, curr: number) => prev + curr,
     0
   );
-  const average = sum / salariesArr.length;
+  let average = sum / salariesArr.length;
+  average = Number(average.toFixed(0));
   return average;
 }
 
@@ -58,9 +59,14 @@ export async function addNewSalary(
   return response.data;
 }
 
+//TODO: Add token to header and update server controller to verify user
 export async function updateSalary(id: number, salary: number) {
+  // const userToken = window.localStorage.getItem("userToken");
   const config = {
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        // Authorization: `bearer ${userToken}`,
+        "Content-Type": "application/json",
+      },
     },
     updateUrl = `${url}/${id}`;
   await axios.put(updateUrl, { salary }, config);

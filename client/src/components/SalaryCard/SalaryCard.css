@@ -33,10 +33,38 @@ mark {
 
 .salary {
   font-size: 1.1rem;
-  padding: 1em;
+  padding: 0.8em 1em 0em;
 }
 
-.salary-card:hover {
+mark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.update-button {
+  padding: 0;
+  width: 100%;
+}
+
+.update-button:hover {
+  cursor: pointer;
+}
+
+form {
+  text-align: center;
+}
+
+.submit-button {
+  font-size: 0.8rem;
+  font-weight: 600;
+  height: fit-content;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+}
+
+.submit-button:hover {
   cursor: pointer;
 }
 

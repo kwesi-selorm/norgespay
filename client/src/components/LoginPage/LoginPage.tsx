@@ -13,6 +13,8 @@ const LoginPage = (props: LoginProps) => {
         password = e.target.password.value;
       const returnedUser = await submitLoginDetails(username, password);
       props.setUser(returnedUser);
+      const token = returnedUser.token;
+      window.localStorage.setItem("userToken", token);
       navigate("/all-salaries");
     } catch (error) {
       console.log("Unauthorised");
