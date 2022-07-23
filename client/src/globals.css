@@ -5,7 +5,7 @@
   --card-padding: 1em;
   --form-gap: 0.2em;
   --logo-font: Bitter;
-  --webpage-font: "Hind Siliguri";
+  --webpage-font: "Helvetica, Segoe UI, Hind Siliguri";
   --red: #da1212;
   --blue: #11468f;
   --dark-blue: #041562;
@@ -26,10 +26,10 @@
 
 html {
   height: 100%;
-  margin: 0;
+  /* margin: 0;
   padding: 0;
-  position: relative;
-  width: 100%;
+  position: relative; */
+  width: 100vw;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -39,6 +39,7 @@ body {
   margin: 0;
   padding: 0;
   text-align: center;
+  width: 100%;
 }
 
 button {
@@ -98,6 +99,8 @@ label {
 }
 
 input {
+  border: 2px solid var(--blue);
+  border-radius: 5px;
   font-size: 1rem;
   height: 1.5em;
   padding-block: 0.8em;
@@ -106,7 +109,7 @@ input {
 }
 
 input:focus {
-  border: 2px solid var(--blue);
+  border: 3px solid var(--blue);
   outline: none;
 }
 

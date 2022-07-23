@@ -33,7 +33,14 @@ mark {
 
 .salary {
   font-size: 1.1rem;
-  padding: 0.8em 1em 0em;
+  padding-left: 0.8em;
+}
+
+.salary-button-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  row-gap: 5px;
 }
 
 mark {
@@ -44,7 +51,7 @@ mark {
 
 .update-button {
   padding: 0;
-  width: 100%;
+  /* width: 100%; */
 }
 
 .update-button:hover {
