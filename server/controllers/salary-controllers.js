@@ -28,7 +28,7 @@ async function displayAllSalaries(req, res) {
   }
 }
 
-//Update single salary
+//TODO: Add schema validation using Joi
 async function updateSalary(req, res) {
   const id = req.params.id,
     salary = req.body.salary,
@@ -58,7 +58,7 @@ async function updateSalary(req, res) {
   }
 }
 
-//Add new salary to database. Must be based on the model
+//TODO: A add schema validation using Joi. Add new salary to database. Must be based on the model
 const addSalary = async (req, res) => {
   const { jobTitle, company, salary, city } = req.body;
   const newSalary = new Salary({
