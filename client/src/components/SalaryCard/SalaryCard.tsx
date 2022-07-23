@@ -1,9 +1,11 @@
-import { AiOutlineEdit } from "react-icons/ai";
+import { AiOutlineEdit, AiOutlineCloseSquare } from "react-icons/ai";
 import { MdSend } from "react-icons/md";
 import "./SalaryCard.css";
 import { Salary, SalaryCardProps } from "../../types";
 import { useState } from "react";
-import { fetchAllSalaries, updateSalary } from "../../services/helper";
+import { getAllSalaries, updateSalary } from "../../api/salaries";
+
+//TODO: Add 'as-of' date to the salary model to show the latest date of update. Probably using date.now. Add conversion elements to USD, GBP, etc. Consider using percentiles instead of averages.
 
 const SalaryCard = ({ jobTitle, company, salary, city }: SalaryCardProps) => {
   const [display, setDisplay] = useState("none"),
@@ -13,15 +15,21 @@ const SalaryCard = ({ jobTitle, company, salary, city }: SalaryCardProps) => {
     e.preventDefault();
     setDisplay("none");
     setUserInput("");
-    const newSalary = e.target.newSalary.value,
-      salaries = (await fetchAllSalaries()) as Salary[],
-      salaryToUpdate = salaries.find(
-        (s: Salary) =>
-          s.jobTitle === jobTitle && s.company === company && s.city === city
-      ),
-      id = salaryToUpdate.id;
-    await updateSalary(id, newSalary);
-    window.location.reload();
+    try {
+      const newSalary = e.target.newSalary.value,
+        salaries = await getAllSalaries(),
+        salaryToUpdate = salaries.find(
+          (s: Salary) =>
+            s.jobTitle === jobTitle && s.company === company && s.city === city
+        ),
+        id = salaryToUpdate.id;
+      await updateSalary(id, newSalary);
+      window.location.reload();
+    } catch (error) {
+      window.alert(
+        "Something went wrong: Salary update failed. Please try again."
+      );
+    }
   }
 
   function handleInput(e: any) {
@@ -40,15 +48,20 @@ const SalaryCard = ({ jobTitle, company, salary, city }: SalaryCardProps) => {
       </div>
       <div className="salary-right-section">
         <mark>
-          <h4 className="salary">{salary.toLocaleString()} kr</h4>
-          <button
-            className="update-button"
-            onClick={() => {
-              setDisplay("inline-block");
-            }}
-          >
-            <AiOutlineEdit />
-          </button>
+          <div className="salary-button-div">
+            <h4 className="salary">{salary.toLocaleString()} kr</h4>
+            <button
+              onClick={() => {
+                display === "none" ? setDisplay("inline") : setDisplay("none");
+              }}
+            >
+              {display === "none" ? (
+                <AiOutlineEdit />
+              ) : (
+                <AiOutlineCloseSquare />
+              )}
+            </button>
+          </div>
           <form onSubmit={handleUpdate} style={{ display: display }}>
             <input
               type="text"
@@ -56,11 +69,10 @@ const SalaryCard = ({ jobTitle, company, salary, city }: SalaryCardProps) => {
               id="newSalary"
               onChange={handleInput}
               value={userInput}
-              style={{ textAlign: "center" }}
+              style={{ textAlign: "center", maxWidth: "100px" }}
               pattern="[0-9]+"
               title="Input must be a number"
             />
-            <br />
             <button type="submit" className="submit-button">
               <MdSend />
             </button>
