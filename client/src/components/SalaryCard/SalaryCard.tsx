@@ -32,12 +32,6 @@ const SalaryCard = ({ jobTitle, company, salary, city }: SalaryCardProps) => {
     }
   }
 
-  function handleInput(e: any) {
-    e.preventDefault();
-    const value = e.target.value;
-    setUserInput(value);
-  }
-
   return (
     <div className="salary-card summary">
       <div className="salary-left-section">
@@ -67,7 +61,9 @@ const SalaryCard = ({ jobTitle, company, salary, city }: SalaryCardProps) => {
               type="text"
               name="newSalary"
               id="newSalary"
-              onChange={handleInput}
+              onChange={({ target }: { target: { value: string } }) =>
+                setUserInput(target.value)
+              }
               value={userInput}
               style={{ textAlign: "center", maxWidth: "100px" }}
               pattern="[0-9]+"
