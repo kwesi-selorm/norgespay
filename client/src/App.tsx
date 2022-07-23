@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./globals.css";
-import LoginPage from "./components/LoginPage/LoginPage";
-import SignupPage from "./components/SignupPage/SignupPage";
+import LoginPage from "./views/LoginPage/LoginPage";
+import SignupPage from "./views/SignupPage/SignupPage";
 import AddSalary from "./components/AddSalary/AddSalary";
 import Homepage from "./components/Homepage/Homepage";
-import AllSalaries from "./components/AllSalaries/AllSalaries";
+import AllSalaries from "./views/AllSalaries/AllSalaries";
 import { useState } from "react";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
