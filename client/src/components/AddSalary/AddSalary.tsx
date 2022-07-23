@@ -1,4 +1,4 @@
-import { addNewSalary } from "../../services/helper";
+import { addNewSalary } from "../../api/salaries";
 import "./AddSalary.css";
 
 const AddSalary = () => {

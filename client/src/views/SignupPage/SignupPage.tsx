@@ -1,20 +1,21 @@
 import "../../globals.css";
 import { Link, useNavigate } from "react-router-dom";
-import { submitSignupDetails } from "../../services/helper";
+import { submitSignupDetails } from "../../api/signup";
 
+//TODO: Allow only legitimate email addresses and accounts
 const SignupPage = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const email = e.target.email.value as string,
-      username = e.target.username.value as string,
-      password = e.target.password.value as string;
+    const email = e.target.email.value,
+      username = e.target.username.value,
+      password = e.target.password.value;
 
     try {
-      const response = await submitSignupDetails(email, username, password);
+      const { data } = await submitSignupDetails({ email, username, password });
       navigate("/login");
-      console.log(response.data);
+      console.log(data);
     } catch (error: any) {
       console.error("Something went wrong: " + error.message);
     }
