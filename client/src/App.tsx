@@ -4,7 +4,7 @@ import LoginPage from "./views/LoginPage/LoginPage";
 import SignupPage from "./views/SignupPage/SignupPage";
 import AddSalary from "./components/AddSalary/AddSalary";
 import Homepage from "./components/Homepage/Homepage";
-import AllSalaries from "./views/AllSalaries/AllSalaries";
+import AllSalaries from "./views/AllSalaries";
 import { useState } from "react";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
