@@ -4,9 +4,11 @@ import { LoginProps, Salary } from "../../types";
 import SalaryCard from "../../components/SalaryCard/SalaryCard";
 import "./AllSalaries.css";
 import { getAllSalaries } from "../../api/salaries";
+import SearchFilter from "./SearchFilter";
 
 const AllSalaries = (props: LoginProps) => {
   const [salaries, setSalaries] = useState<Salary[]>([]);
+  const [filter, setFilter] = useState<string>("");
   const [filteredResults, setFilteredResults] = useState<Salary[]>([]);
 
   useEffect(() => {
@@ -18,28 +20,47 @@ const AllSalaries = (props: LoginProps) => {
     fetchSalaries();
   }, []);
 
+  //TODO: Add switch statements for the different search criteria
   const filterSalaries = async (e: { target: { value: string } }) => {
-    const searchParam = e.target.value;
-    if (searchParam === "") setFilteredResults(salaries);
-    const results = salaries.filter((s) =>
-      s.jobTitle.toLowerCase().includes(searchParam.toLowerCase())
-    );
-    setFilteredResults(results);
+    const searchParam = e.target.value.toLowerCase();
+
+    switch (filter) {
+      case "":
+        setFilteredResults(salaries);
+        break;
+      case "jobTitle":
+        const jobResults = salaries.filter((s) =>
+          s.jobTitle.toLowerCase().includes(searchParam)
+        );
+        setFilteredResults(jobResults);
+        break;
+      case "company":
+        const companyResults = salaries.filter((s) =>
+          s.company.toLowerCase().includes(searchParam)
+        );
+        setFilteredResults(companyResults);
+        break;
+      case "city":
+        const cityResults = salaries.filter((s) =>
+          s.city.toLowerCase().includes(searchParam)
+        );
+        setFilteredResults(cityResults);
+        break;
+      default:
+        setFilteredResults(salaries);
+    }
   };
 
   return (
     //TODO: Add sign out button and implement sign out functionality.
     //TODO: Arrange salaries according to sector. Check skattetaten
     <>
-      <div>
-        <input
-          type="text"
-          className="searchBar"
-          placeholder="Filter by job title "
-          onChange={filterSalaries}
-        />
-      </div>
-      <div className="salary-grid">
+      <SearchFilter
+        filter={filter}
+        setFilter={setFilter}
+        filterSalaries={filterSalaries}
+      />
+      <div className="salary-box">
         {filteredResults?.map((salary: Salary) => {
           return (
             <div key={salary.id} className="salary-item">
