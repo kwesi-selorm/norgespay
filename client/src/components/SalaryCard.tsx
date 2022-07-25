@@ -1,11 +1,11 @@
 import { AiOutlineEdit, AiOutlineCloseSquare } from "react-icons/ai";
 import { MdSend } from "react-icons/md";
-import "./SalaryCard.css";
+import "../styles/SalaryCard.css";
 import { Salary, SalaryCardProps } from "../types";
 import { useState } from "react";
 import { getAllSalaries, updateSalary } from "../api/salaries";
 
-//TODO: Add 'as-of' date to the salary model to show the latest date of update. Probably using date.now. Add conversion elements to USD, GBP, etc. Consider using percentiles instead of averages.
+//TODO: Add 'Last updated' date to the salary model to show the latest date of update. Probably using date.now. Add conversion elements to USD, GBP, etc. Consider using percentiles instead of averages.
 
 const SalaryCard = ({ jobTitle, company, salary, city }: SalaryCardProps) => {
   const [display, setDisplay] = useState("none"),
@@ -26,14 +26,12 @@ const SalaryCard = ({ jobTitle, company, salary, city }: SalaryCardProps) => {
       await updateSalary(id, newSalary);
       window.location.reload();
     } catch (error) {
-      window.alert(
-        "Something went wrong: Salary update failed. Please try again."
-      );
+      window.alert("Salary update failed, please try again later.");
     }
   }
 
   return (
-    <div className="salary-card summary">
+    <article className="salary-card summary">
       <div className="salary-left-section">
         <h3 className="job-title">{jobTitle}</h3>
         <p className="company">
@@ -76,7 +74,7 @@ const SalaryCard = ({ jobTitle, company, salary, city }: SalaryCardProps) => {
           </form>
         </mark>
       </div>
-    </div>
+    </article>
   );
 };
 
