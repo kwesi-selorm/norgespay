@@ -10,18 +10,18 @@ loginRouter.post("/", async (req, res) => {
   const { username, password } = req.body,
     user = await User.findOne({ username });
   if (user == null) {
-    return res.status(401).send("No user found");
+    return res.status(404).send({ message: "No user found" });
   }
   let match = await validatePassword(password, user.passwordHash);
   if (!match) {
-    return res.status(401).send("Invalid username or password");
+    return res.status(401).send({ message: "Invalid username or password" });
   }
   const tokenUser = {
     username,
     id: user._id,
   };
   const token = jwt.sign(tokenUser, SECRET);
-  res.status(200).json({ token, username: user.username });
+  res.status(200).send({ token, username: user.username });
 });
 
 export default loginRouter;
