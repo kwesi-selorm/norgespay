@@ -17,17 +17,17 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Homepage />}></Route>
+          <Route path="/" element={<Homepage />} />
           <Route
             path="/login"
             element={<LoginPage user={user} setUser={setUser} />}
-          ></Route>
-          <Route path="/signup" element={<SignupPage />}></Route>
-          <Route path="/add-salary" element={<AddSalary />}></Route>
+          />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/add-salary" element={<AddSalary />} />
           <Route
             path="/all-salaries"
             element={<AllSalaries user={user} setUser={setUser} />}
-          ></Route>
+          />
         </Routes>
         <Footer />
       </Router>
