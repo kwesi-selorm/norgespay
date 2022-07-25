@@ -1,4 +1,4 @@
-import "../../globals.css";
+import "../../styles/globals.css";
 import { Link, useNavigate } from "react-router-dom";
 import { submitSignupDetails } from "../../api/signup";
 

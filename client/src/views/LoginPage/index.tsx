@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { submitLoginDetails } from "../../api/login";
 import Notification from "./Notification";
-import "../../globals.css";
+import "../../styles/globals.css";
 
 import { LoginProps } from "../../types";
 import { setErrorMessage } from "../../utils/setErrorMessage";

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { findAverageSalary } from "../../utils/salary";
 import { LoginProps, Salary } from "../../types";
 import SalaryCard from "../../components/SalaryCard";
-import "./AllSalaries.css";
+import "../../styles/AllSalaries.css";
 import { getAllSalaries } from "../../api/salaries";
 import SearchFilter from "./SearchFilter";
 

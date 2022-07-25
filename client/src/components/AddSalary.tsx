@@ -1,5 +1,5 @@
 import { addNewSalary } from "../api/salaries";
-import "./AddSalary.css";
+import "../styles/AddSalary.css";
 
 const AddSalary = () => {
   function handleSubmit(e: any) {
