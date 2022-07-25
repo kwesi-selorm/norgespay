@@ -5,11 +5,8 @@ interface NotificationProps {
   className: string;
 }
 
-const Notification = (props: NotificationProps) => {
-  if (props.message) {
-    return <div className={props.className}>{props.message}</div>;
-  }
-  return null;
+const Notification = ({ className, message }: NotificationProps) => {
+  return <div className={className}>{message}</div>;
 };
 
 export default Notification;
