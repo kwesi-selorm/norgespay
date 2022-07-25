@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { findAverageSalary } from "../../utils/helper";
+import { findAverageSalary } from "../../utils/salary";
 import { LoginProps, Salary } from "../../types";
 import SalaryCard from "../../components/SalaryCard/SalaryCard";
 import "./AllSalaries.css";
@@ -20,7 +20,6 @@ const AllSalaries = (props: LoginProps) => {
     fetchSalaries();
   }, []);
 
-  //TODO: Add switch statements for the different search criteria
   const filterSalaries = async (e: { target: { value: string } }) => {
     const searchParam = e.target.value.toLowerCase();
 
