@@ -1,30 +1,54 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { submitLoginDetails } from "../../api/login";
+import Notification from "../../components/Notification/Notification";
 import "../../globals.css";
 
 import { LoginProps } from "../../types";
+import { setErrorMessage } from "../../utils/setErrorMessage";
 
 const LoginPage = (props: LoginProps) => {
   const navigate = useNavigate();
+  const [notification, setNotification] = useState<{
+    className: string;
+    message: string;
+  }>(null);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
       const username = e.target.username.value,
-        password = e.target.password.value;
-      const returnedUser = await submitLoginDetails({ username, password });
-      props.setUser(returnedUser);
-      const token = returnedUser.token;
+        password = e.target.password.value,
+        response = await submitLoginDetails({
+          username,
+          password,
+        }),
+        data = response.data;
+      props.setUser(data);
+      const token = data.token;
       window.localStorage.setItem("userToken", token); //Save token to local storage
-      //TODO: Add notification here saying login was successful and ask user to wait as they are redirected
-      navigate("/all-salaries");
-    } catch (error) {
-      console.log("Unauthorised");
+      setNotification({
+        message: `Login successful: Welcome ${data.username}, you will be redirected now`,
+        className: "success",
+      });
+      setTimeout(() => {
+        setNotification({ className: null, message: "" });
+        navigate("/all-salaries");
+      }, 2000);
+      console.log(response);
+    } catch (error: any) {
+      setErrorMessage({ error, setNotification });
     }
   };
 
   return (
     <div className="login-signup-div">
+      {notification && (
+        <Notification
+          message={notification.message}
+          className={notification.className}
+        />
+      )}
       <form onSubmit={handleSubmit}>
         <h1 className="login-signup-form-title">Log In</h1>
         <label htmlFor="username" className="form-label">
