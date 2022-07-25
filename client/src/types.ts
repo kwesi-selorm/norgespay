@@ -14,10 +14,10 @@ export interface SalaryCardProps {
   id?: number;
 }
 
-export type User = {
+export interface User {
   username: string;
   token: string;
-};
+}
 
 export interface LoginProps {
   user: User;
