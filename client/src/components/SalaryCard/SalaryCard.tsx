@@ -47,6 +47,7 @@ const SalaryCard = ({ jobTitle, company, salary, city }: SalaryCardProps) => {
             <button
               onClick={() => {
                 display === "none" ? setDisplay("inline") : setDisplay("none");
+                setUserInput("");
               }}
             >
               {display === "none" ? (
