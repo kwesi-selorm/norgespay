@@ -11,7 +11,7 @@ interface ErrorParams {
 export function setErrorMessage({ error, setNotification }: ErrorParams) {
   if (error.message.includes("401")) {
     setNotification({
-      message: "Invalid username or password",
+      message: "Invalid username or password, please try again",
       className: "error",
     });
     setTimeout(() => {
@@ -20,7 +20,7 @@ export function setErrorMessage({ error, setNotification }: ErrorParams) {
   }
   if (error.message.includes("404")) {
     setNotification({
-      message: "User not found, please try again or register.",
+      message: "User not found, you will be redirected to the signup page.",
       className: "error",
     });
     setTimeout(() => {
