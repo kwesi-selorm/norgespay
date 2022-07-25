@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { submitLoginDetails } from "../../api/login";
 import Notification from "./Notification";
-import "../../styles/globals.css";
+import "../../styles/LoginSignup.css";
 
 import { LoginProps } from "../../types";
 import { setErrorMessage } from "../../utils/setErrorMessage";
@@ -30,7 +30,7 @@ const LoginPage = (props: LoginProps) => {
       const token = data.token;
       window.localStorage.setItem("userToken", token); //Save token to local storage
       setNotification({
-        message: `Login successful: welcome ${data.username}, redirecting now...`,
+        message: "Login successful, redirecting now...",
         className: "success",
       });
       setTimeout(() => {

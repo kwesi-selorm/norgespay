@@ -13,7 +13,7 @@ const Navbar = ({ user, setUser }: NavbarProps) => {
       <Link to="/" className="nav-link">
         Home
       </Link>
-      <Link to="/add-salary" className="nav-link">
+      <Link to={user ? "/add-salary" : "/login"} className="nav-link">
         Add New
       </Link>
       {user && (

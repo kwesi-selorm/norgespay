@@ -26,9 +26,6 @@
 
 html {
   height: 100%;
-  /* margin: 0;
-  padding: 0;
-  position: relative; */
   width: 100vw;
 
   -webkit-font-smoothing: antialiased;
@@ -45,6 +42,7 @@ body {
 button {
   background-color: var(--blue);
   border: none;
+  border-radius: 10px;
   color: var(--white);
   font-size: 1.1rem;
   font-weight: 500;
@@ -56,63 +54,4 @@ button {
 button:hover {
   background-color: var(--dark-blue);
   cursor: pointer;
-}
-
-/* ALL FORMS */
-.login-signup-div {
-  background-color: var(--off-white);
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
-  color: var(--dark-blue);
-  margin: 2em auto 5em;
-  padding: 1em;
-  text-align: left;
-  width: 20em;
-}
-
-@media screen and (max-width: 1200px) {
-  .login-signup-div {
-    margin: 20% auto;
-    min-width: 65%;
-  }
-}
-
-.login-signup-form-title {
-  /* font-family: var(--logo-font); */
-  font-size: 1.5rem;
-  font-weight: 800;
-  margin-block: 0;
-}
-
-form {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  gap: var(--form-gap);
-
-  font-weight: 500;
-  margin-inline: auto;
-  width: 100%;
-}
-
-label {
-  margin-block-start: 0.5em;
-}
-
-input {
-  border: 2px solid var(--blue);
-  border-radius: 5px;
-  font-size: 1rem;
-  height: 1.5em;
-  padding-block: 0.8em;
-  padding-inline-start: 0.5em;
-  width: 100%;
-}
-
-input:focus {
-  border: 3px solid var(--blue);
-  outline: none;
-}
-
-.login-signup-button {
-  margin-top: 1em;
 }

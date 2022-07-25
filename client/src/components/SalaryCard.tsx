@@ -39,10 +39,11 @@ const SalaryCard = ({ jobTitle, company, salary, city }: SalaryCardProps) => {
         </p>
       </div>
       <div className="salary-right-section">
-        <mark>
+        <mark className="blue-mark">
           <div className="salary-button-div">
             <h4 className="salary">{salary.toLocaleString()} kr</h4>
             <button
+              className="edit-close-button"
               onClick={() => {
                 display === "none" ? setDisplay("inline") : setDisplay("none");
                 setUserInput("");
@@ -55,16 +56,20 @@ const SalaryCard = ({ jobTitle, company, salary, city }: SalaryCardProps) => {
               )}
             </button>
           </div>
-          <form onSubmit={handleUpdate} style={{ display: display }}>
+
+          <form
+            onSubmit={handleUpdate}
+            style={{ display: display }}
+            className="new-salary-form"
+          >
             <input
               type="text"
               name="newSalary"
-              id="newSalary"
+              id="new-salary"
               onChange={({ target }: { target: { value: string } }) =>
                 setUserInput(target.value)
               }
               value={userInput}
-              style={{ textAlign: "center", maxWidth: "100px" }}
               pattern="[0-9]+"
               title="Input must be a number"
             />

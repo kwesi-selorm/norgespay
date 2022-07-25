@@ -1,13 +1,4 @@
-@import "./globals.css";
-
-mark {
-  background-color: var(--blue);
-  color: var(--off-white);
-}
-
-.salary-card * {
-  margin: 0;
-}
+/* @import "./globals.css"; */
 
 .salary-card {
   align-items: flex-start;
@@ -36,42 +27,42 @@ mark {
   padding-left: 0.8em;
 }
 
+.blue-mark {
+  background-color: var(--blue);
+  color: var(--off-white);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
 .salary-button-div {
   display: flex;
   flex-direction: row;
   align-items: center;
-  row-gap: 5px;
+  /* row-gap: 5px; */
 }
 
-mark {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.update-button {
-  padding: 0;
-  /* width: 100%; */
-}
-
-.update-button:hover {
+/* Edit and close button */
+.edit-close-button:hover {
+  background-color: var(--blue);
   cursor: pointer;
 }
 
-form {
-  text-align: center;
+/* Salary input */
+#new-salary {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  max-width: 150px;
 }
 
+/* Submit button */
 .submit-button {
-  font-size: 0.8rem;
-  font-weight: 600;
-  height: fit-content;
-  margin: 0 auto;
-  padding: 0;
-  width: 100%;
+  font-size: 0.7rem;
 }
 
 .submit-button:hover {
+  background-color: var(--blue);
   cursor: pointer;
 }
 

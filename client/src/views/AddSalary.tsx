@@ -8,6 +8,7 @@ const AddSalary = () => {
       salary = e.target.salary.value,
       city = e.target.city.value;
     const response = addNewSalary(jobTitle, company, city, salary);
+    //TODO: Add notification for if the addition of salary is successful or not.
     console.log(response);
   }
 

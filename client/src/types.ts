@@ -23,3 +23,8 @@ export interface LoginProps {
   user: User;
   setUser: (user: User) => void;
 }
+
+export interface NavbarProps {
+  user: User;
+  setUser: (user: User) => void;
+}

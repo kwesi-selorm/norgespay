@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { ImSpinner5 } from "react-icons/im";
 import "../../styles/Header.css";
-import SalaryCard from "../../components/SalaryCard";
+import HomepageSalaryCard from "../../components/HomepageSalaryCard";
 import { Salary } from "../../types";
-// import { fetchHomepageSalary } from "../../services/helper";
 import axios from "axios";
 
 export const Header = () => {
@@ -39,7 +38,7 @@ export const Header = () => {
 
       {/* Display salary card information when not null or undefined */}
       {salaryData != null ? (
-        <SalaryCard
+        <HomepageSalaryCard
           jobTitle={salaryData.jobTitle}
           company={salaryData.company}
           salary={salaryData.salary[0]}

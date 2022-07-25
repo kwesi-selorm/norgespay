@@ -1,6 +1,6 @@
-import "../../styles/globals.css";
 import { Link, useNavigate } from "react-router-dom";
 import { submitSignupDetails } from "../../api/signup";
+import "../../styles/LoginSignup.css";
 
 //TODO: Allow only legitimate email addresses and accounts
 const SignupPage = () => {
