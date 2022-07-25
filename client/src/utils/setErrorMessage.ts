@@ -25,7 +25,6 @@ export function setErrorMessage({ error, setNotification }: ErrorParams) {
     });
     setTimeout(() => {
       setNotification({ className: null, message: "" });
-      // navigate("/signup");
     }, 5000);
   }
 }
