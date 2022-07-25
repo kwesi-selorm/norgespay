@@ -1,5 +1,5 @@
-import { Header } from "../Header/Header";
-import HomepageButton from "../HomepageButton/HomepageButton";
+import { Header } from "./Header";
+import HomepageButton from "./HomepageButton";
 
 const Homepage = () => {
   return (

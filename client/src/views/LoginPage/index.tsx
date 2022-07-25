@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { submitLoginDetails } from "../../api/login";
-import Notification from "../../components/Notification/Notification";
+import Notification from "./Notification";
 import "../../globals.css";
 
 import { LoginProps } from "../../types";
@@ -16,6 +16,8 @@ const LoginPage = (props: LoginProps) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+
+    /* Set a user if the request is successful and returns the signed in user's details. Set and display an error message should the server respond with an error message */
     try {
       const username = e.target.username.value,
         password = e.target.password.value,
@@ -38,6 +40,10 @@ const LoginPage = (props: LoginProps) => {
       console.log(response);
     } catch (error: any) {
       setErrorMessage({ error, setNotification });
+      error.message.includes("404") &&
+        setTimeout(() => {
+          navigate("/signup");
+        }, 5000);
     }
   };
 

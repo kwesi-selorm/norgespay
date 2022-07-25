@@ -1,9 +1,9 @@
 import { AiOutlineEdit, AiOutlineCloseSquare } from "react-icons/ai";
 import { MdSend } from "react-icons/md";
 import "./SalaryCard.css";
-import { Salary, SalaryCardProps } from "../../types";
+import { Salary, SalaryCardProps } from "../types";
 import { useState } from "react";
-import { getAllSalaries, updateSalary } from "../../api/salaries";
+import { getAllSalaries, updateSalary } from "../api/salaries";
 
 //TODO: Add 'as-of' date to the salary model to show the latest date of update. Probably using date.now. Add conversion elements to USD, GBP, etc. Consider using percentiles instead of averages.
 

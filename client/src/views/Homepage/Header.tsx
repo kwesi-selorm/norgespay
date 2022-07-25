@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ImSpinner5 } from "react-icons/im";
 import "./Header.css";
-import SalaryCard from "../SalaryCard/SalaryCard";
+import SalaryCard from "../../components/SalaryCard";
 import { Salary } from "../../types";
 // import { fetchHomepageSalary } from "../../services/helper";
 import axios from "axios";
