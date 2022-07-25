@@ -6,10 +6,12 @@ export const api = axios.create({
   baseURL: "/api/salaries",
 });
 
-/**
- * This function returns a promise that resolves to an array of Salary objects.
- * @returns Salary[]
- */
+export async function fetchHomepageSalary() {
+  const response = await api.get("/");
+  const data = await response.data;
+  return data;
+}
+
 export async function getAllSalaries() {
   const { data }: { data: Salary[] } = await api.get("/all");
   return data;
@@ -36,6 +38,5 @@ export async function updateSalary(id: number, salary: number) {
       "Content-Type": "application/json",
     },
   };
-
   return await api.put(`/${id}`, { salary }, config);
 }
