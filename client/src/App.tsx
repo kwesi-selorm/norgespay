@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./styles/globals.css";
 import LoginPage from "./views/LoginPage";
 import SignupPage from "./views/SignupPage/SignupPage";
-import AddSalary from "./components/AddSalary";
+import AddSalary from "./views/AddSalary";
 import Homepage from "./views/Homepage";
 import AllSalaries from "./views/AllSalaries";
 import { useState } from "react";
