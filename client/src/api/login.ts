@@ -14,6 +14,5 @@ export async function submitLoginDetails({ username, password }: LoginProps) {
     config = { headers: { "Content-Type": "application/json" } };
 
   const response = await api.post("/", data, config);
-  const responseData = await response.data;
-  return responseData;
+  return response;
 }
