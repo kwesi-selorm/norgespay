@@ -30,14 +30,13 @@ const LoginPage = (props: LoginProps) => {
       const token = data.token;
       window.localStorage.setItem("userToken", token); //Save token to local storage
       setNotification({
-        message: `Login successful: Welcome ${data.username}, you will be redirected now`,
+        message: `Login successful: welcome ${data.username}, redirecting now...`,
         className: "success",
       });
       setTimeout(() => {
         setNotification({ className: null, message: "" });
         navigate("/all-salaries");
       }, 2000);
-      console.log(response);
     } catch (error: any) {
       setErrorMessage({ error, setNotification });
       error.message.includes("404") &&
