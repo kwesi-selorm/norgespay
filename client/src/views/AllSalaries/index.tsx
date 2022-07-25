@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { findAverageSalary } from "../../utils/salary";
 import { LoginProps, Salary } from "../../types";
-import SalaryCard from "../../components/SalaryCard/SalaryCard";
+import SalaryCard from "../../components/SalaryCard";
 import "./AllSalaries.css";
 import { getAllSalaries } from "../../api/salaries";
 import SearchFilter from "./SearchFilter";
@@ -51,7 +51,7 @@ const AllSalaries = (props: LoginProps) => {
   };
 
   return (
-    //TODO: Add sign out button and implement sign out functionality.
+    //TODO: Add sign out button and implement sign out functionality. On login, icon wil be in top right corner and when clicked will show a drop-down with signout option
     //TODO: Arrange salaries according to sector. Check skattetaten
     <>
       <SearchFilter
