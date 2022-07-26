@@ -27,8 +27,8 @@ const LoginPage = (props: LoginProps) => {
         }),
         data = response.data;
       props.setUser(data);
-      const token = data.token;
-      window.localStorage.setItem("userToken", token); //Save token to local storage
+      // const token = data.token;
+      window.localStorage.setItem("user", JSON.stringify(data)); //Save token to local storage
       setNotification({
         message: "Login successful, redirecting now...",
         className: "success",

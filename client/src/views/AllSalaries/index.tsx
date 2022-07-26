@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 import { findAverageSalary } from "../../utils/salary";
-import { LoginProps, Salary } from "../../types";
+import { AllSalariesProps, Salary } from "../../types";
 import SalaryCard from "../../components/SalaryCard";
 import "../../styles/AllSalaries.css";
 import { getAllSalaries } from "../../api/salaries";
 import SearchFilter from "./SearchFilter";
 
-const AllSalaries = (props: LoginProps) => {
+const AllSalaries = ({ loggedUser, setLoggedUser }: AllSalariesProps) => {
   const [salaries, setSalaries] = useState<Salary[]>([]);
   const [filter, setFilter] = useState<string>("");
   const [filteredResults, setFilteredResults] = useState<Salary[]>([]);
+
+  useEffect(() => {
+    const storedUser = window.localStorage.getItem("user");
+    setLoggedUser(JSON.parse(storedUser));
+  }, [loggedUser, setLoggedUser]);
 
   useEffect(() => {
     const fetchSalaries = async () => {

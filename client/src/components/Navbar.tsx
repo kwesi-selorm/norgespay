@@ -2,23 +2,25 @@ import { Link } from "react-router-dom";
 import "../styles/Navbar.css";
 import { NavbarProps } from "../types";
 
-const Navbar = ({ user, setUser }: NavbarProps) => {
+const Navbar = ({ loggedUser, setLoggedUser }: NavbarProps) => {
   function handleSignOut() {
-    setUser(null);
+    setLoggedUser(null);
     window.localStorage.clear();
   }
-
   return (
     <nav className="nav">
       <Link to="/" className="nav-link">
         Home
       </Link>
-      <Link to={user ? "/add-salary" : "/login"} className="nav-link">
+      <Link to={loggedUser ? "/all-salaries" : "/login"} className="nav-link">
+        Salaries
+      </Link>
+      <Link to={loggedUser ? "/add-salary" : "/login"} className="nav-link">
         Add New
       </Link>
-      {user && (
-        <Link to="/login" className="nav-link" onClick={handleSignOut}>
-          {`Sign out (${user.username})`}
+      {loggedUser && (
+        <Link to="/" className="nav-link" onClick={handleSignOut}>
+          {`Sign out (${loggedUser.username})`}
         </Link>
       )}
     </nav>
