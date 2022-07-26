@@ -10,7 +10,7 @@
   background-color: #fff;
   border: 3px solid var(--red);
   color: var(--blue);
-  margin-inline: auto;
+  /* margin-inline: auto; */
   padding: var(--card-padding);
   text-align: left;
   width: max-content;
@@ -24,6 +24,7 @@
   color: var(--off-white);
   flex-direction: column;
   padding: 0.5em;
+  text-align: left;
 }
 
 .salary {
@@ -32,7 +33,7 @@
 
 .salary-button-div {
   display: flex;
-  align-items: center;
+  /* align-items: left; */
   flex-direction: row;
   height: fit-content;
   padding: 0.5em;
@@ -49,15 +50,24 @@
   cursor: pointer;
 }
 
+.new-salary-form {
+  position: relative;
+}
+
 #new-salary {
-  max-width: 150px;
+  font-size: 0.7em;
+  text-align: center;
+  max-width: 120px;
 }
 
 /* Submit button */
 .submit-button {
   font-size: 0.7rem;
-  justify-self: center;
   padding: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .submit-button:hover {
