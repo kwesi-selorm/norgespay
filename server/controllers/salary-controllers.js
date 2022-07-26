@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import jwt from "jsonwebtoken";
 import Salary from "../models/salary-model.js";
 import { SECRET } from "../utils/config.js";
@@ -61,11 +62,13 @@ async function updateSalary(req, res) {
 //TODO: A add schema validation using Joi. Add new salary to database. Must be based on the model
 const addSalary = async (req, res) => {
   const { jobTitle, company, salary, city } = req.body;
+  const date = format(new Date(), "dd.MM.yyyy");
   const newSalary = new Salary({
     jobTitle,
     salary: [salary],
     company,
     city,
+    dateAdded: date,
   });
   try {
     await newSalary.save();
