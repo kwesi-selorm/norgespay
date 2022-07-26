@@ -49,6 +49,7 @@ async function updateSalary(req, res) {
       await Salary.findByIdAndUpdate(id, {
         ...existingSalary,
         salary: existingSalary.salary.push(salary),
+        dateAdded: new Date(),
       });
       return res.status(204).json({ message: "Salary updated" }); //status: OK
     } catch (error) {
@@ -62,7 +63,7 @@ async function updateSalary(req, res) {
 //TODO: A add schema validation using Joi. Add new salary to database. Must be based on the model
 const addSalary = async (req, res) => {
   const { jobTitle, company, salary, city } = req.body;
-  const date = format(new Date(), "dd.MM.yyyy");
+  const date = new Date();
   const newSalary = new Salary({
     jobTitle,
     salary: [salary],
