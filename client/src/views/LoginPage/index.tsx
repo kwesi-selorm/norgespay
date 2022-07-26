@@ -1,23 +1,22 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { submitLoginDetails } from "../../api/login";
-import Notification from "./Notification";
+import Notification from "../../components/Notification";
 import "../../styles/LoginSignup.css";
 
 import { LoginProps } from "../../types";
-import { setErrorMessage } from "../../utils/setErrorMessage";
+import { useNotification } from "../../hooks/useNotification";
 
 const LoginPage = (props: LoginProps) => {
-  const navigate = useNavigate();
+  const { display, createSuccess, createError } = useNotification();
   const [notification, setNotification] = useState<{
-    className: string;
     message: string;
-  }>(null);
+    className: string;
+  }>();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    /* Set a user if the request is successful and returns the signed in user's details. Set and display an error message should the server respond with an error message */
     try {
       const username = e.target.username.value,
         password = e.target.password.value,
@@ -25,24 +24,17 @@ const LoginPage = (props: LoginProps) => {
           username,
           password,
         }),
-        data = response.data;
+        data = await response.data;
       props.setUser(data);
-      // const token = data.token;
       window.localStorage.setItem("user", JSON.stringify(data)); //Save token to local storage
-      setNotification({
-        message: "Login successful, redirecting now...",
-        className: "success",
-      });
-      setTimeout(() => {
-        setNotification({ className: null, message: "" });
-        navigate("/all-salaries");
-      }, 2000);
+      const newNotification = createSuccess(
+        "Login successful, redirecting now..."
+      );
+      setNotification(newNotification);
+      console.log(notification);
     } catch (error: any) {
-      setErrorMessage({ error, setNotification });
-      error.message.includes("404") &&
-        setTimeout(() => {
-          navigate("/signup");
-        }, 5000);
+      const newNotification = createError(error);
+      setNotification(newNotification);
     }
   };
 
@@ -52,6 +44,7 @@ const LoginPage = (props: LoginProps) => {
         <Notification
           message={notification.message}
           className={notification.className}
+          display={display}
         />
       )}
       <form onSubmit={handleSubmit}>
