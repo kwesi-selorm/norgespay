@@ -81,8 +81,9 @@ const LoginPage = (props: LoginProps) => {
         <button className="login-signup-button" type="submit">
           Submit
         </button>
+        <p>Forgot password?</p>
+        {/* TODO: Add functionality for forgot password link */}
       </form>
-      <p>Forgot password?</p>
       <Link to="/signup" style={{ textDecoration: "none", fontWeight: "bold" }}>
         Create a new account
       </Link>
