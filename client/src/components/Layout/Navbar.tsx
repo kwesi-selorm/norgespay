@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import "../styles/Navbar.css";
-import { NavbarProps } from "../types";
+import { NavbarProps } from "../../types";
 
 const Navbar = ({ loggedUser, setLoggedUser }: NavbarProps) => {
   function handleSignOut() {

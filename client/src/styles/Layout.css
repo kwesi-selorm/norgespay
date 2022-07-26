@@ -30,3 +30,19 @@
   background-color: var(--white);
   color: var(--blue);
 }
+
+/* Footer */
+.footer {
+  position: fixed;
+  bottom: 0;
+  background-color: var(--blue);
+  color: var(--white);
+  font-weight: 500;
+  height: 5vh;
+  margin-top: 20em;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  place-content: center;
+}

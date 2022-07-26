@@ -1,6 +1,3 @@
-import React from "react";
-import "../styles/Footer.css";
-
 const Footer = () => {
   const date = new Date();
   return (
