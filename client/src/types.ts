@@ -24,7 +24,12 @@ export interface LoginProps {
   setUser: (user: User) => void;
 }
 
+export interface AllSalariesProps {
+  loggedUser: User;
+  setLoggedUser: (user: User) => void;
+}
+
 export interface NavbarProps {
-  user: User;
-  setUser: (user: User) => void;
+  loggedUser: User;
+  setLoggedUser: (user: User) => void;
 }
