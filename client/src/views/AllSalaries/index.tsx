@@ -16,6 +16,7 @@ const AllSalaries = ({ loggedUser, setLoggedUser }: AllSalariesProps) => {
     setLoggedUser(JSON.parse(storedUser));
   }, [loggedUser, setLoggedUser]);
 
+  //TODO:Automatically update salaries when a user updates a salary. Use React Query once fully understood
   useEffect(() => {
     const fetchSalaries = async () => {
       const data = await getAllSalaries();
