@@ -10,7 +10,7 @@ import RightSectionBottom from "./RightSectionBottom";
 
 const SalaryCard = ({ jobTitle, company, salary, city }: SalaryCardProps) => {
   const [display, setDisplay] = useState("none"),
-    [userInput, setUserInput] = useState(null);
+    [userInput, setUserInput] = useState<number>(0);
 
   return (
     <article className="salary-card summary">

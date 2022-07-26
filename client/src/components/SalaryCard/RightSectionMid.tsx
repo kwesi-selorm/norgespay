@@ -8,7 +8,7 @@ interface Props {
   jobTitle: string;
   company: string;
   city: string;
-  setUserInput: (userInput: string) => void;
+  setUserInput: (userInput: number) => void;
   setDisplay: (display: string) => void;
 }
 
@@ -24,7 +24,7 @@ const RightSectionMid = ({
   async function handleUpdate(e: any) {
     e.preventDefault();
     setDisplay("none");
-    setUserInput("");
+    setUserInput(0);
     try {
       const newSalary = e.target.newSalary.value,
         salaries = await getAllSalaries(),
@@ -47,12 +47,12 @@ const RightSectionMid = ({
       className="new-salary-form"
     >
       <input
-        type="text"
+        type="number"
         name="newSalary"
         id="new-salary"
         aria-describedby="update-rule"
         onChange={({ target }: { target: { value: string } }) =>
-          setUserInput(target.value)
+          setUserInput(Number(target.value))
         }
         value={userInput}
         pattern="[0-9]+"

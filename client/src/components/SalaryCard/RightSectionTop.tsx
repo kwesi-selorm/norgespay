@@ -4,7 +4,7 @@ interface Props {
   salary: number;
   display: string;
   setDisplay: (display: string) => void;
-  setUserInput: (userInput: string) => void;
+  setUserInput: (userInput: number) => void;
 }
 
 const RightSectionTop = ({
@@ -20,7 +20,7 @@ const RightSectionTop = ({
         className="edit-close-button"
         onClick={() => {
           display === "none" ? setDisplay("inline-block") : setDisplay("none");
-          setUserInput("");
+          setUserInput(0);
         }}
       >
         {display === "none" ? <AiOutlineEdit /> : <AiOutlineCloseSquare />}
