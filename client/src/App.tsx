@@ -8,14 +8,16 @@ import AllSalaries from "./views/AllSalaries";
 import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { User } from "./types";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [loggedUser, setLoggedUser] = useState<User>(null);
 
   return (
     <div className="App">
       <Router>
-        <Navbar user={user} setUser={setUser} />
+        <Navbar loggedUser={loggedUser} setLoggedUser={setLoggedUser} />
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route
@@ -26,7 +28,12 @@ function App() {
           <Route path="/add-salary" element={<AddSalary />} />
           <Route
             path="/all-salaries"
-            element={<AllSalaries user={user} setUser={setUser} />}
+            element={
+              <AllSalaries
+                loggedUser={loggedUser}
+                setLoggedUser={setLoggedUser}
+              />
+            }
           />
         </Routes>
         <Footer />
