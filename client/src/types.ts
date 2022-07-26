@@ -7,10 +7,10 @@ export type Salary = {
 };
 
 export interface SalaryCardProps {
-  jobTitle: String;
-  company: String;
-  salary: Number;
-  city: String;
+  jobTitle: string;
+  company: string;
+  salary: number;
+  city: string;
   id?: number;
 }
 
