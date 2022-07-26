@@ -6,10 +6,10 @@ import AddSalary from "./views/AddSalary";
 import Homepage from "./views/Homepage";
 import AllSalaries from "./views/AllSalaries";
 import { useState } from "react";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import Footer from "./components/Layout/Footer";
 import { User } from "./types";
 import NotFound from "./views/NotFound/NotFound";
+import Layout from "./components/Layout";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -18,24 +18,29 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Navbar loggedUser={loggedUser} setLoggedUser={setLoggedUser} />
         <Routes>
-          <Route path="/" element={<Homepage />} />
           <Route
-            path="/login"
-            element={<LoginPage user={user} setUser={setUser} />}
-          />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/add-salary" element={<AddSalary />} />
-          <Route
-            path="/all-salaries"
             element={
-              <AllSalaries
-                loggedUser={loggedUser}
-                setLoggedUser={setLoggedUser}
-              />
+              <Layout loggedUser={loggedUser} setLoggedUser={setLoggedUser} />
             }
-          />
+          >
+            <Route path="/" element={<Homepage />} />
+            <Route
+              path="/login"
+              element={<LoginPage user={user} setUser={setUser} />}
+            />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/add-salary" element={<AddSalary />} />
+            <Route
+              path="/all-salaries"
+              element={
+                <AllSalaries
+                  loggedUser={loggedUser}
+                  setLoggedUser={setLoggedUser}
+                />
+              }
+            />
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
