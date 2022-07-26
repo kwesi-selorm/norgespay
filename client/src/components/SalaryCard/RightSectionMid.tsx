@@ -50,12 +50,15 @@ const RightSectionMid = ({
         type="text"
         name="newSalary"
         id="new-salary"
+        aria-describedby="update-rule"
         onChange={({ target }: { target: { value: string } }) =>
           setUserInput(target.value)
         }
         value={userInput}
         pattern="[0-9]+"
-        title="Input must be a number"
+        placeholder="e.g., 547000"
+        title="Update this salary only for the same job title, company, and city. Add a
+        new salary if different"
       />
       <button
         type="submit"
