@@ -12,9 +12,8 @@ export async function fetchHomepageSalary() {
   return data;
 }
 
-export async function getAllSalaries() {
-  const { data }: { data: Salary[] } = await api.get("/all");
-  return data;
+export async function getAllSalaries(): Promise<Salary[]> {
+  return api.get("/all").then((response) => response.data);
 }
 
 export async function addNewSalary(
@@ -29,14 +28,17 @@ export async function addNewSalary(
   return response.data;
 }
 
-//TODO: Add token to header and update server controller to verify user
-export async function updateSalary(id: number, salary: number) {
-  const userToken = window.localStorage.getItem("userToken");
+//TODO: Salaries can only be updated by the user they were added by. Implement authentication using the userId
+export async function updateSalary(id: string, updatedSalary: Salary) {
+  // const userString = window.localStorage.getItem("user");
+  // const user: User = JSON.parse(userString);
+  const data = { updatedSalary: updatedSalary };
   const config = {
     headers: {
-      Authorization: `bearer ${userToken}`,
+      // Authorization: `bearer ${user.token}`,
       "Content-Type": "application/json",
     },
   };
-  return await api.put(`/${id}`, { salary }, config);
+  await api.put(`/${id}`, data, config);
+  // console.log("updatedSalary", updatedSalary);
 }
