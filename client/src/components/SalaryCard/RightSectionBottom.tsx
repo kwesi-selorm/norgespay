@@ -1,5 +1,5 @@
-const RightSectionBottom = ({ date }: { date: string }) => {
-  return <div className="most-recent-date">Last updated on {date}</div>;
+const RightSectionBottom = ({ dateAdded }: { dateAdded: string }) => {
+  return <div className="most-recent-date">Last updated: {dateAdded}</div>;
 };
 
 export default RightSectionBottom;
