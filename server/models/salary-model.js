@@ -1,4 +1,4 @@
-import { formatISO9075 } from "date-fns";
+// import { format } from "date-fns";
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
@@ -6,7 +6,7 @@ const { Schema } = mongoose;
 const salarySchema = new Schema({
   jobTitle: String,
   salary: [Number],
-  dateAdded: { type: Date, default: new Date() },
+  dateAdded: { type: String, default: new Date().toLocaleDateString() },
   company: String,
   city: String,
 });
@@ -14,9 +14,6 @@ const salarySchema = new Schema({
 salarySchema.set("toJSON", {
   transform: (_document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
-    returnedObject.dateAdded = formatISO9075(returnedObject.dateAdded, {
-      representation: "date",
-    });
     delete returnedObject._id;
     delete returnedObject.__v;
   },
