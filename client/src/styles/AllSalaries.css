@@ -10,17 +10,18 @@ body {
 
 .salary-box {
   display: flex;
-  gap: 3%;
   flex-direction: row;
   flex-wrap: wrap;
-  column-gap: 5px;
-  width: 60%;
-  margin: 0.5rem auto;
+  gap: 5px;
+  justify-content: center;
+  margin-inline: auto;
+  width: 70%;
 }
 
 .salary-item {
-  flex: 1;
-  margin: 0.5em 0;
+  /* flex: 1; */
+  margin: 0.2em 0;
+  min-width: 400px;
 }
 
 .searchBar {

@@ -24,9 +24,8 @@
   transition: "background-color" 250s ease-in-out;
 }
 
-.nav-link:hover,
-.nav-link:active,
-.nav-link:focus {
+.nav-link:focus,
+.nav-link:active {
   background-color: var(--white);
   color: var(--blue);
 }

@@ -42,7 +42,6 @@ body {
 button {
   background-color: var(--blue);
   border: none;
-  border-radius: 10px;
   color: var(--white);
   font-size: 1.1rem;
   font-weight: 500;
@@ -58,4 +57,9 @@ button:hover {
 
 Link:visited {
   text-decoration: none;
+}
+
+.App {
+  padding-bottom: 5%;
+  width: 100%;
 }

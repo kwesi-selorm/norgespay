@@ -10,10 +10,9 @@
   background-color: #fff;
   border: 3px solid var(--red);
   color: var(--blue);
-  /* margin-inline: auto; */
+  min-width: fit-content;
   padding: var(--card-padding);
   text-align: left;
-  width: max-content;
 }
 
 /* Salary card right section */
@@ -24,7 +23,7 @@
   color: var(--off-white);
   flex-direction: column;
   padding: 0.5em;
-  text-align: left;
+  text-align: center;
 }
 
 .salary {
