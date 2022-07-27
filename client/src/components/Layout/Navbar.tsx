@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { NavbarProps } from "../../types";
 
 const Navbar = ({ loggedUser, setLoggedUser }: NavbarProps) => {
@@ -8,19 +8,25 @@ const Navbar = ({ loggedUser, setLoggedUser }: NavbarProps) => {
   }
   return (
     <nav className="nav">
-      <Link to="/" className="nav-link">
+      <NavLink to="/" className="nav-link">
         Home
-      </Link>
-      <Link to={loggedUser ? "/all-salaries" : "/login"} className="nav-link">
+      </NavLink>
+
+      <NavLink
+        to={loggedUser ? "/all-salaries" : "/login"}
+        className="nav-link"
+      >
         Salaries
-      </Link>
-      <Link to={loggedUser ? "/add-salary" : "/login"} className="nav-link">
+      </NavLink>
+
+      <NavLink to={loggedUser ? "/add-salary" : "/login"} className="nav-link">
         Add New
-      </Link>
+      </NavLink>
+
       {loggedUser && (
-        <Link to="/" className="nav-link" onClick={handleSignOut}>
+        <NavLink to="/" onClick={handleSignOut} className="nav-link">
           {`Sign out (${loggedUser.username})`}
-        </Link>
+        </NavLink>
       )}
     </nav>
   );
