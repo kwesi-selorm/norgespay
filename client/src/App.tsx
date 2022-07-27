@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import "./styles/globals.css";
 import LoginPage from "./views/LoginPage";
 import SignupPage from "./views/SignupPage/SignupPage";
