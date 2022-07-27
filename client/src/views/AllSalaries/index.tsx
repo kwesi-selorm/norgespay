@@ -5,59 +5,53 @@ import SalaryCard from "../../components/SalaryCard";
 import "../../styles/AllSalaries.css";
 import { getAllSalaries } from "../../api/salaries";
 import SearchFilter from "./SearchFilter";
+import { useQuery } from "@tanstack/react-query";
 
 const AllSalaries = ({ loggedUser, setLoggedUser }: AllSalariesProps) => {
-  const [salaries, setSalaries] = useState<Salary[]>([]);
   const [filter, setFilter] = useState<string>("");
-  const [filteredResults, setFilteredResults] = useState<Salary[]>([]);
+  const [, setFilteredSalaries] = useState<Salary[]>([]);
+  const { data, isLoading, error } = useQuery(["salaries"], getAllSalaries); //data works
 
   useEffect(() => {
     const storedUser = window.localStorage.getItem("user");
     setLoggedUser(JSON.parse(storedUser));
   }, [loggedUser, setLoggedUser]);
 
-  //TODO:Automatically update salaries when a user updates a salary. Use React Query once fully understood
-  useEffect(() => {
-    const fetchSalaries = async () => {
-      const data = await getAllSalaries();
-      setSalaries(data);
-      setFilteredResults(data);
-    };
-    fetchSalaries();
-  }, []);
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
 
-  const filterSalaries = async (e: { target: { value: string } }) => {
+  //FIXME
+  const filterSalaries = (e: { target: { value: string } }) => {
     const searchParam = e.target.value.toLowerCase();
 
     switch (filter) {
       case "":
-        setFilteredResults(salaries);
+        setFilteredSalaries(data);
         break;
       case "jobTitle":
-        const jobResults = salaries.filter((s) =>
+        const jobResults = data.filter((s) =>
           s.jobTitle.toLowerCase().includes(searchParam)
         );
-        setFilteredResults(jobResults);
+        setFilteredSalaries(jobResults);
         break;
       case "company":
-        const companyResults = salaries.filter((s) =>
+        const companyResults = data.filter((s) =>
           s.company.toLowerCase().includes(searchParam)
         );
-        setFilteredResults(companyResults);
+        setFilteredSalaries(companyResults);
         break;
       case "city":
-        const cityResults = salaries.filter((s) =>
+        const cityResults = data.filter((s) =>
           s.city.toLowerCase().includes(searchParam)
         );
-        setFilteredResults(cityResults);
+        setFilteredSalaries(cityResults);
         break;
       default:
-        setFilteredResults(salaries);
+        setFilteredSalaries(data);
     }
   };
 
   return (
-    //TODO: Add sign out button and implement sign out functionality. On login, icon wil be in top right corner and when clicked will show a drop-down with signout option
     //TODO: Arrange salaries according to sector. Check skattetaten
     <>
       <SearchFilter
@@ -66,7 +60,7 @@ const AllSalaries = ({ loggedUser, setLoggedUser }: AllSalariesProps) => {
         filterSalaries={filterSalaries}
       />
       <div className="salary-box">
-        {filteredResults?.map((salary: Salary) => {
+        {data.map((salary) => {
           return (
             <div key={salary.id} className="salary-item">
               <SalaryCard
@@ -78,6 +72,7 @@ const AllSalaries = ({ loggedUser, setLoggedUser }: AllSalariesProps) => {
                     : findAverageSalary(salary.salary)
                 }
                 city={salary.city}
+                dateAdded={salary.dateAdded}
               />
             </div>
           );

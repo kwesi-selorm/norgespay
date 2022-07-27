@@ -1,40 +1,47 @@
+import { useQuery } from "@tanstack/react-query";
+import { FormEvent, useState } from "react";
 import { MdSend } from "react-icons/md";
 import { getAllSalaries, updateSalary } from "../../api/salaries";
 import { Salary } from "../../types";
 
 interface Props {
   display: string;
-  userInput: number;
   jobTitle: string;
   company: string;
   city: string;
-  setUserInput: (userInput: number) => void;
   setDisplay: (display: string) => void;
 }
 
-const RightSectionMid = ({
-  display,
-  userInput,
-  jobTitle,
-  company,
-  city,
-  setUserInput,
-  setDisplay,
-}: Props) => {
-  async function handleUpdate(e: any) {
+const RightSectionMid = ({ jobTitle, company, city, ...props }: Props) => {
+  const { data, isLoading, refetch } = useQuery(["salaries"], getAllSalaries);
+  const [userInput, setUserInput] = useState<string>("");
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  async function handleUpdate(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setDisplay("none");
-    setUserInput(0);
+    props.setDisplay("none");
+    setUserInput("");
     try {
-      const newSalary = e.target.newSalary.value,
-        salaries = await getAllSalaries(),
-        salaryToUpdate = salaries.find(
-          (s: Salary) =>
-            s.jobTitle === jobTitle && s.company === company && s.city === city
-        ),
-        id = salaryToUpdate.id;
-      await updateSalary(id, newSalary);
-      window.location.reload();
+      const salaryToUpdate = data.find(
+        (s: Salary) =>
+          s.jobTitle === jobTitle && s.company === company && s.city === city
+      );
+      const id = salaryToUpdate.id;
+      const date = new Date().toLocaleString();
+
+      salaryToUpdate.salary.push(Number(userInput)); //Add new salary to salary array
+      const updatedSalaryArray = [...salaryToUpdate.salary];
+      const updatedSalary = {
+        ...salaryToUpdate,
+        salary: updatedSalaryArray,
+        dateAdded: date,
+      };
+
+      await updateSalary(id, updatedSalary);
+      refetch();
     } catch (error) {
       window.alert("Salary update failed, please try again later.");
     }
@@ -43,27 +50,27 @@ const RightSectionMid = ({
   return (
     <form
       onSubmit={handleUpdate}
-      style={{ display: display }}
+      style={{ display: props.display }}
       className="new-salary-form"
     >
       <input
-        type="number"
+        type="text"
         name="newSalary"
         id="new-salary"
         aria-describedby="update-rule"
         onChange={({ target }: { target: { value: string } }) =>
-          setUserInput(Number(target.value))
+          setUserInput(target.value)
         }
         value={userInput}
         pattern="[0-9]+"
-        placeholder="e.g., 547000"
-        title="Update this salary only for the same job title, company, and city. Add a
+        placeholder="e.g. 547000"
+        title="Update this salary only for the same job title, company, and city. Submit a
         new salary if different"
       />
       <button
         type="submit"
         className="submit-button"
-        disabled={!userInput && true}
+        disabled={userInput === "" && true}
       >
         <MdSend />
       </button>
