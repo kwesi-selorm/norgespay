@@ -14,7 +14,9 @@ const salarySchema = new Schema({
 salarySchema.set("toJSON", {
   transform: (_document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
-    returnedObject.dateAdded = formatISO9075(returnedObject.dateAdded);
+    returnedObject.dateAdded = formatISO9075(returnedObject.dateAdded, {
+      representation: "date",
+    });
     delete returnedObject._id;
     delete returnedObject.__v;
   },
