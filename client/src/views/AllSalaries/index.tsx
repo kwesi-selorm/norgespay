@@ -9,8 +9,8 @@ import { useQuery } from "@tanstack/react-query";
 
 const AllSalaries = ({ loggedUser, setLoggedUser }: AllSalariesProps) => {
   const [filter, setFilter] = useState<string>("");
-  const [, setFilteredSalaries] = useState<Salary[]>([]);
-  const { data, isLoading, error } = useQuery(["salaries"], getAllSalaries); //data works
+  const { data, isLoading, error } = useQuery(["salaries"], getAllSalaries);
+  const [filteredSalaries, setFilteredSalaries] = useState<Salary[]>(data);
 
   useEffect(() => {
     const storedUser = window.localStorage.getItem("user");
@@ -20,7 +20,6 @@ const AllSalaries = ({ loggedUser, setLoggedUser }: AllSalariesProps) => {
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
-  //FIXME
   const filterSalaries = (e: { target: { value: string } }) => {
     const searchParam = e.target.value.toLowerCase();
 
@@ -60,7 +59,7 @@ const AllSalaries = ({ loggedUser, setLoggedUser }: AllSalariesProps) => {
         filterSalaries={filterSalaries}
       />
       <div className="salary-box">
-        {data.map((salary) => {
+        {filteredSalaries?.map((salary) => {
           return (
             <div key={salary.id} className="salary-item">
               <SalaryCard
