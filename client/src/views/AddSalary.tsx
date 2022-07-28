@@ -1,19 +1,42 @@
+import { useState } from "react";
 import { addNewSalary } from "../api/salaries";
+import Notification from "../components/Notification";
+import { useNotification } from "../hooks/useNotification";
 import "../styles/AddSalary.css";
 
 const AddSalary = () => {
-  function handleSubmit(e: any) {
+  const { display, createSuccess, createError } = useNotification();
+  const [notification, setNotification] = useState<{
+    message: string;
+    className: string;
+  }>();
+
+  async function handleSubmit(e: any) {
     const jobTitle = e.target.jobTitle.value,
       company = e.target.company.value,
       salary = e.target.salary.value,
       city = e.target.city.value;
-    const response = addNewSalary(jobTitle, company, city, salary);
-    //TODO: Add notification for if the addition of salary is successful or not.
-    console.log(response);
+
+    try {
+      await addNewSalary(jobTitle, company, city, salary);
+      const newNotification = createSuccess(
+        "Salary added/updated successfully"
+      );
+      setNotification(newNotification);
+    } catch (error) {
+      const newNotification = createError(error);
+      setNotification(newNotification);
+    }
+    // console.log(response);
   }
 
   return (
     <div className="login-signup-div">
+      <Notification
+        message={notification.message}
+        className={notification.className}
+        display={display}
+      />
       <form onSubmit={handleSubmit}>
         <h2 className="add-new-salary-heading">Add New Salary</h2>
         <label htmlFor="job-title">
