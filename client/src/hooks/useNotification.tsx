@@ -38,6 +38,19 @@ export const useNotification = () => {
    * @returns An object with two properties, message and className.
    */
   const createError = (error: any): Props => {
+    if (error.message.includes("400")) {
+      setDisplay("block");
+
+      setTimeout(() => {
+        setDisplay("none");
+      }, 5000);
+
+      return {
+        message: "Bad request, please try again later",
+        className: "error",
+      };
+    }
+
     if (error.message.includes("401")) {
       setDisplay("block");
 
