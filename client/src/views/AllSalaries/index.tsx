@@ -1,69 +1,39 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { findAverageSalary } from "../../utils/salary";
-import { AllSalariesProps, Salary } from "../../types";
+import { Salary, User } from "../../types";
 import SalaryCard from "../../components/SalaryCard";
 import "../../styles/AllSalaries.css";
 import { getAllSalaries } from "../../api/salaries";
 import SearchFilter from "./SearchFilter";
 import { useQuery } from "@tanstack/react-query";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { loggedUserState, salariesState } from "../../recoil/atoms";
+import { filteredSalariesState } from "../../recoil/selectors";
 
-const AllSalaries = ({ loggedUser, setLoggedUser }: AllSalariesProps) => {
-  const [filter, setFilter] = useState<string>("");
+const AllSalaries = () => {
+  const [, setSalaries] = useRecoilState<Salary[]>(salariesState);
+  const filteredSalaries = useRecoilValue<Salary[]>(filteredSalariesState);
+  const [, setLoggedUser] = useRecoilState<User>(loggedUserState);
   const { data, isLoading, error } = useQuery(["salaries"], getAllSalaries);
-  const [filteredSalaries, setFilteredSalaries] = useState<Salary[]>(null);
 
   useEffect(() => {
     const storedUser = window.localStorage.getItem("user");
     setLoggedUser(JSON.parse(storedUser));
-  }, [loggedUser, setLoggedUser]);
-
-  /* On page load, set the filtered salaries with the fetched data once the query is done loading, i.e., isLoading is false */
-  useEffect(() => {
-    setFilteredSalaries(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+  }, []);
+
+  useEffect(() => {
+    setSalaries(data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]); // On page load, set the filtered salaries with the fetched data once the query is done loading
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
-  const filterSalaries = (e: { target: { value: string } }) => {
-    const searchParam = e.target.value.toLowerCase();
-
-    switch (filter) {
-      case "":
-        setFilteredSalaries(data);
-        break;
-      case "jobTitle":
-        const jobResults = data.filter((s) =>
-          s.jobTitle.toLowerCase().includes(searchParam)
-        );
-        setFilteredSalaries(jobResults);
-        break;
-      case "company":
-        const companyResults = data.filter((s) =>
-          s.company.toLowerCase().includes(searchParam)
-        );
-        setFilteredSalaries(companyResults);
-        break;
-      case "city":
-        const cityResults = data.filter((s) =>
-          s.city.toLowerCase().includes(searchParam)
-        );
-        setFilteredSalaries(cityResults);
-        break;
-      default:
-        setFilteredSalaries(data);
-    }
-  };
-
   return (
     //TODO: Arrange salaries according to sector. Check skattetaten
     <>
-      <SearchFilter
-        filter={filter}
-        setFilter={setFilter}
-        filterSalaries={filterSalaries}
-      />
+      <SearchFilter />
       <div className="salary-box">
         {filteredSalaries?.map((salary) => {
           return (

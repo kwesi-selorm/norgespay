@@ -1,12 +1,14 @@
-import React from "react";
+import { useRecoilState } from "recoil";
+import { filterState, searchParamState } from "../../recoil/atoms";
 
-interface FilterProps {
-  filter: string;
-  setFilter: (value: string) => void;
-  filterSalaries: (e: { target: { value: string } }) => void;
-}
+const SearchFilter = () => {
+  const [filter, setFilter] = useRecoilState(filterState);
+  const [, setSearchParam] = useRecoilState(searchParamState);
 
-const SearchFilter = ({ filter, setFilter, filterSalaries }: FilterProps) => {
+  const filterSalaries = (e: { target: { value: string } }) => {
+    setSearchParam(e.target.value.toLowerCase());
+  };
+
   return (
     <div className="filter-box">
       <div>
