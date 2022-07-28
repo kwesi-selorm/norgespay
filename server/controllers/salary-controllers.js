@@ -58,18 +58,40 @@ async function updateSalary(req, res) {
 const addSalary = async (req, res) => {
   const { jobTitle, company, salary, city } = req.body;
   const date = new Date().toLocaleString();
+  const existingSalary = await Salary.findOne({
+    jobTitle: jobTitle,
+    company: company,
+    city: city,
+  });
+
+  //Check if salary exists first, and if it does, update only the salary field
+  if (existingSalary) {
+    existingSalary.salary.push(salary);
+    const updatedSalaryArray = [...existingSalary.salary];
+    try {
+      await Salary.findByIdAndUpdate(existingSalary._id, {
+        salary: updatedSalaryArray,
+        dateAdded: date,
+      });
+      return res.status(200).json({ success: "Salary updated" });
+    } catch (error) {
+      return res.status(400).json({ error: error.message });
+    }
+  }
+
+  //If salary does not exist, create a new one
   const newSalary = new Salary({
-    jobTitle,
+    jobTitle: jobTitle,
     salary: [salary],
-    company,
-    city,
+    company: company,
+    city: city,
     dateAdded: date,
   });
   try {
     await newSalary.save();
-    res.status(201).json(newSalary); //status: Created
+    res.status(200).json(newSalary); //status: Created
   } catch (error) {
-    res.status(409).json({ message: error.message }); //status: Conflict
+    res.status(400).json({ message: error.message }); //status: Conflict
   }
 };
 
