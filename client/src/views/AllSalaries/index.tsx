@@ -10,12 +10,18 @@ import { useQuery } from "@tanstack/react-query";
 const AllSalaries = ({ loggedUser, setLoggedUser }: AllSalariesProps) => {
   const [filter, setFilter] = useState<string>("");
   const { data, isLoading, error } = useQuery(["salaries"], getAllSalaries);
-  const [filteredSalaries, setFilteredSalaries] = useState<Salary[]>(data);
+  const [filteredSalaries, setFilteredSalaries] = useState<Salary[]>(null);
 
   useEffect(() => {
     const storedUser = window.localStorage.getItem("user");
     setLoggedUser(JSON.parse(storedUser));
   }, [loggedUser, setLoggedUser]);
+
+  /* On page load, set the filtered salaries with the fetched data once the query is done loading, i.e., isLoading is false */
+  useEffect(() => {
+    setFilteredSalaries(data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
