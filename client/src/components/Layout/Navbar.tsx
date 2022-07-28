@@ -1,11 +1,15 @@
 import { NavLink } from "react-router-dom";
-import { NavbarProps } from "../../types";
+import { useRecoilState } from "recoil";
+import { loggedUserState } from "../../recoil/atoms";
 
-const Navbar = ({ loggedUser, setLoggedUser }: NavbarProps) => {
+const Navbar = () => {
+  const [loggedUser, setLoggedUser] = useRecoilState(loggedUserState);
+
   function handleSignOut() {
     setLoggedUser(null);
     window.localStorage.clear();
   }
+
   return (
     <nav className="nav">
       <NavLink to="/" className="nav-link">
@@ -23,11 +27,11 @@ const Navbar = ({ loggedUser, setLoggedUser }: NavbarProps) => {
         Add New
       </NavLink>
 
-      {loggedUser && (
+      {loggedUser ? (
         <NavLink to="/" onClick={handleSignOut} className="nav-link">
           {`Sign out (${loggedUser.username})`}
         </NavLink>
-      )}
+      ) : null}
     </nav>
   );
 };
