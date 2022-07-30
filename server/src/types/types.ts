@@ -16,24 +16,28 @@ export type NewUser = {
   password: string;
 };
 
-export interface AddedSalary {
+export type AddedSalary = {
   jobTitle: string;
   company: string;
   city: string;
   salary: number;
   userId: string;
-}
+};
 
-export interface UpdatedSalary extends AddedSalary {
+export type UpdatedSalary = {
+  jobTitle: string;
+  company: string;
+  city: string;
+  salary: number[];
   dateAdded: string;
-}
+};
 
 export type Sector = "Oil & Gas" | "Banking" | "Insurance" | "Software & Tech";
 
 //REQUESTS
 export type UpdateSalaryRequest = {
   params: { id: unknown };
-  body: { updatedSalary: unknown };
+  body: { updatedSalary: unknown; userId: unknown };
 };
 
 export type AddSalaryRequest = {
