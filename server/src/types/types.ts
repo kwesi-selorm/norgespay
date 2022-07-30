@@ -10,6 +10,12 @@ export type DBSalary = {
 
 export type NewSalary = Omit<DBSalary, "dateAdded">;
 
+export type NewUser = {
+  email: string;
+  username: string;
+  password: string;
+};
+
 export interface AddedSalary {
   jobTitle: string;
   company: string;
@@ -33,11 +39,20 @@ export type AddSalaryRequest = {
   body: { jobTitle: unknown; company: unknown; salary: unknown; city: unknown };
 };
 
-export type LoginRequest = {
+export interface LoginRequest {
   body: { username: unknown; password: unknown };
-};
+}
 
-//Response type
+export interface SignUpRequest {
+  body: {
+    email: unknown;
+    username: unknown;
+    password: unknown;
+    confirmPassword: unknown;
+  };
+}
+
+//RESPONSE
 export type Response = {
   status: (arg0: number) => {
     (): unknown;
