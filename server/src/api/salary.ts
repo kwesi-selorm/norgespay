@@ -26,13 +26,13 @@ salaryRouter.get("/", (_req, res, next) => {
 });
 
 //GET ALL SALARIES//
-salaryRouter.get("/all", async (_req, res) => {
+salaryRouter.get("/all", async (_req, res, next) => {
   try {
     const salaries = await Salary.find({});
     res.status(200).json(salaries);
   } catch (error) {
     if (error instanceof Error) {
-      res.status(404).json({ message: error.message });
+      next(new AppError(error.message, 404));
     }
   }
 });
@@ -41,22 +41,28 @@ salaryRouter.get("/all", async (_req, res) => {
 salaryRouter.put("/:id", async (req, res, next) => {
   const result = updateSalaryParser(req, next);
   if (result) {
-    const { _id, updatedSalaryDetails } = result;
-    const { userId } = updatedSalaryDetails;
+    const { _id, updatedSalaryDetails, userId } = result;
 
-    const existingSalary = await Salary.findById(_id).populate("user");
+    const existingSalary = await Salary.findById(_id),
+      populatedExistingSalary = await existingSalary?.populate("user");
     if (existingSalary) {
-      const authorizedUserId = existingSalary.user?._id.toString();
-      if (authorizedUserId !== userId)
+      const authorizedUserId =
+        populatedExistingSalary?.user?._id.toString() as string;
+      if (authorizedUserId !== userId) {
         return next(
           new AppError(
-            "Unauthorized to update salary; users can only update salaries they add",
+            "Unauthorized to update salary; users may only update salaries that they have added",
             401
           )
         );
+      }
 
       try {
-        await Salary.findByIdAndUpdate(_id, { ...updatedSalaryDetails, _id });
+        const updatedSalary = {
+          ...updatedSalaryDetails,
+          user: existingSalary.user,
+        };
+        await Salary.findByIdAndUpdate(_id, updatedSalary);
         return res.sendStatus(200); //status: OK
       } catch (error: unknown) {
         if (error instanceof Error)
@@ -98,9 +104,7 @@ salaryRouter.post("/", async (req, res, next) => {
         await newSalary.save();
         return res.status(200).json(newSalary); //status: Created
       } catch (error) {
-        if (error instanceof Error)
-          // return res.status(400).json({ message: error.message });
-          next(new AppError(error.message, 400));
+        if (error instanceof Error) next(new AppError(error.message, 400));
       }
     }
 
@@ -120,9 +124,7 @@ salaryRouter.post("/", async (req, res, next) => {
         });
         return res.status(200).json({ success: "Salary updated" });
       } catch (error) {
-        if (error instanceof Error)
-          // return res.status(400).json({ error: error.message });
-          next(new AppError(error.message, 40));
+        if (error instanceof Error) next(new AppError(error.message, 400));
       }
     }
   }
