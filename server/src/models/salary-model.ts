@@ -9,6 +9,7 @@ const salarySchema = new Schema({
   dateAdded: { type: String, default: new Date().toLocaleDateString() },
   company: String,
   city: String,
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
 salarySchema.set("toJSON", {
