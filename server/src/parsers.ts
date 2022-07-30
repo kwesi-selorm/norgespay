@@ -35,7 +35,7 @@ export function newSalaryParser(req: AddSalaryRequest, next: NextFunction) {
   return newSalary;
 }
 
-//UPDATE SALARY INPUT
+//UPDATE SALARY INPUT//
 export function updateSalaryParser(
   req: UpdateSalaryRequest,
   next: NextFunction
@@ -53,16 +53,15 @@ export function updateSalaryParser(
   if (updatedSalaryError) {
     const errorMsgs = updatedSalaryError.details.map((m) => m.message);
     const errorMsgsString = errorMsgs.join(", ");
-    // throw new Error(errorMsgsString);
     next(new AppError(errorMsgsString, 400));
     return;
   }
   const _id: string = id;
-  const newSalary: UpdatedSalary = updatedSalary;
-  return { _id, newSalary };
+  const updatedSalaryDetails: UpdatedSalary = updatedSalary;
+  return { _id, updatedSalaryDetails };
 }
 
-//LOGIN INPUT
+//LOGIN INPUT//
 export function loginParser(req: LoginRequest, next: NextFunction) {
   const { error, value } = loginSchema.validate(req.body);
   if (error) {
