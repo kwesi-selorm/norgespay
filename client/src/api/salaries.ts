@@ -29,10 +29,13 @@ export async function addNewSalary(
 }
 
 //TODO: Salaries can only be updated by the user they were added by. Implement authentication using the userId
-export async function updateSalary(id: string, updatedSalary: Salary) {
+export async function updateSalary(
+  id: string,
+  updatedSalary: Omit<Salary, "id">
+) {
   // const userString = window.localStorage.getItem("user");
   // const user: User = JSON.parse(userString);
-  const data = { updatedSalary: updatedSalary };
+  const data = { updatedSalary };
   const config = {
     headers: {
       // Authorization: `bearer ${user.token}`,
@@ -40,5 +43,4 @@ export async function updateSalary(id: string, updatedSalary: Salary) {
     },
   };
   await api.put(`/${id}`, data, config);
-  // console.log("updatedSalary", updatedSalary);
 }

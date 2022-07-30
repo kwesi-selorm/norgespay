@@ -32,10 +32,13 @@ const RightSectionMid = ({ jobTitle, company, city, ...props }: Props) => {
       const id = salaryToUpdate.id;
       const date = new Date().toLocaleString();
 
-      salaryToUpdate.salary.push(Number(userInput)); //Add new salary to salary array
-      const updatedSalaryArray = [...salaryToUpdate.salary];
+      const updatedSalaryArray = salaryToUpdate.salary.concat(
+        Number(userInput)
+      ); //Add new salary to salary array
       const updatedSalary = {
-        ...salaryToUpdate,
+        jobTitle,
+        company,
+        city,
         salary: updatedSalaryArray,
         dateAdded: date,
       };
