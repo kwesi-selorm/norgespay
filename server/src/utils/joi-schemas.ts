@@ -5,6 +5,7 @@ export const newSalarySchema = Joi.object({
   company: Joi.string().required(),
   city: Joi.string().required(),
   salary: Joi.number().required(),
+  userId: Joi.string().required(),
 });
 
 export const idSchema = Joi.string().required();
@@ -15,6 +16,7 @@ export const updatedSalarySchema = Joi.object({
   city: Joi.string(),
   salary: Joi.array(),
   dateAdded: Joi.string(),
+  userId: Joi.string().required(),
 });
 
 export const loginSchema = Joi.object({
