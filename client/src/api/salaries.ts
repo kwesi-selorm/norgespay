@@ -35,9 +35,9 @@ export async function updateSalary(
   id: string,
   updatedSalary: Omit<Salary, "id">
 ) {
-  // const userString = window.localStorage.getItem("user");
-  // const user: User = JSON.parse(userString);
-  const data = { updatedSalary };
+  const user: User = JSON.parse(window.localStorage.getItem("user")),
+    userId = user.id,
+    data = { updatedSalary, userId };
   const config = {
     headers: {
       // Authorization: `bearer ${user.token}`,
