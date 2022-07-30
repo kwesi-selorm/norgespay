@@ -5,8 +5,8 @@ import { AppError } from "../utils/classes/AppError";
 
 const salaryRouter = express.Router();
 
-//GET HOMEPAGE SALARY
-salaryRouter.get("/", (_req, res) => {
+//GET HOMEPAGE SALARY//
+salaryRouter.get("/", (_req, res, next) => {
   const homepageSalary = new Salary({
     jobTitle: "Software Engineer",
     salary: [760000],
@@ -18,7 +18,8 @@ salaryRouter.get("/", (_req, res) => {
     res.status(200).json(homepageSalary);
   } catch (error) {
     if (error instanceof Error) {
-      res.status(404).json({ message: error.message });
+      // res.status(404).json({ message: error.message });
+      next(new AppError(error.message, 404));
     }
   }
 });
@@ -27,7 +28,7 @@ salaryRouter.get("/", (_req, res) => {
 salaryRouter.get("/all", async (_req, res) => {
   try {
     const salaries = await Salary.find({});
-    res.status(200).json(salaries); //status: OK
+    res.status(200).json(salaries);
   } catch (error) {
     if (error instanceof Error) {
       res.status(404).json({ message: error.message });
@@ -35,13 +36,13 @@ salaryRouter.get("/all", async (_req, res) => {
   }
 });
 
-//UPDATE SELECTED SALARY
+//UPDATE SELECTED SALARY//
 salaryRouter.put("/:id", async (req, res, next) => {
   const result = updateSalaryParser(req, next);
-  if (!result) return;
-  else {
+  if (result) {
     const { _id, newSalary } = result;
     //TODO: Check if user if authorized to update the salary using the user field to check id.
+    // consider authorization middleware to update the salary
     // const tokenString = req.get("authorization");
     // if (!tokenString) {
     //   return res.status(403).send("No credentials found");
@@ -55,23 +56,22 @@ salaryRouter.put("/:id", async (req, res, next) => {
     const existingSalary = await Salary.findById(_id);
     if (!existingSalary)
       // return res.status(404).json({ message: "Salary not found" });
-      return next(new AppError("Salary not found", 404)); //Bad request
+      return next(new AppError("Salary not found", 404));
     try {
       await Salary.findByIdAndUpdate(_id, { ...newSalary, _id });
       return res.sendStatus(200); //status: OK
     } catch (error: unknown) {
       if (error instanceof Error)
-        return res.status(400).json({ message: error.message }); //status: Not Found
+        return res.status(400).json({ message: error.message });
     }
   }
 });
 
-//ADD SALARY
+//ADD SALARY//
 salaryRouter.post("/", async (req, res, next) => {
   const date = new Date().toLocaleString();
   const result = newSalaryParser(req, next);
-  if (!result) return;
-  else {
+  if (result) {
     const { jobTitle, company, city, salary } = result;
     const existingSalary = await Salary.findOne({
       jobTitle: jobTitle,
@@ -94,7 +94,7 @@ salaryRouter.post("/", async (req, res, next) => {
       } catch (error) {
         if (error instanceof Error)
           // return res.status(400).json({ message: error.message });
-          next(new AppError(error.message, 400)); //status: Conflict
+          next(new AppError(error.message, 400));
       }
     }
 
