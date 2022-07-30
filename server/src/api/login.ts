@@ -8,22 +8,27 @@ import { loginParser } from "../parsers";
 
 const loginRouter = express.Router();
 
-loginRouter.post("/", async (req: LoginRequest, res) => {
-  const { username, password } = loginParser(req);
-  const user = await User.findOne({ username });
-  if (user == null) {
-    return res.status(404).send({ message: "No user found" });
+loginRouter.post("/", async (req: LoginRequest, res, next) => {
+  const result = loginParser(req, next);
+  if (result) {
+    const { username, password } = result;
+    const user = await User.findOne({ username });
+    if (user == null) {
+      return res.status(404).send({ message: "No user found" });
+    }
+    const match = await validatePassword(password, user.passwordHash);
+    if (!match) {
+      return res.status(401).send({ message: "Invalid username or password" });
+    }
+    const tokenUser = {
+      username,
+      id: user._id,
+    };
+    const token = jwt.sign(tokenUser, SECRET);
+    return res
+      .status(200)
+      .send({ token, username: user.username, id: user._id });
   }
-  const match = await validatePassword(password, user.passwordHash);
-  if (!match) {
-    return res.status(401).send({ message: "Invalid username or password" });
-  }
-  const tokenUser = {
-    username,
-    id: user._id,
-  };
-  const token = jwt.sign(tokenUser, SECRET);
-  return res.status(200).send({ token, username: user.username });
 });
 
 export default loginRouter;

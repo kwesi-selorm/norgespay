@@ -4,6 +4,8 @@ import {
   AddedSalary,
   AddSalaryRequest,
   LoginRequest,
+  NewUser,
+  SignUpRequest,
   UpdatedSalary,
   UpdateSalaryRequest,
 } from "./types/types";
@@ -11,6 +13,7 @@ import {
   idSchema,
   loginSchema,
   newSalarySchema,
+  signUpSchema,
   updatedSalarySchema,
 } from "./utils/joi-schemas";
 
@@ -60,10 +63,27 @@ export function updateSalaryParser(
 }
 
 //LOGIN INPUT
-export function loginParser(req: LoginRequest) {
+export function loginParser(req: LoginRequest, next: NextFunction) {
   const { error, value } = loginSchema.validate(req.body);
-  if (error) throw new Error(error.details[0].message);
+  if (error) {
+    next(new Error(error.details[0].message));
+    return;
+  }
   const username: string = value.username;
   const password: string = value.password;
   return { username, password };
+}
+
+//SIGNUP INPUT
+export function signupParser(req: SignUpRequest, next: NextFunction) {
+  const { error, value } = signUpSchema.validate(req.body, {
+    abortEarly: false,
+  });
+  if (error) {
+    const errorMsgs = error.details.map((m) => m.message);
+    const errorMsgsString = errorMsgs.join(", ");
+    next(new AppError(errorMsgsString, 400));
+    return;
+  }
+  return value as NewUser;
 }
