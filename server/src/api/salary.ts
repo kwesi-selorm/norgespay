@@ -1,6 +1,7 @@
 import express from "express";
 import Salary from "../models/salary-model";
 import { newSalaryParser, updateSalaryParser } from "../parsers";
+import { AppError } from "../utils/classes/AppError";
 
 const salaryRouter = express.Router();
 
@@ -35,74 +36,89 @@ salaryRouter.get("/all", async (_req, res) => {
 });
 
 //UPDATE SELECTED SALARY
-salaryRouter.put("/:id", async (req, res) => {
-  const { _id, newSalary } = updateSalaryParser(req);
+salaryRouter.put("/:id", async (req, res, next) => {
+  const result = updateSalaryParser(req, next);
+  if (!result) return;
+  else {
+    const { _id, newSalary } = result;
+    //TODO: Check if user if authorized to update the salary using the user field to check id.
+    // const tokenString = req.get("authorization");
+    // if (!tokenString) {
+    //   return res.status(403).send("No credentials found");
+    // }
+    // const token = tokenString.slice(7);
+    // const user = jwt.verify(token, SECRET);
+    // if (!user) {
+    //   return res.status(403).json({ message: "Error: user not found" });
+    // }
 
-  //TODO: Check if user if authorized to update the salary using the user field to check id.
-  // const tokenString = req.get("authorization");
-  // if (!tokenString) {
-  //   return res.status(403).send("No credentials found");
-  // }
-  // const token = tokenString.slice(7);
-  // const user = jwt.verify(token, SECRET);
-  // if (!user) {
-  //   return res.status(403).json({ message: "Error: user not found" });
-  // }
-
-  const existingSalary = await Salary.findById(_id);
-  if (!existingSalary)
-    return res.status(404).json({ message: "Salary not found" }); //Bad request
-
-  try {
-    await Salary.findByIdAndUpdate(_id, { ...newSalary, _id: _id });
-    return res.sendStatus(200); //status: OK
-  } catch (error: unknown) {
-    if (error instanceof Error)
-      return res.status(400).json({ message: error.message }); //status: Not Found
+    const existingSalary = await Salary.findById(_id);
+    if (!existingSalary)
+      // return res.status(404).json({ message: "Salary not found" });
+      return next(new AppError("Salary not found", 404)); //Bad request
+    try {
+      await Salary.findByIdAndUpdate(_id, { ...newSalary, _id });
+      return res.sendStatus(200); //status: OK
+    } catch (error: unknown) {
+      if (error instanceof Error)
+        return res.status(400).json({ message: error.message }); //status: Not Found
+    }
   }
 });
 
 //ADD SALARY
-salaryRouter.post("/", async (req, res) => {
+salaryRouter.post("/", async (req, res, next) => {
   const date = new Date().toLocaleString();
-  const { jobTitle, company, city, salary } = newSalaryParser(req);
+  const result = newSalaryParser(req, next);
+  if (!result) return;
+  else {
+    const { jobTitle, company, city, salary } = result;
+    const existingSalary = await Salary.findOne({
+      jobTitle: jobTitle,
+      company: company,
+      city: city,
+    });
 
-  const existingSalary = await Salary.findOne({
-    jobTitle: jobTitle,
-    company: company,
-    city: city,
-  });
-
-  //Check if salary exists first, and if it does, update only the salary field
-  if (existingSalary) {
-    existingSalary.salary.push(salary);
-    const updatedSalaryArray = [...existingSalary.salary];
-    try {
-      await Salary.findByIdAndUpdate(existingSalary._id, {
-        salary: updatedSalaryArray,
+    //DOES NOT EXIST
+    if (!existingSalary) {
+      const newSalary = new Salary({
+        jobTitle: jobTitle,
+        salary: [salary],
+        company: company,
+        city: city,
         dateAdded: date,
       });
-      return res.status(200).json({ success: "Salary updated" });
-    } catch (error) {
-      if (error instanceof Error)
-        return res.status(400).json({ error: error.message });
+      try {
+        await newSalary.save();
+        return res.status(200).json(newSalary); //status: Created
+      } catch (error) {
+        if (error instanceof Error)
+          // return res.status(400).json({ message: error.message });
+          next(new AppError(error.message, 400)); //status: Conflict
+      }
     }
-  }
 
-  //if salary does not exist, create a new one
-  const newSalary = new Salary({
-    jobTitle: jobTitle,
-    salary: [salary],
-    company: company,
-    city: city,
-    dateAdded: date,
-  });
-  try {
-    await newSalary.save();
-    res.status(200).json(newSalary); //status: Created
-  } catch (error) {
-    if (error instanceof Error)
-      res.status(400).json({ message: error.message }); //status: Conflict
+    //EXISTS & INCLUDES ADDED SALARY
+    if (existingSalary && existingSalary.salary.includes(salary)) {
+      next(new AppError("Salary already exists", 401));
+    }
+
+    //EXISTS BUT DOES NOT INCLUDE ADDED SALARY
+    if (existingSalary && !existingSalary.salary.includes(salary)) {
+      existingSalary.salary.push(salary);
+      const updatedSalaryArray = [...existingSalary.salary];
+      try {
+        await Salary.findByIdAndUpdate(existingSalary._id, {
+          salary: updatedSalaryArray,
+          dateAdded: date,
+        });
+        return res.status(200).json({ success: "Salary updated" });
+      } catch (error) {
+        if (error instanceof Error)
+          // return res.status(400).json({ error: error.message });
+          next(new AppError(error.message, 40));
+      }
+    }
   }
 });
 
