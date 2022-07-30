@@ -1,7 +1,7 @@
 import axios from "axios";
-import { Salary } from "../types";
+import { Salary, User } from "../types";
 
-/* Creating an axios instance with a baseURL of /api/salaries. */
+//AXIOS INSTANCE WITH BASEURL "/api/salaries"//
 export const api = axios.create({
   baseURL: "/api/salaries",
 });
@@ -22,9 +22,11 @@ export async function addNewSalary(
   city: string,
   salary: number
 ) {
-  const data = { jobTitle, company, city, salary },
-    config = { headers: { "Content-Type": "application/json" } };
-  const response = await api.post("/", data, config);
+  const user: User = JSON.parse(window.localStorage.getItem("user")),
+    userId = user.id,
+    data = { jobTitle, company, city, salary, userId };
+  const config = { headers: { "Content-Type": "application/json" } },
+    response = await api.post("/", data, config);
   return response.data;
 }
 
