@@ -21,6 +21,7 @@ export interface AddedSalary {
   company: string;
   city: string;
   salary: number;
+  userId: string;
 }
 
 export interface UpdatedSalary extends AddedSalary {
