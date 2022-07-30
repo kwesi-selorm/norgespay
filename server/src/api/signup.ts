@@ -1,11 +1,11 @@
 import express from "express";
 
-const userRouter = express.Router();
+const signupRouter = express.Router();
 import User from "../models/user-model";
 import { generatePassword } from "../fns/password-fns";
 
 //SIGNUP
-userRouter.post("/", async (req, res) => {
+signupRouter.post("/", async (req, res) => {
   const { email, username, password } = req.body;
   const exists =
     (await User.exists({ email: email })) ||
@@ -24,4 +24,4 @@ userRouter.post("/", async (req, res) => {
   }
 });
 
-export default userRouter;
+export default signupRouter;

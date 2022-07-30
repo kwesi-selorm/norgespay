@@ -10,9 +10,9 @@ import MongoStore from "connect-mongo"; //create store for storing sessions in d
 
 import { corsOptions, MONGO_URI } from "./src/utils/config";
 import salaryRouter from "./src/api/salary";
-import userRouter from "./src/api/user";
 import loginRouter from "./src/api/login";
 import { PORT } from "./src/utils/config";
+import signupRouter from "./src/api/signup";
 
 // Set up database connection. The mongoose options help to avoid errors. The monogoose connection returns a promise hence .then and .catch are used to handle errors.
 mongoose
@@ -48,7 +48,7 @@ app.use(session(sessionOptions)); //Ensure persistent user login
 //Routes. Inserted after all other middleware except the error handlers
 app.use("/api/login", loginRouter);
 app.use("/api/salaries", salaryRouter);
-app.use("/api/signup", userRouter);
+app.use("/api/signup", signupRouter);
 
 //Error handler. To be improved
 app.use(
