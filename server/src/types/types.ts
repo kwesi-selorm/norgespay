@@ -10,12 +10,16 @@ export type DBSalary = {
 
 export type NewSalary = Omit<DBSalary, "dateAdded">;
 
-export type AddedSalary = {
+export interface AddedSalary {
   jobTitle: string;
   company: string;
   city: string;
   salary: number;
-};
+}
+
+export interface UpdatedSalary extends AddedSalary {
+  dateAdded: string;
+}
 
 export type Sector = "Oil & Gas" | "Banking" | "Insurance" | "Software & Tech";
 
