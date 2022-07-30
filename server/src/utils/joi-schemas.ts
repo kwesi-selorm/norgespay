@@ -21,3 +21,10 @@ export const loginSchema = Joi.object({
   username: Joi.string().required(),
   password: Joi.string().required(),
 });
+
+export const signUpSchema = Joi.object({
+  email: Joi.string().email().required(),
+  username: Joi.string().min(3).required(),
+  password: Joi.string().min(6).required(),
+  confirmPassword: Joi.ref("password"),
+});
