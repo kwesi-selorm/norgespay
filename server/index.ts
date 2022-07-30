@@ -50,6 +50,19 @@ app.use("/api/login", loginRouter);
 app.use("/api/salaries", salaryRouter);
 app.use("/api/signup", userRouter);
 
+//Error handler. To be improved
+app.use(
+  (
+    err: { message: string; status: number },
+    _req: any,
+    res: any,
+    _next: any
+  ) => {
+    const { status = 500, message = "Something went wrong" } = err;
+    res.status(status).json({ message: message });
+  }
+);
+
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
