@@ -1,18 +1,15 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { submitLoginDetails } from "../../api/login";
 import Notification from "../../components/Notification";
 import "../../styles/LoginSignup.css";
-
 import { LoginProps } from "../../types";
 import { useNotification } from "../../hooks/useNotification";
+import { useRecoilState } from "recoil";
+import { notificationState } from "../../recoil/atoms";
 
 const LoginPage = (props: LoginProps) => {
   const { display, createSuccess, createError } = useNotification();
-  const [notification, setNotification] = useState<{
-    message: string;
-    className: string;
-  }>();
+  const [notification, setNotification] = useRecoilState(notificationState);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
