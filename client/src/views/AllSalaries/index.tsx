@@ -1,20 +1,28 @@
 import { useEffect } from "react";
 import { findAverageSalary } from "../../fns/salary";
-import { Salary, User } from "../../types";
+import { Salary, User, NewNotification } from "../../types";
 import SalaryCard from "../../components/SalaryCard";
 import "../../styles/AllSalaries.css";
 import { getAllSalaries } from "../../api/salaries";
 import SearchFilter from "./SearchFilter";
 import { useQuery } from "@tanstack/react-query";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { loggedUserState, salariesState } from "../../recoil/atoms";
+import {
+  displayState,
+  loggedUserState,
+  notificationState,
+  salariesState,
+} from "../../recoil/atoms";
 import { filteredSalariesState } from "../../recoil/selectors";
+import Notification from "../../components/Notification";
 
 const AllSalaries = () => {
-  const [, setSalaries] = useRecoilState<Salary[]>(salariesState);
-  const filteredSalaries = useRecoilValue<Salary[]>(filteredSalariesState);
-  const [, setLoggedUser] = useRecoilState<User>(loggedUserState);
-  const { data, isLoading, error } = useQuery(["salaries"], getAllSalaries, {});
+  const [, setSalaries] = useRecoilState<Salary[]>(salariesState),
+    filteredSalaries = useRecoilValue<Salary[]>(filteredSalariesState),
+    [, setLoggedUser] = useRecoilState<User>(loggedUserState),
+    { data, isLoading, error } = useQuery(["salaries"], getAllSalaries, {}),
+    { message, className } = useRecoilValue<NewNotification>(notificationState),
+    display = useRecoilValue(displayState);
 
   useEffect(() => {
     const storedUser = window.localStorage.getItem("user");
@@ -25,7 +33,7 @@ const AllSalaries = () => {
   useEffect(() => {
     setSalaries(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]); // On page load, set the filtered salaries with the fetched data once the query is done loading
+  }, [isLoading, data]); // On page load, set the filtered salaries with the fetched data once the query is done loading
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
@@ -34,6 +42,7 @@ const AllSalaries = () => {
     //TODO: Arrange salaries according to sector. Check skattetaten
     <>
       <SearchFilter />
+      <Notification display={display} message={message} className={className} />
       <div className="salary-box">
         {filteredSalaries?.map((salary) => {
           return (
