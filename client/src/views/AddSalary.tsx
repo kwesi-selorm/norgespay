@@ -1,16 +1,18 @@
 import { useState } from "react";
+import { useRecoilState } from "recoil";
 import { addNewSalary } from "../api/salaries";
 import Notification from "../components/Notification";
 import { useNotification } from "../hooks/useNotification";
+import { notificationState } from "../recoil/atoms";
 import "../styles/AddSalary.css";
 import { NewSalaryInputs, NewNotification } from "../types";
-import { initialInputs, initialNotification } from "../utils/constants";
+import { initialInputs } from "../utils/constants";
 
 const AddSalary = () => {
   const { display, createSuccess, createError } = useNotification(),
     [inputValues, setInputValues] = useState<NewSalaryInputs>(initialInputs),
     [notification, setNotification] =
-      useState<NewNotification>(initialNotification);
+      useRecoilState<NewNotification>(notificationState);
 
   async function handleSubmit(e: any) {
     e.preventDefault();
