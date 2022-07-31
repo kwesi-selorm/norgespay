@@ -17,14 +17,14 @@ export async function getAllSalaries(): Promise<Salary[]> {
 }
 
 export async function addNewSalary(
-  jobTitle: string,
-  company: string,
-  city: string,
-  salary: number
+  jobTitle: unknown,
+  company: unknown,
+  city: unknown,
+  salary: unknown
 ) {
   const user: User = JSON.parse(window.localStorage.getItem("user")),
     userId = user.id,
-    data = { jobTitle, company, city, salary, userId };
+    data = { jobTitle, company, city, salary: Number(salary), userId };
   const config = { headers: { "Content-Type": "application/json" } },
     response = await api.post("/", data, config);
   return response.data;
