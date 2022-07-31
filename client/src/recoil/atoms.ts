@@ -3,7 +3,7 @@ import { Salary, User } from "../types";
 
 export const loggedUserState = atom<User>({
   key: "loggedUserState",
-  default: null,
+  default: JSON.parse(window.localStorage.getItem("user")),
 });
 
 export const salariesState = atom<Salary[]>({
