@@ -1,6 +1,6 @@
 @import "./globals.css";
 
-.salary-mark {
+.hp-salary-mark {
   background-color: var(--blue);
   color: var(--off-white);
   padding: 0.5em;
@@ -10,10 +10,10 @@
   margin: 0;
 }
 
-.salary-card {
-  align-items: flex-start;
-  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.1);
+.hp-salary-card {
   display: flex;
+  align-items: center;
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.1);
   flex-direction: row;
   gap: 1em;
 
@@ -26,13 +26,19 @@
   width: max-content;
 }
 
-.salary-right-section {
+.hp-job-title,
+.hp-company {
+  margin: 0;
+}
+
+.hp-salary-right-section {
   display: flex;
   flex-direction: row;
 }
 
-.home-salary {
+.hp-home-salary {
   font-size: 1.1rem;
+  margin: auto;
   padding: 2px 5px;
   text-align: center;
 }

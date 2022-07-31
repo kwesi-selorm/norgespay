@@ -1,16 +1,19 @@
 @import "./globals.css";
 
+html {
+  width: 100%;
+}
+
 /* Navbar */
 .nav {
-  background-color: var(--blue);
-  padding-block: 0.5em 1em;
-  padding-inline: 10em;
-  width: 100%;
-
   display: flex;
   align-items: center;
+  background-color: var(--blue);
   gap: 2em;
   justify-content: center;
+  padding-block: 0.5em 1em;
+  padding-inline: 10em;
+  width: 100vw;
 }
 
 .nav-link {
@@ -39,7 +42,7 @@
   font-weight: 500;
   height: 5vh;
   margin-top: 20em;
-  width: 100%;
+  width: 100vw;
 
   display: flex;
   align-items: center;

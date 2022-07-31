@@ -42,7 +42,7 @@ input {
 
 @media screen and (max-width: 1200px) {
   .login-signup-div {
-    margin: 20% auto;
+    margin: 10% auto;
     min-width: 65%;
   }
 }

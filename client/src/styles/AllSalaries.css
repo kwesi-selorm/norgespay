@@ -1,5 +1,9 @@
+html {
+  width: 100vw;
+}
+
 body {
-  width: 100%;
+  width: 100vw;
 }
 
 .filter-box {
@@ -13,18 +17,22 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 5px;
-  justify-content: center;
+  justify-content: space-between;
   margin-inline: auto;
-  width: 70%;
+  width: 80%;
 }
 
 .salary-item {
-  /* flex: 1; */
-  margin: 0.2em 0;
-  min-width: 400px;
+  width: 23em;
 }
 
 .searchBar {
   margin: 1rem auto 2rem;
   width: 40%;
+}
+
+@media (max-width: 1150px) {
+  .salary-item {
+    flex: 1;
+  }
 }
