@@ -3,22 +3,25 @@ import { addNewSalary } from "../api/salaries";
 import Notification from "../components/Notification";
 import { useNotification } from "../hooks/useNotification";
 import "../styles/AddSalary.css";
+import { NewSalaryInputs, NewNotification } from "../types";
+import { initialInputs, initialNotification } from "../utils/constants";
 
 const AddSalary = () => {
-  const { display, createSuccess, createError } = useNotification();
-  const [notification, setNotification] = useState<{
-    message: string;
-    className: string;
-  }>();
+  const { display, createSuccess, createError } = useNotification(),
+    [inputValues, setInputValues] = useState<NewSalaryInputs>(initialInputs),
+    [notification, setNotification] =
+      useState<NewNotification>(initialNotification);
 
   async function handleSubmit(e: any) {
-    const jobTitle = e.target.jobTitle.value,
-      company = e.target.company.value,
-      salary = e.target.salary.value,
-      city = e.target.city.value;
+    e.preventDefault();
 
     try {
-      await addNewSalary(jobTitle, company, city, salary);
+      await addNewSalary(
+        inputValues.jobTitle,
+        inputValues.company,
+        inputValues.city,
+        inputValues.salary
+      );
       const newNotification = createSuccess(
         "Salary added/updated successfully"
       );
@@ -27,7 +30,6 @@ const AddSalary = () => {
       const newNotification = createError(error);
       setNotification(newNotification);
     }
-    // console.log(response);
   }
 
   return (
@@ -44,9 +46,20 @@ const AddSalary = () => {
         </label>
         <input
           type="text"
-          name="jobTitle"
-          id="jobTitle"
+          name="job-title"
+          value={inputValues.jobTitle}
+          onChange={({ target }) =>
+            setInputValues({ ...inputValues, jobTitle: target.value })
+          }
           placeholder="e.g., Application Tester"
+          /* 
+          A RegExp that matches any string that contains only letters and single spaces. First character/word and following (0 or more) words with spaces between them. Same as ^\w+( \w+)*$.
+          ^ and $ indicate the start and end of the string, + indicates 1 or more, * indicates 0 or more.
+          A less strict pattern will be ^[a-zA-Z ]+$. 
+          To allow numbers, underscores and hyphens ^[a-zA-Z0-9_-]+$
+          */
+          pattern="^[a-zA-Z]+( [a-zA-Z]+)*$"
+          title="Job title must be a string"
           required
         />
         <label htmlFor="company">
@@ -55,18 +68,28 @@ const AddSalary = () => {
         <input
           type="text"
           name="company"
-          id="company"
+          value={inputValues.company}
+          onChange={({ target }) =>
+            setInputValues({ ...inputValues, company: target.value })
+          }
           placeholder="e.g., Viking Tech"
+          pattern="^[a-zA-Z]+( [a-zA-Z]+)*$"
+          title="Company must be a string"
           required
         />
         <label htmlFor="salary">
           Annual Salary (NOK) <span className="required-asterisk">*</span>
         </label>
         <input
-          type="number"
+          type="text"
           name="salary"
-          id="salary"
+          value={inputValues.salary}
+          onChange={({ target }) =>
+            setInputValues({ ...inputValues, salary: Number(target.value) })
+          }
           placeholder="e.g., 680000"
+          pattern="^([0-9]+){5,}"
+          title="Salary must be a number"
           required
         />
         <label htmlFor="city">
@@ -75,8 +98,13 @@ const AddSalary = () => {
         <input
           type="text"
           name="city"
-          id="city"
+          value={inputValues.city}
+          onChange={({ target }) =>
+            setInputValues({ ...inputValues, city: target.value })
+          }
           placeholder="e.g., Trondheim"
+          pattern="^[a-zA-Z]+( [a-zA-Z]+)*$"
+          title="City must be a string"
           required
         />
         <button className="login-signup-button" type="submit">
