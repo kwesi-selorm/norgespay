@@ -26,3 +26,15 @@ export interface LoginProps {
   user: User;
   setUser: (user: User) => void;
 }
+
+export type NewSalaryInputs = {
+  jobTitle: string;
+  company: string;
+  salary: number;
+  city: string;
+};
+
+export type NewNotification = {
+  message: string;
+  className: string;
+};
