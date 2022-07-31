@@ -17,3 +17,13 @@ export const searchParamState = atom<string>({
   key: "searchParamState",
   default: "",
 });
+
+export const notificationState = atom({
+  key: "notificationState",
+  default: { message: "", className: "" },
+});
+
+export const displayState = atom<string>({
+  key: "displayState",
+  default: "none",
+});
