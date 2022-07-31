@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
+import { displayState } from "../recoil/atoms";
 
 interface Props {
   message: string;
@@ -8,14 +9,9 @@ interface Props {
 
 export const useNotification = () => {
   const navigate = useNavigate();
-  const [display, setDisplay] = useState("");
+  const [display, setDisplay] = useRecoilState(displayState);
 
-  /**
-   * CreateSuccess is a function that takes a string and returns an object with two properties, message
-   * and className.
-   * @param {string} message - string - The message to display
-   * @returns An object with two properties.
-   */
+  ///CREATE SUCCESS FUNCTION///
   const createSuccess = (message: string): Props => {
     setDisplay("block");
 
@@ -30,13 +26,7 @@ export const useNotification = () => {
     };
   };
 
-  /**
-   * If the error message includes "401" then set the display to "block" and after 5 seconds set the
-   * display to "none". If the error message includes "404" then set the display to "block" and after 5
-   * seconds set the display to "none" and navigate to the signup page.
-   * @param {any} error - any -&gt; this is the error object that is returned from the API
-   * @returns An object with two properties, message and className.
-   */
+  ///CREATE ERROR FUNCTION///
   const createError = (error: any): Props => {
     if (error.message.includes("400")) {
       setDisplay("block");
