@@ -3,16 +3,16 @@ import { SalaryCardProps } from "../types";
 
 const SalaryCard = ({ jobTitle, company, salary, city }: SalaryCardProps) => {
   return (
-    <article className="salary-card summary">
-      <div className="salary-left-section">
-        <h3 className="job-title">{jobTitle}</h3>
-        <p className="company">
+    <article className="hp-salary-card">
+      <div className="hp-salary-left-section">
+        <h3 className="hp-job-title">{jobTitle}</h3>
+        <p className="hp-company">
           {company}, <i>{city}</i>
         </p>
       </div>
-      <div className="salary-right-section">
-        <mark className="salary-mark">
-          <h4 className="home-salary">{salary.toLocaleString()} kr</h4>
+      <div className="hp-salary-right-section">
+        <mark className="hp-salary-mark">
+          <h4 className="hp-home-salary">{salary.toLocaleString()} kr</h4>
         </mark>
       </div>
     </article>
