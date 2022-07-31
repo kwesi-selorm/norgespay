@@ -13,7 +13,7 @@ const SalaryCard = ({ jobTitle, company, city, ...props }: SalaryCardProps) => {
     [, setUserInput] = useState<number>(0);
 
   return (
-    <article className="salary-card summary">
+    <div className="salary-card">
       <LeftSection jobTitle={jobTitle} company={company} city={city} />
       <div className="salary-right-section">
         <RightSectionTop
@@ -31,7 +31,7 @@ const SalaryCard = ({ jobTitle, company, city, ...props }: SalaryCardProps) => {
         />
         <RightSectionBottom dateAdded={props.dateAdded} />
       </div>
-    </article>
+    </div>
   );
 };
 
