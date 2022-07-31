@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { findAverageSalary } from "../../utils/salary";
+import { findAverageSalary } from "../../fns/salary";
 import { Salary, User } from "../../types";
 import SalaryCard from "../../components/SalaryCard";
 import "../../styles/AllSalaries.css";
@@ -14,11 +14,7 @@ const AllSalaries = () => {
   const [, setSalaries] = useRecoilState<Salary[]>(salariesState);
   const filteredSalaries = useRecoilValue<Salary[]>(filteredSalariesState);
   const [, setLoggedUser] = useRecoilState<User>(loggedUserState);
-  const { data, isLoading, error } = useQuery(["salaries"], getAllSalaries, {
-    onSuccess: () => {
-      setSalaries(data);
-    },
-  });
+  const { data, isLoading, error } = useQuery(["salaries"], getAllSalaries, {});
 
   useEffect(() => {
     const storedUser = window.localStorage.getItem("user");
@@ -26,10 +22,10 @@ const AllSalaries = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // useEffect(() => {
-  //   setSalaries(data);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isLoading]); // On page load, set the filtered salaries with the fetched data once the query is done loading
+  useEffect(() => {
+    setSalaries(data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]); // On page load, set the filtered salaries with the fetched data once the query is done loading
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
