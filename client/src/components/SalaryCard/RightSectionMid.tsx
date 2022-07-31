@@ -1,7 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { FormEvent, useState } from "react";
 import { MdSend } from "react-icons/md";
+import { useRecoilState } from "recoil";
 import { getAllSalaries, updateSalary } from "../../api/salaries";
+import { useNotification } from "../../hooks/useNotification";
+import { notificationState } from "../../recoil/atoms";
 import { Salary } from "../../types";
 
 interface Props {
@@ -13,8 +16,11 @@ interface Props {
 }
 
 const RightSectionMid = ({ jobTitle, company, city, ...props }: Props) => {
-  const { data, isLoading, refetch } = useQuery(["salaries"], getAllSalaries);
+  const { data, isLoading } = useQuery(["salaries"], getAllSalaries);
   const [userInput, setUserInput] = useState<string>("");
+  const { createSuccess } = useNotification();
+  const [, setNotification] = useRecoilState(notificationState);
+  const queryClient = useQueryClient();
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -24,29 +30,33 @@ const RightSectionMid = ({ jobTitle, company, city, ...props }: Props) => {
     e.preventDefault();
     props.setDisplay("none");
     setUserInput("");
+    const salaryToUpdate = data.find(
+      (s: Salary) =>
+        s.jobTitle === jobTitle && s.company === company && s.city === city
+    );
+    const id = salaryToUpdate.id;
+    const date = new Date().toLocaleString();
+
+    const updatedSalaryArray = salaryToUpdate.salary.concat(Number(userInput)); //Add new salary to salary array
+    const updatedSalary = {
+      jobTitle,
+      company,
+      city,
+      salary: updatedSalaryArray,
+      dateAdded: date,
+    };
+
     try {
-      const salaryToUpdate = data.find(
-        (s: Salary) =>
-          s.jobTitle === jobTitle && s.company === company && s.city === city
-      );
-      const id = salaryToUpdate.id;
-      const date = new Date().toLocaleString();
-
-      const updatedSalaryArray = salaryToUpdate.salary.concat(
-        Number(userInput)
-      ); //Add new salary to salary array
-      const updatedSalary = {
-        jobTitle,
-        company,
-        city,
-        salary: updatedSalaryArray,
-        dateAdded: date,
-      };
-
       await updateSalary(id, updatedSalary);
-      refetch();
+      const newNotification = createSuccess("Salary updated successfully");
+      setNotification(newNotification);
+      queryClient.invalidateQueries(["salaries"]);
     } catch (error) {
-      window.alert("Salary update failed, please try again later.");
+      if (error instanceof Error) {
+        window.alert(
+          `Salary update failed, please try again later: ${error.message}`
+        );
+      }
     }
   }
 
@@ -65,7 +75,7 @@ const RightSectionMid = ({ jobTitle, company, city, ...props }: Props) => {
           setUserInput(target.value)
         }
         value={userInput}
-        pattern="[0-9]+"
+        pattern="^([0-9]+){5,}$"
         placeholder="e.g. 547000"
         title="Update this salary only for the same job title, company, and city. Submit a
         new salary if different"
