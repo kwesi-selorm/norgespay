@@ -8,8 +8,9 @@ const LeftSection = ({ jobTitle, company, city }: Props) => {
   return (
     <div className="salary-left-section">
       <h3 className="job-title">{jobTitle}</h3>
-      <p className="company">
-        {company}, <i>{city}</i>
+      <p className="company">{company}</p>
+      <p>
+        <i>{city}</i>
       </p>
     </div>
   );
