@@ -8,14 +8,15 @@ export type Salary = {
   sector?: string;
 };
 
-export interface SalaryCardProps {
+export type SalaryCardProps = {
   jobTitle: string;
   company: string;
   salary: number;
   city: string;
+  sector?: string;
   id?: string;
   dateAdded?: string;
-}
+};
 
 export interface User {
   username: string;
@@ -31,8 +32,9 @@ export interface LoginProps {
 export type NewSalaryInputs = {
   jobTitle: string;
   company: string;
-  salary: number;
+  salary: string;
   city: string;
+  sector: string;
 };
 
 export type NewNotification = {
