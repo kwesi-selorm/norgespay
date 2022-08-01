@@ -53,12 +53,12 @@ const AllSalaries = () => {
       <SearchFilter />
       <Notification display={display} message={message} className={className} />
 
-      {groupedSalaries?.map((s) => {
+      {groupedSalaries?.map((group) => {
         return (
-          <div key={s.sector} className="sector-item">
-            <Sector sector={s.sector} />
+          <section key={group.sector} className="sector-item">
+            <Sector sector={group.sector} />
             <div className="salary-box">
-              {s.salaries?.map((salary) => {
+              {group.salaries?.map((salary) => {
                 return (
                   <div key={salary.id} className="salary-item">
                     <SalaryCard
@@ -71,12 +71,13 @@ const AllSalaries = () => {
                       }
                       city={salary.city}
                       dateAdded={salary.dateAdded}
+                      sector={salary.sector}
                     />
                   </div>
                 );
               })}
             </div>
-          </div>
+          </section>
         );
       })}
     </>
