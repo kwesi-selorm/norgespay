@@ -12,12 +12,16 @@ body {
   margin-top: 2em;
 }
 
+.sector-item {
+  margin-bottom: 3rem;
+}
+
 .salary-box {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 5px;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-inline: auto;
   width: 80%;
 }
