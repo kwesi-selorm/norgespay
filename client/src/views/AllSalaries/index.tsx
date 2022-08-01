@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { findAverageSalary } from "../../fns/salary-fns";
-import { Salary, User, NewNotification } from "../../utils/types";
+import {
+  Salary,
+  User,
+  NewNotification,
+  GroupedSalaries,
+} from "../../utils/types";
 import SalaryCard from "../../components/SalaryCard";
 import "../../styles/AllSalaries.css";
 import { getAllSalaries } from "../../api/salaries";
@@ -13,16 +18,21 @@ import {
   notificationState,
   salariesState,
 } from "../../recoil/atoms";
-import { filteredSalariesState } from "../../recoil/selectors";
+import { groupedSalariesState } from "../../recoil/selectors";
 import Notification from "../../components/Notification";
+import Sector from "../../components/Sector";
 
 const AllSalaries = () => {
-  const [, setSalaries] = useRecoilState<Salary[]>(salariesState),
-    filteredSalaries = useRecoilValue<Salary[]>(filteredSalariesState),
-    [, setLoggedUser] = useRecoilState<User>(loggedUserState),
-    { data, isLoading, error } = useQuery(["salaries"], getAllSalaries),
-    { message, className } = useRecoilValue<NewNotification>(notificationState),
-    display = useRecoilValue(displayState);
+  const [, setSalaries] = useRecoilState<Salary[]>(salariesState);
+  const [, setLoggedUser] = useRecoilState<User>(loggedUserState);
+  const { data, isLoading, error } = useQuery(["salaries"], getAllSalaries, {
+    refetchOnMount: true,
+  });
+  const { message, className } =
+    useRecoilValue<NewNotification>(notificationState);
+  const groupedSalaries =
+    useRecoilValue<GroupedSalaries[]>(groupedSalariesState);
+  const display = useRecoilValue(displayState);
 
   useEffect(() => {
     const storedUser = window.localStorage.getItem("user");
@@ -32,8 +42,6 @@ const AllSalaries = () => {
 
   useEffect(() => {
     setSalaries(data);
-    //Create salary groupings based on sector
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, data]); // On page load, set the filtered salaries with the fetched data once the query is done loading
 
@@ -41,29 +49,36 @@ const AllSalaries = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    //TODO: Arrange salaries according to sector. Check skattetaten
     <>
       <SearchFilter />
       <Notification display={display} message={message} className={className} />
-      <div className="salary-box">
-        {filteredSalaries?.map((salary) => {
-          return (
-            <div key={salary.id} className="salary-item">
-              <SalaryCard
-                jobTitle={salary.jobTitle}
-                company={salary.company}
-                salary={
-                  salary.salary.length === 1
-                    ? salary.salary[0]
-                    : findAverageSalary(salary.salary)
-                }
-                city={salary.city}
-                dateAdded={salary.dateAdded}
-              />
+
+      {groupedSalaries?.map((s) => {
+        return (
+          <div key={s.sector} className="sector-item">
+            <Sector sector={s.sector} />
+            <div className="salary-box">
+              {s.salaries?.map((salary) => {
+                return (
+                  <div key={salary.id} className="salary-item">
+                    <SalaryCard
+                      jobTitle={salary.jobTitle}
+                      company={salary.company}
+                      salary={
+                        salary.salary.length === 1
+                          ? salary.salary[0]
+                          : findAverageSalary(salary.salary)
+                      }
+                      city={salary.city}
+                      dateAdded={salary.dateAdded}
+                    />
+                  </div>
+                );
+              })}
             </div>
-          );
-        })}
-      </div>
+          </div>
+        );
+      })}
     </>
   );
 };
