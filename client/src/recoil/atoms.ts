@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+import { sectors } from "../utils/constants";
 import { Salary, User } from "../utils/types";
 
 export const loggedUserState = atom<User>({
@@ -26,4 +27,9 @@ export const notificationState = atom({
 export const displayState = atom<string>({
   key: "displayState",
   default: "none",
+});
+
+export const sectorsState = atom<Object[]>({
+  key: "sectorsState",
+  default: sectors,
 });
