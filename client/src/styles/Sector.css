@@ -4,7 +4,7 @@
 }
 
 .sector-heading {
-  color: var(--dark-blue);
+  color: var(--blue);
   font-weight: "bold";
   font-size: 1.2rem;
   margin: 0;
@@ -12,6 +12,9 @@
 }
 
 hr {
-  background: var(--red);
+  background: var(--blue);
+  border: none;
+  border-radius: 2px;
+  height: 2px;
   margin-bottom: 0;
 }
