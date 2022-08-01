@@ -1,0 +1,17 @@
+.sector {
+  margin-inline: auto;
+  width: 80%;
+}
+
+.sector-heading {
+  color: var(--dark-blue);
+  font-weight: "bold";
+  font-size: 1.2rem;
+  margin: 0;
+  text-align: left;
+}
+
+hr {
+  background: var(--red);
+  margin-bottom: 0;
+}
