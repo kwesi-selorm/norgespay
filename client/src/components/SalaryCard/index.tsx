@@ -27,6 +27,7 @@ const SalaryCard = ({ jobTitle, company, city, ...props }: SalaryCardProps) => {
           company={company}
           city={city}
           jobTitle={jobTitle}
+          sector={props.sector}
           setDisplay={setDisplay}
         />
         <RightSectionBottom dateAdded={props.dateAdded} />
