@@ -28,44 +28,49 @@ export const useNotification = () => {
 
   ///CREATE ERROR FUNCTION///
   const createError = (error: any): Props => {
-    if (error.message.includes("400")) {
-      setDisplay("block");
+    const statusCode = error.message.slice(32);
+    switch (statusCode) {
+      //400
+      case "400":
+        setDisplay("block");
+        setTimeout(() => {
+          setDisplay("none");
+        }, 5000);
+        return {
+          message: "Bad request, please try again later",
+          className: "error",
+        };
 
-      setTimeout(() => {
-        setDisplay("none");
-      }, 5000);
+      //401
+      case "401":
+        setDisplay("block");
+        setTimeout(() => {
+          setDisplay("none");
+        }, 5000);
+        return {
+          message: "Invalid username or password, please try again",
+          className: "error",
+        };
 
-      return {
-        message: "Bad request, please try again later",
-        className: "error",
-      };
-    }
+      //404
+      case "404":
+        setDisplay("block");
+        setTimeout(() => {
+          setDisplay("none");
+          navigate("/signup");
+        }, 5000);
+        return {
+          message:
+            "User not found, you will be redirected to the signup page...",
+          className: "error",
+        };
 
-    if (error.message.includes("401")) {
-      setDisplay("block");
-
-      setTimeout(() => {
-        setDisplay("none");
-      }, 5000);
-
-      return {
-        message: "Invalid username or password, please try again",
-        className: "error",
-      };
-    }
-
-    if (error.message.includes("404")) {
-      setDisplay("block");
-
-      setTimeout(() => {
-        setDisplay("none");
-        navigate("/signup");
-      }, 5000);
-
-      return {
-        message: "User not found, you will be redirected to the signup page...",
-        className: "error",
-      };
+      //DEFAULT
+      default:
+        return {
+          message: "Something went wrong, please try again later",
+          className: "error",
+        };
     }
   };
 
