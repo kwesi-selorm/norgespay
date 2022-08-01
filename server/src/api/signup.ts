@@ -16,14 +16,15 @@ signupRouter.post("/", async (req, res, next) => {
     if (exists) {
       return next(new AppError("User already exists", 403)); //Forbidden
     }
-
     try {
       const passwordHash = await generatePassword(password);
       const newUser = new User({ email, username, passwordHash });
       await newUser.save();
       res.status(201).json(newUser);
     } catch (error) {
-      if (error instanceof Error) next(new AppError(error.message));
+      if (error instanceof Error) {
+        next(new AppError(error.message, 400));
+      }
     }
   }
 });
