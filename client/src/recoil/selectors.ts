@@ -12,6 +12,11 @@ export const filteredSalariesState = selector({
       case "":
         return salaries;
 
+      case "sector":
+        return salaries.filter((s) =>
+          s.sector.toLowerCase().includes(searchParam)
+        );
+
       case "jobTitle":
         return salaries.filter((s) =>
           s.jobTitle.toLowerCase().includes(searchParam)
@@ -30,5 +35,27 @@ export const filteredSalariesState = selector({
       default:
         return salaries;
     }
+  },
+});
+
+/* A selector that returns an array of sectors that are available in the salaries data. */
+export const groupedSalariesState = selector({
+  key: "groupedSalariesState",
+  get: ({ get }) => {
+    const salaries = get(salariesState);
+    const filteredSalaries = get(filteredSalariesState);
+    const salariesSectors = salaries && salaries.map((s) => s.sector);
+    const availableSectors = Array.from(new Set(salariesSectors));
+
+    const groupedSalaries = availableSectors.map((sector) => {
+      const correspondingSalaries = filteredSalaries.filter(
+        (salary) => salary.sector === sector
+      );
+      return {
+        sector: sector,
+        salaries: correspondingSalaries,
+      };
+    });
+    return groupedSalaries;
   },
 });
