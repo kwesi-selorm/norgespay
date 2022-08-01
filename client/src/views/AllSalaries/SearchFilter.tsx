@@ -21,10 +21,11 @@ const SearchFilter = () => {
             setFilter(target.value);
           }}
         >
-          <option value="">select criterion</option>
-          <option value="jobTitle">job title</option>
-          <option value="company">company</option>
-          <option value="city">city</option>
+          <option value="">Select criterion</option>
+          <option value="sector">Sector</option>
+          <option value="jobTitle">Job title</option>
+          <option value="company">Company</option>
+          <option value="city">City</option>
         </select>
       </div>
       <input
