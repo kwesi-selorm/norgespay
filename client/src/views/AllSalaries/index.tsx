@@ -20,7 +20,7 @@ const AllSalaries = () => {
   const [, setSalaries] = useRecoilState<Salary[]>(salariesState),
     filteredSalaries = useRecoilValue<Salary[]>(filteredSalariesState),
     [, setLoggedUser] = useRecoilState<User>(loggedUserState),
-    { data, isLoading, error } = useQuery(["salaries"], getAllSalaries, {}),
+    { data, isLoading, error } = useQuery(["salaries"], getAllSalaries),
     { message, className } = useRecoilValue<NewNotification>(notificationState),
     display = useRecoilValue(displayState);
 
