@@ -28,9 +28,11 @@ const LoginPage = (props: LoginProps) => {
         "Login successful, redirecting now..."
       );
       setNotification(newNotification);
-    } catch (error: any) {
-      const newNotification = createError(error);
-      setNotification(newNotification);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        const newNotification = createError(error);
+        setNotification(newNotification);
+      }
     }
   };
 
