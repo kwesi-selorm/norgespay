@@ -12,10 +12,17 @@ interface Props {
   jobTitle: string;
   company: string;
   city: string;
+  sector: string;
   setDisplay: (display: string) => void;
 }
 
-const RightSectionMid = ({ jobTitle, company, city, ...props }: Props) => {
+const RightSectionMid = ({
+  jobTitle,
+  company,
+  city,
+  sector,
+  ...props
+}: Props) => {
   const { data, isLoading } = useQuery(["salaries"], getAllSalaries);
   const [userInput, setUserInput] = useState<string>("");
   const { createSuccess } = useNotification();
@@ -42,6 +49,7 @@ const RightSectionMid = ({ jobTitle, company, city, ...props }: Props) => {
       jobTitle,
       company,
       city,
+      sector,
       salary: updatedSalaryArray,
       dateAdded: date,
     };
@@ -77,8 +85,7 @@ const RightSectionMid = ({ jobTitle, company, city, ...props }: Props) => {
         value={userInput}
         pattern="^([0-9]+){5,}$"
         placeholder="e.g. 547000"
-        title="Update this salary only for the same job title, company, and city. Submit a
-        new salary if different"
+        title="Salary must be a number with at least 5 digits"
       />
       <button
         type="submit"
