@@ -79,11 +79,12 @@ salaryRouter.post("/", async (req, res, next) => {
   const date = new Date().toLocaleString();
   const result = newSalaryParser(req, next);
   if (result) {
-    const { jobTitle, company, city, salary, userId } = result;
+    const { jobTitle, company, city, salary, userId, sector } = result;
     const existingSalary = await Salary.findOne({
       jobTitle: jobTitle,
       company: company,
       city: city,
+      sector: sector,
     });
 
     //DOES NOT EXIST
@@ -97,6 +98,7 @@ salaryRouter.post("/", async (req, res, next) => {
         salary: [salary],
         company: company,
         city: city,
+        sector: sector,
         dateAdded: date,
         user: user?._id,
       });
