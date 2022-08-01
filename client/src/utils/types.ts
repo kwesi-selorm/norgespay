@@ -5,6 +5,7 @@ export type Salary = {
   city: string;
   id?: string;
   dateAdded: string;
+  sector?: string;
 };
 
 export interface SalaryCardProps {
@@ -37,4 +38,9 @@ export type NewSalaryInputs = {
 export type NewNotification = {
   message: string;
   className: string;
+};
+
+export type GroupedSalaries = {
+  sector: string;
+  salaries: Salary[];
 };
