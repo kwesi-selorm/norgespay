@@ -6,13 +6,14 @@ import { useNotification } from "../hooks/useNotification";
 import { notificationState } from "../recoil/atoms";
 import "../styles/AddSalary.css";
 import { NewSalaryInputs, NewNotification } from "../utils/types";
-import { initialInputs } from "../utils/constants";
+import { initialInputs, sectors } from "../utils/constants";
 
 const AddSalary = () => {
-  const { display, createSuccess, createError } = useNotification(),
-    [inputValues, setInputValues] = useState<NewSalaryInputs>(initialInputs),
-    [notification, setNotification] =
-      useRecoilState<NewNotification>(notificationState);
+  const { display, createSuccess, createError } = useNotification();
+  const [inputValues, setInputValues] =
+    useState<NewSalaryInputs>(initialInputs);
+  const [notification, setNotification] =
+    useRecoilState<NewNotification>(notificationState);
 
   async function handleSubmit(e: any) {
     e.preventDefault();
@@ -22,7 +23,8 @@ const AddSalary = () => {
         inputValues.jobTitle,
         inputValues.company,
         inputValues.city,
-        inputValues.salary
+        inputValues.salary,
+        inputValues.sector
       );
       const newNotification = createSuccess(
         "Salary added/updated successfully"
@@ -43,6 +45,8 @@ const AddSalary = () => {
       />
       <form onSubmit={handleSubmit}>
         <h2 className="add-new-salary-heading">Add New Salary</h2>
+
+        {/* JOB TITLE */}
         <label htmlFor="job-title">
           Job Title <span className="required-asterisk">*</span>
         </label>
@@ -64,6 +68,8 @@ const AddSalary = () => {
           title="Job title must be a string"
           required
         />
+
+        {/* COMPANY */}
         <label htmlFor="company">
           Company <span className="required-asterisk">*</span>
         </label>
@@ -79,6 +85,8 @@ const AddSalary = () => {
           title="Company must be a string"
           required
         />
+
+        {/* SALARY */}
         <label htmlFor="salary">
           Annual Salary (NOK) <span className="required-asterisk">*</span>
         </label>
@@ -87,13 +95,15 @@ const AddSalary = () => {
           name="salary"
           value={inputValues.salary}
           onChange={({ target }) =>
-            setInputValues({ ...inputValues, salary: Number(target.value) })
+            setInputValues({ ...inputValues, salary: target.value })
           }
           placeholder="e.g., 680000"
           pattern="^([0-9]+){5,}"
-          title="Salary must be a number"
+          title="Salary must be a number with at least 5 digits"
           required
         />
+
+        {/* CITY */}
         <label htmlFor="city">
           City <span className="required-asterisk">*</span>
         </label>
@@ -109,6 +119,30 @@ const AddSalary = () => {
           title="City must be a string"
           required
         />
+
+        {/* SECTOR */}
+        <label htmlFor="sector">
+          Sector <span className="required-asterisk">*</span>
+        </label>
+        <select
+          name="sector"
+          id="sector"
+          value={inputValues.sector}
+          onChange={({ target }) => {
+            setInputValues({ ...inputValues, sector: target.value });
+          }}
+          required
+        >
+          <option value="">Select sector</option>
+          {sectors.map((sector, i) => {
+            return (
+              <option key={i} value={sector}>
+                {sector}
+              </option>
+            );
+          })}
+        </select>
+
         <button className="login-signup-button" type="submit">
           Submit
         </button>
