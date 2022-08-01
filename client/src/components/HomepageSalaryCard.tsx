@@ -1,5 +1,5 @@
 import "../styles/HomepageSalaryCard.css";
-import { SalaryCardProps } from "../types";
+import { SalaryCardProps } from "../utils/types";
 
 const SalaryCard = ({ jobTitle, company, salary, city }: SalaryCardProps) => {
   return (

@@ -1,5 +1,5 @@
 import "../../styles/SalaryCard.css";
-import { SalaryCardProps } from "../../types";
+import { SalaryCardProps } from "../../utils/types";
 import { useState } from "react";
 import LeftSection from "./LeftSection";
 import RightSectionTop from "./RightSectionTop";

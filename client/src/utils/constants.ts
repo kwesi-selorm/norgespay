@@ -1,4 +1,4 @@
-import { NewSalaryInputs } from "../types";
+import { NewSalaryInputs } from "./types";
 
 export const initialNotification = { message: "", className: "" };
 

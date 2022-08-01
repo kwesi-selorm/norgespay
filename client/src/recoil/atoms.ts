@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { Salary, User } from "../types";
+import { Salary, User } from "../utils/types";
 
 export const loggedUserState = atom<User>({
   key: "loggedUserState",

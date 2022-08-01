@@ -5,7 +5,7 @@ import Notification from "../components/Notification";
 import { useNotification } from "../hooks/useNotification";
 import { notificationState } from "../recoil/atoms";
 import "../styles/AddSalary.css";
-import { NewSalaryInputs, NewNotification } from "../types";
+import { NewSalaryInputs, NewNotification } from "../utils/types";
 import { initialInputs } from "../utils/constants";
 
 const AddSalary = () => {

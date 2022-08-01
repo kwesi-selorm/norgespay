@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ImSpinner5 } from "react-icons/im";
 import "../../styles/Header.css";
 import HomepageSalaryCard from "../../components/HomepageSalaryCard";
-import { Salary } from "../../types";
+import { Salary } from "../../utils/types";
 import axios from "axios";
 
 export const Header = () => {

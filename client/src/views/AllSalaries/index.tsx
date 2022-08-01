@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { findAverageSalary } from "../../fns/salary";
-import { Salary, User, NewNotification } from "../../types";
+import { Salary, User, NewNotification } from "../../utils/types";
 import SalaryCard from "../../components/SalaryCard";
 import "../../styles/AllSalaries.css";
 import { getAllSalaries } from "../../api/salaries";

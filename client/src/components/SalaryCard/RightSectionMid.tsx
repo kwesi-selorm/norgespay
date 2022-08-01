@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import { getAllSalaries, updateSalary } from "../../api/salaries";
 import { useNotification } from "../../hooks/useNotification";
 import { notificationState } from "../../recoil/atoms";
-import { Salary } from "../../types";
+import { Salary } from "../../utils/types";
 
 interface Props {
   display: string;

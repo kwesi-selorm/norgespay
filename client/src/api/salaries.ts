@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Salary, User } from "../types";
+import { Salary, User } from "../utils/types";
 
 //AXIOS INSTANCE WITH BASEURL "/api/salaries"//
 export const api = axios.create({
