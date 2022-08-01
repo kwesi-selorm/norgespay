@@ -6,6 +6,7 @@ export type DBSalary = {
   city: string;
   salary: [number];
   dateAdded: string;
+  sector: string;
 };
 
 export type NewSalary = Omit<DBSalary, "dateAdded">;
@@ -22,6 +23,7 @@ export type AddedSalary = {
   city: string;
   salary: number;
   userId: string;
+  sector: string;
 };
 
 export type UpdatedSalary = {
@@ -30,9 +32,8 @@ export type UpdatedSalary = {
   city: string;
   salary: number[];
   dateAdded: string;
+  sector: string;
 };
-
-export type Sector = "Oil & Gas" | "Banking" | "Insurance" | "Software & Tech";
 
 //REQUESTS
 export type UpdateSalaryRequest = {
@@ -41,7 +42,13 @@ export type UpdateSalaryRequest = {
 };
 
 export type AddSalaryRequest = {
-  body: { jobTitle: unknown; company: unknown; salary: unknown; city: unknown };
+  body: {
+    jobTitle: unknown;
+    company: unknown;
+    salary: unknown;
+    city: unknown;
+    sector: unknown;
+  };
 };
 
 export interface LoginRequest {

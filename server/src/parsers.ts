@@ -74,9 +74,13 @@ export function updateSalaryParser(
 
 //LOGIN INPUT//
 export function loginParser(req: LoginRequest, next: NextFunction) {
-  const { error, value } = loginSchema.validate(req.body);
+  const { error, value } = loginSchema.validate(req.body, {
+    abortEarly: false,
+  });
   if (error) {
-    next(new Error(error.details[0].message));
+    const errorMsgs = error.details.map((m) => m.message);
+    const errorMsgsString = errorMsgs.join(", ");
+    next(new AppError(errorMsgsString, 400));
     return;
   }
   const username: string = value.username;
@@ -86,7 +90,7 @@ export function loginParser(req: LoginRequest, next: NextFunction) {
 
 //SIGNUP INPUT
 export function signupParser(req: SignUpRequest, next: NextFunction) {
-  const { error, value } = signUpSchema.validate(req.body, {
+  const { error, value: newAccount } = signUpSchema.validate(req.body, {
     abortEarly: false,
   });
   if (error) {
@@ -95,5 +99,6 @@ export function signupParser(req: SignUpRequest, next: NextFunction) {
     next(new AppError(errorMsgsString, 400));
     return;
   }
-  return value as NewUser;
+  const newUser: NewUser = newAccount;
+  return newUser;
 }

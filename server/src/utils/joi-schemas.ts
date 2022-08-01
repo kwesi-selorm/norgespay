@@ -4,8 +4,9 @@ export const newSalarySchema = Joi.object({
   jobTitle: Joi.string().required(),
   company: Joi.string().required(),
   city: Joi.string().required(),
-  salary: Joi.number().required(),
+  salary: Joi.number().min(5).required(),
   userId: Joi.string().required(),
+  sector: Joi.string().required(),
 });
 
 export const idSchema = Joi.string().required();
@@ -16,8 +17,9 @@ export const updatedSalarySchema = Joi.object({
   jobTitle: Joi.string(),
   company: Joi.string(),
   city: Joi.string(),
-  salary: Joi.array(),
+  salary: Joi.array().required(),
   dateAdded: Joi.string(),
+  sector: Joi.string(),
 });
 
 export const loginSchema = Joi.object({
@@ -29,5 +31,5 @@ export const signUpSchema = Joi.object({
   email: Joi.string().email().required(),
   username: Joi.string().min(3).required(),
   password: Joi.string().min(6).required(),
-  confirmPassword: Joi.ref("password"),
+  confirmPassword: Joi.string().valid(Joi.ref("password")).required(),
 });
