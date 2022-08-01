@@ -20,11 +20,12 @@ export async function addNewSalary(
   jobTitle: unknown,
   company: unknown,
   city: unknown,
-  salary: unknown
+  salary: unknown,
+  sector: unknown
 ) {
   const user: User = JSON.parse(window.localStorage.getItem("user")),
     userId = user.id,
-    data = { jobTitle, company, city, salary: Number(salary), userId };
+    data = { jobTitle, company, city, salary, sector, userId };
   const config = { headers: { "Content-Type": "application/json" } },
     response = await api.post("/", data, config);
   return response.data;
