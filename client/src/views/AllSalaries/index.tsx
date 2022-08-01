@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { findAverageSalary } from "../../fns/salary";
+import { findAverageSalary } from "../../fns/salary-fns";
 import { Salary, User, NewNotification } from "../../utils/types";
 import SalaryCard from "../../components/SalaryCard";
 import "../../styles/AllSalaries.css";
@@ -32,6 +32,8 @@ const AllSalaries = () => {
 
   useEffect(() => {
     setSalaries(data);
+    //Create salary groupings based on sector
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, data]); // On page load, set the filtered salaries with the fetched data once the query is done loading
 
