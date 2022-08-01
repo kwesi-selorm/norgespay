@@ -37,7 +37,7 @@ export const useNotification = () => {
           setDisplay("none");
         }, 5000);
         return {
-          message: "Bad request, please try again later",
+          message: `Bad request, please check your provided inputs`,
           className: "error",
         };
 
@@ -67,8 +67,12 @@ export const useNotification = () => {
 
       //DEFAULT
       default:
+        setDisplay("block");
+        setTimeout(() => {
+          setDisplay("none");
+        }, 5000);
         return {
-          message: "Something went wrong, please try again later",
+          message: error.message,
           className: "error",
         };
     }
