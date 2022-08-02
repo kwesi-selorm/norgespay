@@ -66,51 +66,51 @@ const SignupPage = () => {
         />
         <label htmlFor="username" className="form-label">
           Username
-          <input
-            className="input"
-            type="username"
-            name="username"
-            id="username"
-            value={signupDetails.username}
-            required
-            onChange={({ target }) => {
-              setSignupDetails({ ...signupDetails, username: target.value });
-            }}
-          />
         </label>
+        <input
+          className="input"
+          type="username"
+          name="username"
+          id="username"
+          value={signupDetails.username}
+          required
+          onChange={({ target }) => {
+            setSignupDetails({ ...signupDetails, username: target.value });
+          }}
+        />
         <label htmlFor="password" className="form-label">
           Password
-          <input
-            className="input"
-            type="password"
-            name="password"
-            id="password"
-            value={signupDetails.password}
-            title="Password must have at least one each of a lowercase letter, an upper case letter, a number, and a special character.It must be at least 8 characters long"
-            required
-            onChange={({ target }) => {
-              setSignupDetails({ ...signupDetails, password: target.value });
-            }}
-          />
         </label>
+        <input
+          className="input"
+          type="password"
+          name="password"
+          id="password"
+          value={signupDetails.password}
+          title="Password must have at least one each of a lowercase letter, an upper case letter, a number, and a special character.It must be at least 8 characters long"
+          required
+          onChange={({ target }) => {
+            setSignupDetails({ ...signupDetails, password: target.value });
+          }}
+        />
         <label htmlFor="confirm-password" className="form-label">
           Confirm Password
-          <input
-            className="input"
-            type="password"
-            name="confirm-password"
-            id="confirm-password"
-            value={signupDetails.confirmPassword}
-            title="Passwords must match"
-            required
-            onChange={({ target }) => {
-              setSignupDetails({
-                ...signupDetails,
-                confirmPassword: target.value,
-              });
-            }}
-          />
         </label>
+        <input
+          className="input"
+          type="password"
+          name="confirm-password"
+          id="confirm-password"
+          value={signupDetails.confirmPassword}
+          title="Passwords must match"
+          required
+          onChange={({ target }) => {
+            setSignupDetails({
+              ...signupDetails,
+              confirmPassword: target.value,
+            });
+          }}
+        />
         <p>
           Already a user?{" "}
           <Link
