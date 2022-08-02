@@ -7,10 +7,10 @@ interface SectorProp {
 const Sector = (props: SectorProp) => {
   return (
     <>
-      <section className="sector">
-        <h1 className="sector-heading">{props.sector}</h1>
-        <hr />
-      </section>
+      <summary className="sector-heading">
+        <h1 style={{ fontSize: "1.2rem", margin: 0 }}>{props.sector}</h1>
+      </summary>
+      <hr />
       <br />
     </>
   );
