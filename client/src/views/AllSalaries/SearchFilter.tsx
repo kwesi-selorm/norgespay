@@ -21,11 +21,11 @@ const SearchFilter = () => {
             setFilter(target.value);
           }}
         >
-          <option value="">Select criterion</option>
-          <option value="sector">Sector</option>
-          <option value="jobTitle">Job title</option>
-          <option value="company">Company</option>
-          <option value="city">City</option>
+          <option value="">Select field</option>
+          <option value="sector">sector</option>
+          <option value="jobTitle">job title</option>
+          <option value="company">company</option>
+          <option value="city">city</option>
         </select>
       </div>
       <input
@@ -34,6 +34,7 @@ const SearchFilter = () => {
         placeholder={`Enter search value`}
         onChange={filterSalaries}
         disabled={filter ? false : true}
+        title="Please select a field to enable search"
       />
     </div>
   );
