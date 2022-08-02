@@ -7,6 +7,7 @@ import { notificationState } from "../recoil/atoms";
 import "../styles/AddSalary.css";
 import { NewSalaryInputs, NewNotification } from "../utils/types";
 import { initialInputs, sectors } from "../utils/constants";
+import { capitalizeEachWord } from "../fns/capitalize-each";
 
 const AddSalary = () => {
   const { display, createSuccess, createError } = useNotification();
@@ -20,9 +21,9 @@ const AddSalary = () => {
 
     try {
       await addNewSalary(
-        inputValues.jobTitle,
-        inputValues.company,
-        inputValues.city,
+        capitalizeEachWord(inputValues.jobTitle),
+        capitalizeEachWord(inputValues.company),
+        capitalizeEachWord(inputValues.city),
         inputValues.salary,
         inputValues.sector
       );
@@ -55,11 +56,14 @@ const AddSalary = () => {
           name="job-title"
           value={inputValues.jobTitle}
           onChange={({ target }) =>
-            setInputValues({ ...inputValues, jobTitle: target.value })
+            setInputValues({
+              ...inputValues,
+              jobTitle: target.value,
+            })
           }
           placeholder="e.g., Application Tester"
           /* 
-          A RegExp that matches any string that contains only letters and single spaces. First character/word and following (0 or more) words with spaces between them. Same as ^\w+( \w+)*$.
+          A RegExp that matches any string that contains only letters and single spaces. First character or word and following (0 or more) words with spaces between them. Same as ^\w+( \w+)*$.
           ^ and $ indicate the start and end of the string, + indicates 1 or more, * indicates 0 or more.
           A less strict pattern will be ^[a-zA-Z ]+$. 
           To allow numbers, underscores and hyphens ^[a-zA-Z0-9_-]+$
@@ -78,7 +82,10 @@ const AddSalary = () => {
           name="company"
           value={inputValues.company}
           onChange={({ target }) =>
-            setInputValues({ ...inputValues, company: target.value })
+            setInputValues({
+              ...inputValues,
+              company: target.value,
+            })
           }
           placeholder="e.g., Viking Tech"
           pattern="^[a-zA-Z]+( [a-zA-Z]+)*$"
@@ -112,7 +119,10 @@ const AddSalary = () => {
           name="city"
           value={inputValues.city}
           onChange={({ target }) =>
-            setInputValues({ ...inputValues, city: target.value })
+            setInputValues({
+              ...inputValues,
+              city: target.value,
+            })
           }
           placeholder="e.g., Trondheim"
           pattern="^[a-zA-Z]+( [a-zA-Z]+)*$"
