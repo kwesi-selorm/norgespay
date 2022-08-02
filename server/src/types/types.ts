@@ -64,6 +64,12 @@ export interface SignUpRequest {
   };
 }
 
+export interface SingleSalaryRequest {
+  params: {
+    id: unknown;
+  };
+}
+
 //RESPONSE
 export type Response = {
   status: (arg0: number) => {
