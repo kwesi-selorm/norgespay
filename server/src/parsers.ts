@@ -102,3 +102,14 @@ export function signupParser(req: SignUpRequest, next: NextFunction) {
   const newUser: NewUser = newAccount;
   return newUser;
 }
+
+//SINGLE SALARY ID REQUEST
+export function idParser(id: unknown, next: NextFunction) {
+  const { error, value } = idSchema.validate(id);
+  if (error) {
+    next(new AppError(error.details[0].message, 400));
+    return;
+  }
+  const salaryId: string = value;
+  return salaryId;
+}
