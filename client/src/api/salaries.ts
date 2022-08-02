@@ -6,12 +6,14 @@ export const api = axios.create({
   baseURL: "/api/salaries",
 });
 
+//HOMEPAGE SALARY//
 export async function fetchHomepageSalary() {
   const response = await api.get("/");
   const data = await response.data;
   return data;
 }
 
+//ALL SALARIES//
 export async function getAllSalaries(): Promise<Salary[]> {
   return api.get("/all").then((response) => response.data);
 }
