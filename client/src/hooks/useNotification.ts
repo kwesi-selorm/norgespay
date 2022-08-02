@@ -21,7 +21,7 @@ export const useNotification = () => {
     }, 2000);
 
     return {
-      message: message,
+      message,
       className: "success",
     };
   };
@@ -37,7 +37,7 @@ export const useNotification = () => {
           setDisplay("none");
         }, 5000);
         return {
-          message: `Bad request, please check your provided inputs`,
+          message: "Bad request, please check your provided inputs",
           className: "error",
         };
 
