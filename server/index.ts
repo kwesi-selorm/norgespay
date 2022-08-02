@@ -59,7 +59,7 @@ app.use(
     _next: any
   ) => {
     const { status = 500, message = "Something went wrong" } = err;
-    res.status(status).json({ message: message });
+    res.status(status).json({ message });
   }
 );
 
