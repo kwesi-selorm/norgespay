@@ -43,8 +43,8 @@ const RightSectionMid = ({
     );
     const id = salaryToUpdate.id;
     const date = new Date().toLocaleString();
+    const updatedSalaryArray = salaryToUpdate.salary.concat(Number(userInput));
 
-    const updatedSalaryArray = salaryToUpdate.salary.concat(Number(userInput)); //Add new salary to salary array
     const updatedSalary = {
       jobTitle,
       company,
