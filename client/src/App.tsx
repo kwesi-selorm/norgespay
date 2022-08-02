@@ -9,6 +9,7 @@ import AllSalaries from "./views/AllSalaries";
 import { useState } from "react";
 import NotFound from "./views/NotFound/NotFound";
 import Layout from "./components/Layout";
+import SingleSalaryPage from "./views/SingleSalaryPage";
 
 /*TODO: Add transition to salary cards when they are hovered upon (increase scaling); 
 On clicking a salary card, a new page should open with further details on the card (sector, years of experience, median salary value, maximum and minimum salary, chart of salary progression?, conversion tool);
@@ -31,7 +32,10 @@ function App() {
               />
               <Route path="/signup" element={<SignupPage />} />
               <Route path="/add-salary" element={<AddSalary />} />
-              <Route path="/all-salaries" element={<AllSalaries />} />
+              <Route path="/all-salaries">
+                <Route index element={<AllSalaries />} />
+                <Route path=":id" element={<SingleSalaryPage />} />
+              </Route>
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -1,0 +1,19 @@
+html {
+  height: 100vh;
+  width: 100vw;
+}
+
+.break {
+  margin: 0;
+  width: 100%;
+}
+
+.salary-body {
+  margin-inline: auto;
+  text-align: left;
+  width: 60%;
+}
+
+.salary-header {
+  text-align: center;
+}
