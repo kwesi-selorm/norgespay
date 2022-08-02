@@ -1,8 +1,8 @@
 import express from "express";
-
+import mongoose from "mongoose";
 import Salary from "../models/salary-model";
 import User from "../models/user-model";
-import { newSalaryParser, updateSalaryParser } from "../parsers";
+import { idParser, newSalaryParser, updateSalaryParser } from "../parsers";
 import { AppError } from "../utils/classes/AppError";
 
 const salaryRouter = express.Router();
@@ -127,6 +127,25 @@ salaryRouter.post("/", async (req, res, next) => {
         return res.status(200).json({ success: "Salary updated" });
       } catch (error) {
         if (error instanceof Error) next(new AppError(error.message, 400));
+      }
+    }
+  }
+});
+
+//FIND SINGLE SALARY//
+salaryRouter.get("/:id", async (req, res, next) => {
+  const result = idParser(req.params.id, next);
+  if (result) {
+    const _id = result;
+    try {
+      const requestedSalary = await Salary.findById(_id);
+      res.status(200).json(requestedSalary);
+    } catch (error) {
+      if (error instanceof Error) {
+        return next(new AppError("Resource not found", 404));
+      }
+      if (error instanceof mongoose.Error) {
+        return next(new AppError(error.message, 500));
       }
     }
   }
