@@ -7,7 +7,7 @@ import { notificationState } from "../recoil/atoms";
 import "../styles/AddSalary.css";
 import { NewSalaryInputs, NewNotification } from "../utils/types";
 import { initialInputs, sectors } from "../utils/constants";
-import { capitalizeEachWord } from "../fns/capitalize-each";
+import { capitalizeEachWord } from "../fns/capitalize-each-word";
 
 const AddSalary = () => {
   const { display, createSuccess, createError } = useNotification();
